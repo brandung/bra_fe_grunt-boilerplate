@@ -1,0 +1,75 @@
+{
+	"name" : "[project]",
+	"version" : "1.0.0",
+	"system" : "[typo3|magento|zend]",
+	"struct" : {
+		"typo3" : {
+			"folder" : [
+				"typo3conf/ext/bra_projectfiles/Resources/Private",
+				"typo3conf/ext/bra_projectfiles/Resources/Public",
+				"typo3conf/ext/bra_projectfiles/Resources/Public/css",
+				"typo3conf/ext/bra_projectfiles/Resources/Public/font",
+				"typo3conf/ext/bra_projectfiles/Resources/Public/img",
+				"typo3conf/ext/bra_projectfiles/Resources/Public/img/_dummyPics",
+				"typo3conf/ext/bra_projectfiles/Resources/Public/img/icons",
+				"typo3conf/ext/bra_projectfiles/Resources/Public/img/icons-2x",
+				"typo3conf/ext/bra_projectfiles/Resources/Public/img/touch",
+				"typo3conf/ext/bra_projectfiles/Resources/Public/js",
+				"typo3conf/ext/bra_projectfiles/Resources/Public/js/vendor"
+			],
+			"private" : "typo3conf/ext/bra_projectfiles/Resources/Private",
+			"public" : "typo3conf/ext/bra_projectfiles/Resources/Public"
+		},
+		"magento" : {
+			"folder" : [
+				"skin/frontend/bragento/theme/",
+				"skin/frontend/bragento/theme/private",
+				"skin/frontend/bragento/theme/css",
+				"skin/frontend/bragento/theme/font",
+				"skin/frontend/bragento/theme/img",
+				"skin/frontend/bragento/theme/img/_dummyPics",
+				"skin/frontend/bragento/theme/img/icons",
+				"skin/frontend/bragento/theme/img/icons-2x",
+				"skin/frontend/bragento/theme/img/touch",
+				"skin/frontend/bragento/theme/js",
+				"skin/frontend/bragento/theme/js/vendor"
+			],
+			"private" : "skin/frontend/bragento/theme/private",
+			"public" : "skin/frontend/bragento/theme"
+		},
+		"zend" : {
+			"folder" : [
+				"src",
+				"src/private",
+				"src/public",
+				"src/public/css",
+				"src/public/font",
+				"src/public/img",
+				"src/public/img/_dummyPics",
+				"src/public/img/icons",
+				"src/public/img/icons-2x",
+				"src/public/img/touch",
+				"src/public/js",
+				"src/public/js/vendor"
+			],
+			"private" : "src/private",
+			"public" : "src/public"
+		}
+	},
+	"devDependencies" : {
+		"grunt" : "~0.4.2",
+		"grunt-mkdir" : "~0.1.1",
+		"grunt-zip" : "~0.10.2",
+		"grunt-remove" : "~0.1.0",
+		"grunt-text-replace" : "~0.3.10",
+		"grunt-contrib-compass" : "~0.7.0",
+		"grunt-contrib-concat" : "~0.3.0",
+		"grunt-contrib-uglify" : "~0.3.0",
+		"grunt-svgmin" : "~0.3.0",
+		"grunt-contrib-imagemin" : "~0.5.0",
+		"grunt-jslint" : "~1.1.2",
+		"grunt-contrib-csslint" : "~0.2.0",
+		"grunt-contrib-watch" : "~0.5.3",
+		"grunt-browser-sync" : "~0.4.8"
+	  }
+}

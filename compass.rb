@@ -7,9 +7,6 @@ sass_dir = "%%private%%/sass"
 images_dir = "%%public%%/img"
 javascripts_dir = "%%public%%/js"
 
-# compress the styles
-output_style = :compressed
-
 # To enable relative paths to assets via compass helper functions. Uncomment:
 relative_assets = true
 

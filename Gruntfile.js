@@ -25,10 +25,8 @@ module.exports = function(grunt) {
             }
         },
         // removes the html5-boilerplate zip after unpacking it in the specified folder
-        // https://npmjs.org/package/grunt-remove
-        remove : {
-        	fileList : ["html5-boilerplate.zip"]
-        },
+        // https://github.com/gruntjs/grunt-contrib-clean
+        clean : ["html5-boilerplate.zip"],
         // replaces a placeholder for the assets path relative to the project type
         // https://npmjs.org/package/grunt-text-replace
         replace : {
@@ -73,6 +71,20 @@ module.exports = function(grunt) {
 			js : {
 				files : {
 					"<%= pkg.public %>/js/main.js" : ["<%= pkg.public %>/js/main.js"]
+				}
+			}
+		},
+		// minfies all stylesheets
+		// https://github.com/gruntjs/grunt-contrib-cssmin
+		cssmin : {
+			minify : {
+				expand : true,
+				cwd : "<%= pkg.public %>/css/",
+				src : ["*.css"],
+				dest : "<%= pkg.public %>/css/",
+				ext : ".css",
+				options : {
+					report : "min"
 				}
 			}
 		},
@@ -176,11 +188,12 @@ module.exports = function(grunt) {
 	// Load plugins
 	grunt.loadNpmTasks("grunt-mkdir");
     grunt.loadNpmTasks('grunt-zip');
-    grunt.loadNpmTasks('grunt-remove');
+    grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-text-replace');
 	grunt.loadNpmTasks("grunt-contrib-compass");
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks("grunt-contrib-uglify");
+	grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.loadNpmTasks("grunt-svgmin");
 	grunt.loadNpmTasks("grunt-contrib-imagemin");
 	grunt.loadNpmTasks('grunt-jslint');
@@ -190,12 +203,12 @@ module.exports = function(grunt) {
 
     // Tasks
     grunt.registerTask("default", ["compass", "concat"]);
-    grunt.registerTask("new:project", ["mkdir", "unzip", "replace", "remove"]);
+    grunt.registerTask("new:project", ["mkdir", "unzip", "replace", "clean"]);
     //grunt.registerTask("compress:images", ["svgmin", "imagemin"]);
     //grunt.registerTask("compress:code", ["uglify"]);
     grunt.registerTask("check:code", ["jslint", "csslint"]);
 	grunt.registerTask("sync", ["browser_sync", "watch"]);
-	grunt.registerTask("finish", ["svgmin", "imagemin", "uglify"]);
+	grunt.registerTask("finish", ["svgmin", "imagemin", "uglify", "cssmin"]);
 
     //grunt.registerTask("bower:install", ["bower-install"]);
 };

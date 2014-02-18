@@ -58,7 +58,7 @@ module.exports = function(grunt) {
 		// https://npmjs.org/package/grunt-contrib-concat
 		concat : {
 			dist : {
-				src : ["<%= pkg.private %>/js/vendor/jquery/*.js", "<%= pkg.private %>/js/*.js"],
+				src : ["<%= pkg.private %>/js/vendor/jquery/*.js", "<%= pkg.private %>/js/vendor/h5bp/*.js", "<%= pkg.private %>/js/*.js"],
 				dest : "<%= pkg.public %>/js/main.js"
 			}
 		},

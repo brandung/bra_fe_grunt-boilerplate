@@ -5,7 +5,7 @@
 	"struct" : {
 		"typo3" : {
 			"folder" : [
-				"typo3conf/ext/bra_projectfiles/Resources/Private",
+				"typo3conf/ext/bra_projectfiles/Resources/Private/Frontend",
 				"typo3conf/ext/bra_projectfiles/Resources/Public",
 				"typo3conf/ext/bra_projectfiles/Resources/Public/css",
 				"typo3conf/ext/bra_projectfiles/Resources/Public/font",
@@ -17,7 +17,7 @@
 				"typo3conf/ext/bra_projectfiles/Resources/Public/js",
 				"typo3conf/ext/bra_projectfiles/Resources/Public/js/vendor"
 			],
-			"private" : "typo3conf/ext/bra_projectfiles/Resources/Private",
+			"private" : "typo3conf/ext/bra_projectfiles/Resources/Private/Frontend",
 			"public" : "typo3conf/ext/bra_projectfiles/Resources/Public"
 		},
 		"magento" : {

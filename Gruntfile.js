@@ -58,8 +58,25 @@ module.exports = function(grunt) {
 		// https://npmjs.org/package/grunt-contrib-concat
 		concat : {
 			dist : {
-				src : ["<%= pkg.private %>/js/vendor/jquery/*.js", "<%= pkg.private %>/js/vendor/h5bp/*.js", "<%= pkg.private %>/js/*.js"],
+				src : ["<%= pkg.private %>/js/libs/vendor/h5bp/*.js", "<%= pkg.private %>/js/*.js"],
 				dest : "<%= pkg.public %>/js/main.js"
+			}
+		},
+		// Copy js files from private to public to the proper directories
+		// https://www.npmjs.org/package/grunt-contrib-copy
+		copy : {
+			libs : {
+				expand : true,
+				cwd : "<%= pkg.private %>/js/libs/",
+				src : "**",
+				dest : "<%= pkg.public %>/js/libs/"
+			},
+			modules : {
+				expand : true,
+				cwd : "<%= pkg.private %>/js/mod/",
+				src : "*",
+				dest : "<%= pkg.public %>/js/mod/",
+				flatten : true
 			}
 		},
 		// minify all js files (has no effect on vendor js files under js/vendor)
@@ -174,7 +191,8 @@ module.exports = function(grunt) {
 				watchTask : true,
 				server: {
 					host : "localhost",
-					baseDir : ""
+					baseDir : "",
+					index : "<%= pkg.private %>/templates/_modules.html"
 				},
 				ghostMode : {
 					scroll : true,
@@ -182,7 +200,7 @@ module.exports = function(grunt) {
 					forms : true
 				}
 			}
-		},
+		}
 	});
 
 	// Load plugins
@@ -192,6 +210,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-text-replace');
 	grunt.loadNpmTasks("grunt-contrib-compass");
 	grunt.loadNpmTasks('grunt-contrib-concat');
+	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks("grunt-contrib-uglify");
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.loadNpmTasks("grunt-svgmin");
@@ -202,7 +221,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks("grunt-browser-sync");
 
     // Tasks
-    grunt.registerTask("default", ["compass", "concat"]);
+    grunt.registerTask("default", ["compass", "concat", "copy"]);
     grunt.registerTask("new:project", ["mkdir", "unzip", "replace", "clean"]);
     //grunt.registerTask("compress:images", ["svgmin", "imagemin"]);
     //grunt.registerTask("compress:code", ["uglify"]);

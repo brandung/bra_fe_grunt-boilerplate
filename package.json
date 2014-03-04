@@ -1,10 +1,10 @@
 {
-	"name" : "[project]",
-	"version" : "1.0.0",
-	"system" : "[typo3|magento|zend]",
-	"struct" : {
-		"typo3" : {
-			"folder" : [
+	"name": "[project]",
+	"version": "1.0.0",
+	"system": "[typo3|magento|zend]",
+	"struct": {
+		"typo3": {
+			"folder": [
 				"typo3conf/ext/bra_projectfiles/Resources/Private/Frontend",
 				"typo3conf/ext/bra_projectfiles/Resources/Public",
 				"typo3conf/ext/bra_projectfiles/Resources/Public/css",
@@ -15,13 +15,13 @@
 				"typo3conf/ext/bra_projectfiles/Resources/Public/img/icons-2x",
 				"typo3conf/ext/bra_projectfiles/Resources/Public/img/touch",
 				"typo3conf/ext/bra_projectfiles/Resources/Public/js",
-				"typo3conf/ext/bra_projectfiles/Resources/Public/js/vendor"
+				"typo3conf/ext/bra_projectfiles/Resources/Public/js/libs/vendor"
 			],
-			"private" : "typo3conf/ext/bra_projectfiles/Resources/Private/Frontend",
-			"public" : "typo3conf/ext/bra_projectfiles/Resources/Public"
+			"private": "typo3conf/ext/bra_projectfiles/Resources/Private/Frontend",
+			"public": "typo3conf/ext/bra_projectfiles/Resources/Public"
 		},
-		"magento" : {
-			"folder" : [
+		"magento": {
+			"folder": [
 				"skin/frontend/bragento/theme/",
 				"skin/frontend/bragento/theme/private",
 				"skin/frontend/bragento/theme/css",
@@ -32,13 +32,13 @@
 				"skin/frontend/bragento/theme/img/icons-2x",
 				"skin/frontend/bragento/theme/img/touch",
 				"skin/frontend/bragento/theme/js",
-				"skin/frontend/bragento/theme/js/vendor"
+				"skin/frontend/bragento/theme/js/libs/vendor"
 			],
-			"private" : "skin/frontend/bragento/theme/private",
-			"public" : "skin/frontend/bragento/theme"
+			"private": "skin/frontend/bragento/theme/private",
+			"public": "skin/frontend/bragento/theme"
 		},
-		"zend" : {
-			"folder" : [
+		"zend": {
+			"folder": [
 				"src",
 				"src/private",
 				"src/public",
@@ -50,27 +50,28 @@
 				"src/public/img/icons-2x",
 				"src/public/img/touch",
 				"src/public/js",
-				"src/public/js/vendor"
+				"src/public/js/libs/vendor"
 			],
-			"private" : "src/private",
-			"public" : "src/public"
+			"private": "src/private",
+			"public": "src/public"
 		}
 	},
-	"devDependencies" : {
-		"grunt" : "~0.4.2",
-		"grunt-mkdir" : "~0.1.1",
-		"grunt-zip" : "~0.10.2",
+	"devDependencies": {
+		"grunt": "~0.4.2",
+		"grunt-mkdir": "~0.1.1",
+		"grunt-zip": "~0.10.2",
 		"grunt-contrib-clean": "~0.5.0",
-		"grunt-text-replace" : "~0.3.10",
-		"grunt-contrib-compass" : "~0.7.0",
-		"grunt-contrib-concat" : "~0.3.0",
-		"grunt-contrib-uglify" : "~0.3.0",
-		"grunt-contrib-cssmin" : "~0.7.0",
-		"grunt-svgmin" : "~0.3.0",
-		"grunt-contrib-imagemin" : "~0.5.0",
-		"grunt-jslint" : "~1.1.2",
-		"grunt-contrib-csslint" : "~0.2.0",
-		"grunt-contrib-watch" : "~0.5.3",
-		"grunt-browser-sync" : "~0.4.8"
-	  }
+		"grunt-text-replace": "~0.3.10",
+		"grunt-contrib-compass": "~0.7.0",
+		"grunt-contrib-concat": "~0.3.0",
+		"grunt-contrib-uglify": "~0.3.0",
+		"grunt-contrib-cssmin": "~0.7.0",
+		"grunt-svgmin": "~0.3.0",
+		"grunt-contrib-imagemin": "~0.5.0",
+		"grunt-jslint": "~1.1.2",
+		"grunt-contrib-csslint": "~0.2.0",
+		"grunt-contrib-watch": "~0.5.3",
+		"grunt-browser-sync": "~0.4.8",
+		"grunt-contrib-copy": "~0.5.0"
+	}
 }

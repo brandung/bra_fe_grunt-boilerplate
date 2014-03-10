@@ -1,8 +1,8 @@
 module.exports = function(grunt) {
 	var pkg = grunt.file.readJSON("package.json");
-    pkg.folder = pkg.struct[pkg.system].folder;
-    pkg.private = pkg.struct[pkg.system].private;
-    pkg.public = pkg.struct[pkg.system].public;
+	pkg.folder = pkg.struct[pkg.system].folder;
+	pkg.private = pkg.struct[pkg.system].private;
+	pkg.public = pkg.struct[pkg.system].public;
 
 	// Project configuration
 	grunt.initConfig({
@@ -16,41 +16,51 @@ module.exports = function(grunt) {
 				}
 			}
 		},
-        // unzips the boilerplate in the proper folder
-        // https://npmjs.org/package/grunt-zip
-        "unzip" : {
-            catalog : {
-                src : "html5-boilerplate.zip",
-                dest : pkg.private
-            }
-        },
-        // removes the html5-boilerplate zip after unpacking it in the specified folder
-        // https://github.com/gruntjs/grunt-contrib-clean
-        clean : ["html5-boilerplate.zip"],
-        // replaces a placeholder for the assets path relative to the project type
-        // https://npmjs.org/package/grunt-text-replace
-        replace : {
-            project : {
-                src : ["<%= pkg.private %>/templates/_modules.html", "compass.rb"],
-                overwrite : true,
-                replacements : [
-                	{
-	                    from : "%%public%%",
-	                    to : pkg.public
-	                },
-	                {
-	                	from : "%%private%%",
-	                	to : pkg.private
-	                }
-                ]
-            }
-        },
+		// unzips the boilerplate in the proper folder
+		// https://npmjs.org/package/grunt-zip
+		"unzip" : {
+			catalog : {
+				src : "html5-boilerplate.zip",
+				dest : pkg.private
+			}
+		},
+		// removes the html5-boilerplate zip after unpacking it in the specified folder
+		// https://github.com/gruntjs/grunt-contrib-clean
+		clean : ["html5-boilerplate.zip"],
+		// replaces a placeholder for the assets path relative to the project type
+		// https://npmjs.org/package/grunt-text-replace
+		replace : {
+			project : {
+				src : ["<%= pkg.private %>/templates/_modules.html", "compass.rb"],
+				overwrite : true,
+				replacements : [
+					{
+						from : "%%public%%",
+						to : pkg.public
+					},
+					{
+						from : "%%private%%",
+						to : pkg.private
+					}
+				]
+			}
+		},
 		// do the compass magic (actually just loads the compass config in compass.rb)
 		// https://npmjs.org/package/grunt-contrib-compass
-		compass : {
+		/*compass : {
 			compile : {
 				options : {
 					config : "compass.rb"
+				}
+			}
+		},*/
+		// compiles sass files using libsass (damn fast!)
+		// https://www.npmjs.org/package/grunt-sass
+		sass : {
+			dist : {
+				files : {
+					"<%= pkg.public %>/css/main.css" : "<%= pkg.private %>/sass/main.scss",
+					"<%= pkg.public %>/css/all-old-ie.css" : "<%= pkg.private %>/sass/all-old-ie.scss"
 				}
 			}
 		},
@@ -174,7 +184,7 @@ module.exports = function(grunt) {
 					"<%= pkg.private %>/js/*.js",
 					"<%= pkg.public %>/img/**/*"
 				],
-				tasks : ["compass", "concat"]
+				tasks : ["sass", "concat", "copy"]
 			}
 		},
 		// the magical sync task executes the watch task after one of the specified file types change and reloads the browser
@@ -193,7 +203,7 @@ module.exports = function(grunt) {
 				server: {
 					host : "localhost",
 					baseDir : "",
-					index : ""
+					index : "<%= pkg.private %>/templates/_modules.html"
 				},
 				ghostMode : {
 					scroll : true,
@@ -206,10 +216,10 @@ module.exports = function(grunt) {
 
 	// Load plugins
 	grunt.loadNpmTasks("grunt-mkdir");
-    grunt.loadNpmTasks('grunt-zip');
-    grunt.loadNpmTasks('grunt-contrib-clean');
-    grunt.loadNpmTasks('grunt-text-replace');
-	grunt.loadNpmTasks("grunt-contrib-compass");
+	grunt.loadNpmTasks('grunt-zip');
+	grunt.loadNpmTasks('grunt-contrib-clean');
+	grunt.loadNpmTasks('grunt-text-replace');
+	grunt.loadNpmTasks('grunt-sass');
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks("grunt-contrib-uglify");
@@ -221,11 +231,11 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks("grunt-contrib-watch");
 	grunt.loadNpmTasks("grunt-browser-sync");
 
-    // Tasks
-    grunt.registerTask("default", ["compass", "concat", "copy"]);
+	// Tasks
+	grunt.registerTask("default", ["sass", "concat", "copy"]);
 	grunt.registerTask("code:compress", ["uglify", "cssmin"]);
-    grunt.registerTask("code:validate", ["jslint", "csslint"]);
+	grunt.registerTask("code:validate", ["jslint", "csslint"]);
 	grunt.registerTask("images:compress", ["svgmin", "imagemin"]);
-    grunt.registerTask("project:init", ["mkdir", "unzip", "replace", "clean"]);
+	grunt.registerTask("project:init", ["mkdir", "unzip", "replace", "clean"]);
 	grunt.registerTask("project:sync", ["browser_sync", "watch"]);
 };

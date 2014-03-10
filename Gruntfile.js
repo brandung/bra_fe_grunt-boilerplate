@@ -57,10 +57,10 @@ module.exports = function(grunt) {
 		// compiles sass files using libsass (damn fast!)
 		// https://www.npmjs.org/package/grunt-sass
 		sass : {
-			dist : {
+			files : {
 				files : {
-					"<%= pkg.public %>/css/main.css" : "<%= pkg.private %>/sass/main.scss",
-					"<%= pkg.public %>/css/all-old-ie.css" : "<%= pkg.private %>/sass/all-old-ie.scss"
+					"<%= pkg.public %>/css/all-old-ie.css" : "<%= pkg.private %>/sass/all-old-ie.scss",
+					"<%= pkg.public %>/css/main.css" : "<%= pkg.private %>/sass/main.scss"
 				}
 			}
 		},
@@ -149,6 +149,17 @@ module.exports = function(grunt) {
 				}]
 			}
 		},
+		// Creates sprites and related sass partials
+		// https://www.npmjs.org/package/grunt-spritesmith
+		sprite : {
+			file : {
+				src : "<%= pkg.public %>/img/icons/*.png",
+				destImg : "<%= pkg.public %>/img/sprite-icons.png",
+				destCSS : "<%= pkg.private %>/sass/layout/_sprite-icons.scss",
+				imgPath : "../img/sprite-icons.png",
+				algorithm : "binary-tree"
+			}
+		},
 		// validates js and saves all found errors and warnings in a log file
 		// https://npmjs.org/package/grunt-jslint
 		jslint : {
@@ -178,13 +189,24 @@ module.exports = function(grunt) {
 		// the awesome watch task which recognizes changes in the specified filetypes and rebuilds the project after hitting strg + s
 		// https://npmjs.org/package/grunt-contrib-watch
 		watch : {
+			styles : {
+				files : [
+					"<%= pkg.private %>/sass/**/*.scss"
+				],
+				tasks : ["sass"]
+			},
 			scripts : {
 				files : [
-					"<%= pkg.private %>/sass/**/*.scss",
-					"<%= pkg.private %>/js/*.js",
-					"<%= pkg.public %>/img/**/*"
+					"<%= pkg.private %>/js/**/*.js"
 				],
-				tasks : ["sass", "concat", "copy"]
+				tasks : ["concat", "copy"]
+			},
+			images : {
+				files : [
+
+					"<%= pkg.public %>/img/icons/*"
+				],
+				tasks : ["sprite"]
 			}
 		},
 		// the magical sync task executes the watch task after one of the specified file types change and reloads the browser
@@ -226,6 +248,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.loadNpmTasks("grunt-svgmin");
 	grunt.loadNpmTasks("grunt-contrib-imagemin");
+	grunt.loadNpmTasks('grunt-spritesmith');
 	grunt.loadNpmTasks('grunt-jslint');
 	grunt.loadNpmTasks('grunt-contrib-csslint');
 	grunt.loadNpmTasks("grunt-contrib-watch");
@@ -236,6 +259,7 @@ module.exports = function(grunt) {
 	grunt.registerTask("code:compress", ["uglify", "cssmin"]);
 	grunt.registerTask("code:validate", ["jslint", "csslint"]);
 	grunt.registerTask("images:compress", ["svgmin", "imagemin"]);
+	grunt.registerTask("images:sprite", ["sprite"]);
 	grunt.registerTask("project:init", ["mkdir", "unzip", "replace", "clean"]);
 	grunt.registerTask("project:sync", ["browser_sync", "watch"]);
 };

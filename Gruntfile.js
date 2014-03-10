@@ -58,19 +58,20 @@ module.exports = function(grunt) {
 		// https://npmjs.org/package/grunt-contrib-concat
 		concat : {
 			dist : {
-				src : ["<%= pkg.private %>/js/libs/vendor/h5bp/*.js", "<%= pkg.private %>/js/*.js"],
+				src : ["<%= pkg.private %>/js/helper.js", "<%= pkg.private %>/js/global.js"],
 				dest : "<%= pkg.public %>/js/main.js"
 			}
 		},
 		// Copy js files from private to public to the proper directories
 		// https://www.npmjs.org/package/grunt-contrib-copy
-		copy : {
+		copy : {/*
 			libs : {
 				expand : true,
 				cwd : "<%= pkg.private %>/js/libs/",
-				src : "**",
-				dest : "<%= pkg.public %>/js/libs/"
-			},
+				src : "*",
+				dest : "<%= pkg.public %>/js/libs/",
+				flatten : true
+			},*/
 			modules : {
 				expand : true,
 				cwd : "<%= pkg.private %>/js/mod/",
@@ -182,9 +183,9 @@ module.exports = function(grunt) {
 			files : {
 				src : [
 					"<%= pkg.private %>/sass/**/*.scss",
-					"<%= pkg.public %>/js/**/*.js",
+					"<%= pkg.private %>/templates/*.html",
 					"<%= pkg.public %>/img/**/*",
-					"<%= pkg.private %>/templates/*.html"
+					"<%= pkg.public %>/js/**/*.js"
 				]
 			},
 			options : {
@@ -192,7 +193,7 @@ module.exports = function(grunt) {
 				server: {
 					host : "localhost",
 					baseDir : "",
-					index : "<%= pkg.private %>/templates/_modules.html"
+					index : ""
 				},
 				ghostMode : {
 					scroll : true,
@@ -222,12 +223,9 @@ module.exports = function(grunt) {
 
     // Tasks
     grunt.registerTask("default", ["compass", "concat", "copy"]);
-    grunt.registerTask("new:project", ["mkdir", "unzip", "replace", "clean"]);
-    //grunt.registerTask("compress:images", ["svgmin", "imagemin"]);
-    //grunt.registerTask("compress:code", ["uglify"]);
-    grunt.registerTask("check:code", ["jslint", "csslint"]);
-	grunt.registerTask("sync", ["browser_sync", "watch"]);
-	grunt.registerTask("finish", ["svgmin", "imagemin", "uglify", "cssmin"]);
-
-    //grunt.registerTask("bower:install", ["bower-install"]);
+	grunt.registerTask("code:compress", ["uglify", "cssmin"]);
+    grunt.registerTask("code:validate", ["jslint", "csslint"]);
+	grunt.registerTask("images:compress", ["svgmin", "imagemin"]);
+    grunt.registerTask("project:init", ["mkdir", "unzip", "replace", "clean"]);
+	grunt.registerTask("project:sync", ["browser_sync", "watch"]);
 };

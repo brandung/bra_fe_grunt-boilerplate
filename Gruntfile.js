@@ -174,7 +174,7 @@ module.exports = function(grunt) {
 					"<%= pkg.private %>/js/*.js",
 					"<%= pkg.public %>/img/**/*"
 				],
-				tasks : ["compass", "concat"]
+				tasks : ["compass", "concat", "copy"]
 			}
 		},
 		// the magical sync task executes the watch task after one of the specified file types change and reloads the browser
@@ -193,7 +193,7 @@ module.exports = function(grunt) {
 				server: {
 					host : "localhost",
 					baseDir : "",
-					index : ""
+					index : "<%= pkg.private %>/templates/_modules.html"
 				},
 				ghostMode : {
 					scroll : true,

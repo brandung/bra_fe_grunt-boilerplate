@@ -1,6 +1,8 @@
 {
 	"name": "[project]",
 	"version": "1.0.0",
+	"description": "Grunt and Bower Setup for brandung frontend workflow",
+	"author": "brandung GmbH & CO.KG (http://www.brandung.de)",
 	"system": "[typo3|magento|zend]",
 	"struct": {
 		"typo3": {
@@ -12,7 +14,6 @@
 				"typo3conf/ext/bra_projectfiles/Resources/Public/img",
 				"typo3conf/ext/bra_projectfiles/Resources/Public/img/_dummyPics",
 				"typo3conf/ext/bra_projectfiles/Resources/Public/img/icons",
-				"typo3conf/ext/bra_projectfiles/Resources/Public/img/icons-2x",
 				"typo3conf/ext/bra_projectfiles/Resources/Public/img/touch",
 				"typo3conf/ext/bra_projectfiles/Resources/Public/js",
 				"typo3conf/ext/bra_projectfiles/Resources/Public/js/libs/vendor"
@@ -29,7 +30,6 @@
 				"skin/frontend/bragento/theme/img",
 				"skin/frontend/bragento/theme/img/_dummyPics",
 				"skin/frontend/bragento/theme/img/icons",
-				"skin/frontend/bragento/theme/img/icons-2x",
 				"skin/frontend/bragento/theme/img/touch",
 				"skin/frontend/bragento/theme/js",
 				"skin/frontend/bragento/theme/js/libs/vendor"
@@ -47,13 +47,22 @@
 				"src/public/img",
 				"src/public/img/_dummyPics",
 				"src/public/img/icons",
-				"src/public/img/icons-2x",
 				"src/public/img/touch",
 				"src/public/js",
 				"src/public/js/libs/vendor"
 			],
 			"private": "src/private",
 			"public": "src/public"
+		}
+	},
+	"build": {
+		"boilerplateFolder": [
+			"html5-boilerplate"
+		],
+		"buildStructure": {
+			"html": "templates/mod",
+			"js": "js/mod",
+			"scss": "scss/mod"
 		}
 	},
 	"devDependencies": {
@@ -73,6 +82,7 @@
 		"grunt-jslint": "~1.1.2",
 		"grunt-contrib-csslint": "~0.2.0",
 		"grunt-contrib-watch": "~0.5.3",
-		"grunt-browser-sync": "~0.4.8"
+		"grunt-browser-sync": "~0.4.8",
+		"grunt-bower-task": "~0.3.4"
 	}
 }

@@ -5,22 +5,18 @@
 	"author": "brandung GmbH & CO.KG (http://www.brandung.de)",
 	"private": true,
 	"dependencies": {
-		"html5-boilerplate": "https://github.com/brandung/html-boilerplate.git",
 		"mod": "https://github.com/Simpsonight/mod-dummy.git",
 		"jquery": "~1.11.0",
 		"flexslider": "https://github.com/woothemes/FlexSlider.git"
 	},
 	"exportsOverride": {
-		"html5-boilerplate": {
-			"./": "."
-		},
 		"mod": {
-			"html5-boilerplate/js": "**/*.js",
-			"html5-boilerplate/sass": "**/*.scss",
-			"html5-boilerplate/templates": "**/*.html"
+			"%%public%%/js": "**/*.js",
+			"%%private%%/sass": "**/*.scss",
+			"%%private%%/templates": "**/*.html"
 		},
 		"*": {
-			"html5-boilerplate/js/libs/vendor": "."
+			"%%public%%/js/libs/vendor": "."
 		}
 	}
 }

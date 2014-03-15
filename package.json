@@ -57,13 +57,8 @@
 	},
 	"build": {
 		"boilerplateFolder": [
-			"html5-boilerplate"
-		],
-		"buildStructure": {
-			"html": "templates/mod",
-			"js": "js/mod",
-			"scss": "scss/mod"
-		}
+			"html-boilerplate"
+		]
 	},
 	"devDependencies": {
 		"grunt": "~0.4.2",

@@ -14,25 +14,10 @@ module.exports = function(grunt) {
 		// Create folder structure specified in package.json
 		// https://npmjs.org/package/grunt-mkdir
 		mkdir : {
-			build: {
-				options: {
-					create: '<%= pkg.boilerplateFolder %>'
-				}
-			},
 			project :  {
 				options : {
 					create : "<%= pkg.folder %>"
 				}
-			}
-		},
-
-		// zip the boilerplate
-		// https://npmjs.org/package/grunt-zip
-		'zip': {
-			widgets: {
-				cwd: '<%= pkg.boilerplateFolder %>/',
-				src: ['<%= pkg.boilerplateFolder %>/**/*'],
-				dest: '<%= pkg.boilerplateFolder %>.zip'
 			}
 		},
 
@@ -49,9 +34,7 @@ module.exports = function(grunt) {
 		// removes the html5-boilerplate zip after unpacking it in the specified folder
 		// https://github.com/gruntjs/grunt-contrib-clean
 		clean: {
-			build: ['<%= pkg.boilerplateFolder %>'],
-
-			project: ['<%= pkg.boilerplateFolder %>.zip']
+			project: ['<%= pkg.boilerplateFolder %>.zip', "<%= pkg.private %>/js/libs/", "<%= pkg.private %>/js/mod/", "<%= pkg.private %>/js/widgets/"]
 		},
 
 		// append assets into specific files
@@ -60,17 +43,17 @@ module.exports = function(grunt) {
 			html: {
 				startBlock: '<!-- start|bra-pb: html -->\n',
 				endBlock: '<!-- end|bra-pb: html -->',
-				paths: ['<%= pkg.boilerplateFolder %>/templates/mod/*.html']
+				paths: ['<%= pkg.private %>/templates/mod/*.html']
 			},
 			scss: {
 				startBlock: '// --- start|bra-pb: scss ---\n',
 				endBlock: '// --- end|bra-pb: scss ---',
-				paths: ['<%= pkg.boilerplateFolder %>/sass/mod/*.scss']
+				paths: ['<%= pkg.private %>/sass/mod/*.scss']
 			},
 			js: {
 				startBlock: '// --- start|bra-pb: js ---\n',
 				endBlock: '// --- end|bra-pb: js ---',
-				paths: ['<%= pkg.boilerplateFolder %>/js/helpers/*.js']
+				paths: ['<%= pkg.private %>/js/helpers/*.js']
 			}
 		},
 
@@ -78,7 +61,7 @@ module.exports = function(grunt) {
 		// https://npmjs.org/package/grunt-text-replace
 		replace : {
 			appendAssetsHTML: {
-				src: ['<%= pkg.boilerplateFolder %>/templates/_modules.html'],
+				src: ['<%= pkg.private %>/templates/_modules.html'],
 				overwrite: true,
 				replacements: [
 					{
@@ -88,7 +71,7 @@ module.exports = function(grunt) {
 				]
 			},
 			appendAssetsSCSS: {
-				src: ['<%= pkg.boilerplateFolder %>/sass/main.scss'],
+				src: ['<%= pkg.private %>/sass/main.scss'],
 				overwrite: true,
 				replacements: [
 					{
@@ -98,7 +81,7 @@ module.exports = function(grunt) {
 				]
 			},
 			appendAssetsJS: {
-				src: ['<%= pkg.boilerplateFolder %>/js/global.js'],
+				src: ['<%= pkg.private %>/js/global.js'],
 				overwrite: true,
 				replacements: [
 					{
@@ -108,7 +91,7 @@ module.exports = function(grunt) {
 				]
 			},
 			project : {
-				src : ["<%= pkg.private %>/templates/_modules.html", "compass.rb"],
+				src : ["<%= pkg.private %>/templates/_modules.html", "<%= pkg.private %>/js/global.js", "bower.json"],
 				overwrite : true,
 				replacements : [
 					{
@@ -138,7 +121,7 @@ module.exports = function(grunt) {
 		// https://npmjs.org/package/grunt-contrib-concat
 		concat : {
 			dist : {
-				src : ["<%= pkg.private %>/js/libs/vendor/h5bp/helper.js", "<%= pkg.private %>/js/global.js"],
+				src : ["<%= pkg.private %>/js/global.js"],
 				dest : "<%= pkg.public %>/js/main.js"
 			}
 		},
@@ -157,6 +140,13 @@ module.exports = function(grunt) {
 				cwd : "<%= pkg.private %>/js/mod/",
 				src : "*",
 				dest : "<%= pkg.public %>/js/mod/",
+				flatten : true
+			},
+			widgets : {
+				expand : true,
+				cwd : "<%= pkg.private %>/js/widgets/",
+				src : "*",
+				dest : "<%= pkg.public %>/js/widgets/",
 				flatten : true
 			}
 		},
@@ -271,7 +261,9 @@ module.exports = function(grunt) {
 				options: {
 					targetDir: './',
 					layout: 'byType',
-					cleanBowerDir: false
+					cleanTargetDir: false,
+					cleanBowerDir: false,
+					verbose: true
 				}
 			}
 		},
@@ -289,7 +281,7 @@ module.exports = function(grunt) {
 				files : [
 					"<%= pkg.private %>/js/**/*.js"
 				],
-				tasks : ["concat", "copy"]
+				tasks : ["concat"]
 			},
 			images : {
 				files : [
@@ -415,12 +407,10 @@ module.exports = function(grunt) {
 
 	// Tasks: project builder
 	grunt.registerTask("default", ["sass", "concat", "copy"]);
-	grunt.registerTask("project:init", ["mkdir:project", "unzip", "replace:project", "clean:project"]);
+	grunt.registerTask("project:init", ["mkdir:project", "unzip", "replace:project", "default", "clean:project", "project:sync"]);
 	grunt.registerTask("project:sync", ["browser_sync", "watch"]);
 
 	// Tasks: download builder
-	grunt.registerTask('build', ['mkdir:build', 'build:getModules', 'build:insertAssets', 'build:zip']);
-	grunt.registerTask('build:getModules', ['bower:install']);
+	grunt.registerTask('build:installModules', ['bower:install', 'build:insertAssets']);
 	grunt.registerTask('build:insertAssets', ['appendAssets:html', 'appendAssets:scss', 'appendAssets:js']);
-	grunt.registerTask('build:zip', ['zip', 'clean:build']);
 };

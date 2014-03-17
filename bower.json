@@ -5,15 +5,16 @@
 	"author": "brandung GmbH & CO.KG (http://www.brandung.de)",
 	"private": true,
 	"dependencies": {
-		"mod": "https://github.com/Simpsonight/mod-dummy.git",
+		"mod-dummy": "https://github.com/Simpsonight/mod-dummy.git",
+		"mod-simple-flexslider": "https://github.com/brandung/mod-simple-flexslider.git",
 		"jquery": "~1.11.0",
 		"flexslider": "https://github.com/woothemes/FlexSlider.git"
 	},
 	"exportsOverride": {
-		"mod": {
-			"%%public%%/js": "**/*.js",
-			"%%private%%/sass": "**/*.scss",
-			"%%private%%/templates": "**/*.html"
+		"mod-*": {
+			"%%private%%/js/mod": "*.js",
+			"%%private%%/sass/mod": "*.scss",
+			"%%private%%/templates/mod": "*.html"
 		},
 		"*": {
 			"%%public%%/js/libs/vendor": "."

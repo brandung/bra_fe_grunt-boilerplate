@@ -1,5 +1,28 @@
 module.exports = function(grunt) {
-	var pkg = grunt.file.readJSON("package.json");
+	var pkg = grunt.file.readJSON('package.json'),
+		path = require('path'),
+		cwd = path.resolve(process.cwd(), '');
+
+	// measures the time grunt takes to complete all tasks
+	// https://www.npmjs.org/package/time-grunt
+	//require('time-grunt')(grunt);
+
+	// load only the modules that are currently needed instead of loading all modules on every build
+	// https://www.npmjs.org/package/jit-grunt
+	require('jit-grunt')(grunt, {
+		'code:compress' : ['uglify', 'cssmin'],
+		'code:validate' : ['jslint', 'csslint'],
+		'images:compress' : ['svgmin', 'imagemin'],
+		'sprite' : ['grunt-spritesmith'],
+		'project:init' : ['mkdir:project', 'unzip', 'replace:project', 'copy:libs', 'clean:project', 'default', 'project:sync'],
+		'project:sync' : ['browserSync', 'watch'],
+		'build:installModules' : ['bower:install', 'build:insertAssets', 'default', 'project:sync'],
+		'build:insertAssets' : ['appendAssets:html', 'appendAssets:scss', 'appendAssets:js'],
+		'unzip' : 'grunt-zip',
+		'replace' : 'grunt-text-replace',
+		'bower' : 'grunt-bower-task'
+	});
+
 	pkg.folder = pkg.struct[pkg.system].folder;
 	pkg.private = pkg.struct[pkg.system].private;
 	pkg.public = pkg.struct[pkg.system].public;
@@ -16,17 +39,17 @@ module.exports = function(grunt) {
 		mkdir : {
 			project :  {
 				options : {
-					create : "<%= pkg.folder %>"
+					create : '<%= pkg.folder %>'
 				}
 			}
 		},
 
 		// unzips the boilerplate in the proper folder
 		// https://npmjs.org/package/grunt-zip
-		"unzip" : {
-			catalog : {
-				src : "<%= pkg.boilerplateFolder %>.zip",
-				dest : pkg.private
+		'unzip' : {
+			boilerplate : {
+				src : '<%= pkg.boilerplateFolder %>.zip',
+				dest : '<%= pkg.private %>/'
 			}
 		},
 
@@ -34,7 +57,8 @@ module.exports = function(grunt) {
 		// removes the html5-boilerplate zip after unpacking it in the specified folder
 		// https://github.com/gruntjs/grunt-contrib-clean
 		clean: {
-			project: ['<%= pkg.boilerplateFolder %>.zip', "<%= pkg.private %>/js/libs/", "<%= pkg.private %>/js/mod/", "<%= pkg.private %>/js/widgets/"]
+			project: ['<%= pkg.boilerplateFolder %>.zip', '<%= pkg.private %>/<%= pkg.boilerplateFolder %>/', '<%= pkg.private %>/js/libs/'],
+			js :  ['<%= pkg.public %>/js/global.js']
 		},
 
 		// append assets into specific files
@@ -43,17 +67,17 @@ module.exports = function(grunt) {
 			html: {
 				startBlock: '<!-- start|bra-pb: html -->\n',
 				endBlock: '<!-- end|bra-pb: html -->',
-				paths: ['<%= pkg.private %>/templates/mod/*.html']
+				paths: ['<%= pkg.private %>/templates/mod/**/*.html']
 			},
 			scss: {
 				startBlock: '// --- start|bra-pb: scss ---\n',
 				endBlock: '// --- end|bra-pb: scss ---',
-				paths: ['<%= pkg.private %>/sass/mod/*.scss']
+				paths: ['<%= pkg.private %>/sass/mod/**/*.scss']
 			},
 			js: {
 				startBlock: '// --- start|bra-pb: js ---\n',
 				endBlock: '// --- end|bra-pb: js ---',
-				paths: ['<%= pkg.private %>/js/helpers/*.js']
+				paths: ['<%= pkg.private %>/js/helpers/**/*.js', '<%= pkg.private %>/js/mod/**/*.js']
 			}
 		},
 
@@ -91,15 +115,15 @@ module.exports = function(grunt) {
 				]
 			},
 			project : {
-				src : ["<%= pkg.private %>/templates/_modules.html", "<%= pkg.private %>/js/global.js", "bower.json"],
+				src : ['<%= pkg.private %>/templates/_modules.html', '<%= pkg.private %>/js/global.js', 'bower.json'],
 				overwrite : true,
 				replacements : [
 					{
-						from : "%%public%%",
+						from : '%%public%%',
 						to : pkg.public
 					},
 					{
-						from : "%%private%%",
+						from : '%%private%%',
 						to : pkg.private
 					}
 				]
@@ -111,8 +135,8 @@ module.exports = function(grunt) {
 		sass : {
 			files : {
 				files : {
-					"<%= pkg.public %>/css/all-old-ie.css" : "<%= pkg.private %>/sass/all-old-ie.scss",
-					"<%= pkg.public %>/css/main.css" : "<%= pkg.private %>/sass/main.scss"
+					'<%= pkg.public %>/css/all-old-ie.css' : '<%= pkg.private %>/sass/all-old-ie.scss',
+					'<%= pkg.public %>/css/main.css' : '<%= pkg.private %>/sass/main.scss'
 				}
 			}
 		},
@@ -121,8 +145,8 @@ module.exports = function(grunt) {
 		// https://npmjs.org/package/grunt-contrib-concat
 		concat : {
 			dist : {
-				src : ["<%= pkg.private %>/js/global.js"],
-				dest : "<%= pkg.public %>/js/main.js"
+				src : ['<%= pkg.public %>/js/libs/bra/loadmodule/jquery.loadmodule.min.js', '<%= pkg.private %>/js/global.js'],
+				dest : '<%= pkg.public %>/js/main.js'
 			}
 		},
 
@@ -131,22 +155,15 @@ module.exports = function(grunt) {
 		copy : {
 			libs : {
 				expand : true,
-				cwd : "<%= pkg.private %>/js/libs/",
-				src : "**",
-				dest : "<%= pkg.public %>/js/libs/"
-			},
-			modules : {
-				expand : true,
-				cwd : "<%= pkg.private %>/js/mod/",
-				src : "*",
-				dest : "<%= pkg.public %>/js/mod/",
-				flatten : true
+				cwd : '<%= pkg.private %>/js/libs/',
+				src : '**',
+				dest : '<%= pkg.public %>/js/libs/'
 			},
 			widgets : {
 				expand : true,
-				cwd : "<%= pkg.private %>/js/widgets/",
-				src : "*",
-				dest : "<%= pkg.public %>/js/widgets/",
+				cwd : '<%= pkg.private %>/js/widgets/',
+				src : '*',
+				dest : '<%= pkg.public %>/js/widgets/',
 				flatten : true
 			}
 		},
@@ -155,12 +172,19 @@ module.exports = function(grunt) {
 		// https://npmjs.org/package/grunt-contrib-uglify
 		uglify : {
 			options : {
-				report : "min"
+				report : 'min'
 			},
-			js : {
-				files : {
-					"<%= pkg.public %>/js/main.js" : ["<%= pkg.public %>/js/main.js"]
-				}
+			global : {
+				expand : true,
+				cwd : '<%= pkg.public %>/js/',
+				src : '*.js',
+				dest : '<%= pkg.public %>/js/'
+			},
+			widgets : {
+				expand : true,
+				cwd : '<%= pkg.public %>/js/widgets/',
+				src : '*.js',
+				dest : '<%= pkg.public %>/js/widgets/'
 			}
 		},
 
@@ -169,12 +193,12 @@ module.exports = function(grunt) {
 		cssmin : {
 			minify : {
 				expand : true,
-				cwd : "<%= pkg.public %>/css/",
-				src : ["*.css"],
-				dest : "<%= pkg.public %>/css/",
-				ext : ".css",
+				cwd : '<%= pkg.public %>/css/',
+				src : ['*.css'],
+				dest : '<%= pkg.public %>/css/',
+				ext : '.css',
 				options : {
-					report : "min"
+					report : 'min'
 				}
 			}
 		},
@@ -190,10 +214,10 @@ module.exports = function(grunt) {
 			dist : {
 				files : [{
 					expand : true,
-					cwd : "<%= pkg.public %>/img/icons",
-					src : ["*.svg"],
-					dest : "<%= pkg.public %>/img/icons",
-					ext : ".svg"
+					cwd : '<%= pkg.public %>/img/icons',
+					src : ['*.svg'],
+					dest : '<%= pkg.public %>/img/icons',
+					ext : '.svg'
 				}]
 			}
 		},
@@ -207,9 +231,9 @@ module.exports = function(grunt) {
 				},
 				files : [{
 					expand : true,
-					cwd : "<%= pkg.public %>/img",
-					src : ["**/*.{png,jpg,gif}"],
-					dest : "<%= pkg.public %>/img"
+					cwd : '<%= pkg.public %>/img',
+					src : ['**/*.{png,jpg,gif}'],
+					dest : '<%= pkg.public %>/img'
 				}]
 			}
 		},
@@ -218,11 +242,11 @@ module.exports = function(grunt) {
 		// https://www.npmjs.org/package/grunt-spritesmith
 		sprite : {
 			file : {
-				src : "<%= pkg.public %>/img/icons/*.png",
-				destImg : "<%= pkg.public %>/img/sprite-icons.png",
-				destCSS : "<%= pkg.private %>/sass/layout/_sprite-icons.scss",
-				imgPath : "../img/sprite-icons.png",
-				algorithm : "binary-tree"
+				src : '<%= pkg.public %>/img/icons/*.png',
+				destImg : '<%= pkg.public %>/img/sprite-icons.png',
+				destCSS : '<%= pkg.private %>/sass/layout/_sprite-icons.scss',
+				imgPath : '../img/sprite-icons.png',
+				algorithm : 'binary-tree'
 			}
 		},
 
@@ -230,13 +254,13 @@ module.exports = function(grunt) {
 		// https://npmjs.org/package/grunt-jslint
 		jslint : {
 			client : {
-				src : ["<%= pkg.private %>/js/*.js"],
+				src : ['<%= pkg.private %>/js/*.js', '<%= pkg.private %>/js/helpers/*.js', '<%= pkg.private %>/js/widgets/*.js'],
 				directives : {
 					browser : true,
-					predef : ["jQuery", "Modernizr"]
+					predef : ['jQuery', 'Modernizr']
 				},
 				options : {
-					log : "<%= pkg.private %>/js/jslint.log",
+					log : '<%= pkg.private %>/js/jslint.log',
 					failOnError : false,
 					errorsOnly : true
 				}
@@ -248,9 +272,9 @@ module.exports = function(grunt) {
 		csslint : {
 			strict : {
 				options : {
-					"import" : 2
+					import : 2
 				},
-				src : ["<%= pkg.public %>/css/*.css"]
+				src : ['<%= pkg.public %>/css/*.css']
 			}
 		},
 
@@ -272,45 +296,39 @@ module.exports = function(grunt) {
 		// https://npmjs.org/package/grunt-contrib-watch
 		watch : {
 			styles : {
-				files : [
-					"<%= pkg.private %>/sass/**/*.scss"
-				],
-				tasks : ["sass"]
+				files : '<%= pkg.private %>/sass/**/*.scss',
+				tasks : ['sass']
 			},
 			scripts : {
-				files : [
-					"<%= pkg.private %>/js/**/*.js"
-				],
-				tasks : ["concat"]
+				files : '<%= pkg.private %>/js/**/*.js',
+				tasks : ['copy', 'concat', 'clean:js']
 			},
 			images : {
-				files : [
-
-					"<%= pkg.public %>/img/icons/*"
-				],
-				tasks : ["sprite"]
+				files : '<%= pkg.public %>/img/icons/*.png',
+				tasks : ['sprite']
 			}
 		},
 
 		// the magical sync task executes the watch task after one of the specified file types change and reloads the browser
 		// https://npmjs.org/package/grunt-browser-sync
-		browser_sync : {
-			files : {
+		browserSync : {
+			bsFiles : {
 				src : [
-					"<%= pkg.private %>/sass/**/*.scss",
-					"<%= pkg.private %>/templates/*.html",
-					"<%= pkg.public %>/img/**/*",
-					"<%= pkg.public %>/js/**/*.js"
+					'<%= pkg.public %>/css/*.css',
+					'<%= pkg.private %>/templates/*.html',
+					'<%= pkg.public %>/img/**/*',
+					'<%= pkg.public %>/js/**/*.js'
 				]
 			},
 			options : {
 				watchTask : true,
+				host : 'localhost',
 				server: {
-					host : "localhost",
-					baseDir : "",
-					index : "<%= pkg.private %>/templates/_modules.html"
+					baseDir : cwd,
+					index : '<%= pkg.private %>/templates/_modules.html'
 				},
 				ghostMode : {
+					clicks : true,
 					scroll : true,
 					links : true,
 					forms : true
@@ -321,96 +339,63 @@ module.exports = function(grunt) {
 
 	// MultiTasks
 	// task for insert assets into file
-	grunt.registerMultiTask("appendAssets", "Insert JS/SCSS/HTML assets to a file", function () {
+	grunt.registerMultiTask('appendAssets', 'Insert JS/SCSS/HTML assets to a file', function () {
 		// get all files in target folder
-		var paths = grunt.file.expand(this.data.paths);
+		var paths = grunt.file.expand(this.data.paths),
+			tasks = {
+				'html' : 'replace:appendAssetsHTML',
+				'js' : 'replace:appendAssetsJS',
+				'scss' : 'replace:appendAssetsSCSS'
+			},
+			target = this.target;
+
 		// empty tmpAssets
 		pkg.tempAssets = '';
 
-		// HTML Files
-		if (this.target === 'html') {
-			// add start block
-			pkg.tempAssets += this.data.startBlock;
-			paths.forEach(function (path) {
-				var content = grunt.file.read(path);
-				pkg.tempAssets += content + '\n';
-			});
-			// add end block
-			pkg.tempAssets += this.data.endBlock;
-			// start task
-			grunt.task.run('replace:appendAssetsHTML');
-		}
+		// add start block
+		pkg.tempAssets += this.data.startBlock;
 
-		// JS helper Files
-		if (this.target === 'js') {
-			// add start block
-			pkg.tempAssets += this.data.startBlock;
+		// HTML/JS Files
+		if (target === 'html' || target === 'js') {
 			paths.forEach(function (path) {
 				var content = grunt.file.read(path);
-				pkg.tempAssets += content + '\n\n';
+				pkg.tempAssets += content + "\n";
 			});
-			// add end block
-			pkg.tempAssets += this.data.endBlock;
-			// start task
-			grunt.task.run('replace:appendAssetsJS');
 		}
 
 		// SCSS Files
-		if (this.target === 'scss') {
-			// add start block
-			pkg.tempAssets += this.data.startBlock;
+		if (target === 'scss') {
 			// for each file add import rule
 			paths.forEach(function (path) {
-				var lastFolder = path.lastIndexOf('/'),
-					tmpFile = path.substr(lastFolder),
-					tmpFile = tmpFile.slice(2),
-					tmpFile = tmpFile.split('.'),
-					tmpFile = tmpFile[0],
+				var lastFolder = path.lastIndexOf('\/mod\/'),
+					tmpFile = path.substr(lastFolder).slice(4).split('.')[0],
 					file = 'mod/' + tmpFile;
 
-				pkg.tempAssets += '@import "' + file + '";\n';
+				pkg.tempAssets += "@import '" + file + "';\n";
 			});
-			// add end block
-			pkg.tempAssets += this.data.endBlock;
-			// start task
-			grunt.task.run('replace:appendAssetsSCSS');
 		}
+
+		// add end block
+		pkg.tempAssets += this.data.endBlock;
+		// start task
+		grunt.task.run(tasks[target]);
 
 		// Print a success message.
 		grunt.log.writeln('\nAdd rule: \n' + pkg.tempAssets);
 	});
 
-	// Load plugins
-	grunt.loadNpmTasks("grunt-mkdir");
-	grunt.loadNpmTasks('grunt-zip');
-	grunt.loadNpmTasks('grunt-contrib-clean');
-	grunt.loadNpmTasks('grunt-text-replace');
-	grunt.loadNpmTasks('grunt-sass');
-	grunt.loadNpmTasks('grunt-contrib-concat');
-	grunt.loadNpmTasks('grunt-contrib-copy');
-	grunt.loadNpmTasks("grunt-contrib-uglify");
-	grunt.loadNpmTasks('grunt-contrib-cssmin');
-	grunt.loadNpmTasks("grunt-svgmin");
-	grunt.loadNpmTasks("grunt-contrib-imagemin");
-	grunt.loadNpmTasks('grunt-spritesmith');
-	grunt.loadNpmTasks('grunt-jslint');
-	grunt.loadNpmTasks('grunt-contrib-csslint');
-	grunt.loadNpmTasks("grunt-contrib-watch");
-	grunt.loadNpmTasks("grunt-browser-sync");
-	grunt.loadNpmTasks("grunt-bower-task");
-
-	// Tasks
-	grunt.registerTask("code:compress", ["uglify", "cssmin"]);
-	grunt.registerTask("code:validate", ["jslint", "csslint"]);
-	grunt.registerTask("images:compress", ["svgmin", "imagemin"]);
-	grunt.registerTask("images:sprite", ["sprite"]);
+	// Tasks: Code validation and minification; Sprite generation and compression
+	grunt.registerTask('code:compress', ['uglify', 'cssmin']);
+	grunt.registerTask('code:validate', ['jslint', 'csslint']);
+	grunt.registerTask('images:compress', ['svgmin', 'imagemin']);
+	grunt.registerTask('images:sprite', ['sprite']);
 
 	// Tasks: project builder
-	grunt.registerTask("default", ["sass", "concat", "copy"]);
-	grunt.registerTask("project:init", ["mkdir:project", "unzip", "replace:project", "default", "clean:project", "project:sync"]);
-	grunt.registerTask("project:sync", ["browser_sync", "watch"]);
+	grunt.registerTask('default', ['sass', 'copy', 'concat', 'clean:js']);
+	grunt.registerTask('project:init', ['mkdir:project', 'unzip', 'replace:project', 'copy:libs', 'clean:project', 'default', 'project:sync']);
+	grunt.registerTask('project:sync', ['browserSync', 'watch']);
 
 	// Tasks: download builder
-	grunt.registerTask('build:installModules', ['bower:install', 'build:insertAssets']);
+	grunt.registerTask('build:installModules', ['bower:install', 'build:insertAssets', 'default', 'project:sync']);
 	grunt.registerTask('build:insertAssets', ['appendAssets:html', 'appendAssets:scss', 'appendAssets:js']);
 };

@@ -286,7 +286,7 @@ module.exports = function(grunt) {
 					targetDir: './',
 					layout: 'byType',
 					cleanTargetDir: false,
-					cleanBowerDir: false,
+					cleanBowerDir: true,
 					verbose: true
 				}
 			}
@@ -369,7 +369,7 @@ module.exports = function(grunt) {
 			paths.forEach(function (path) {
 				var lastFolder = path.lastIndexOf('\/mod\/'),
 					tmpFile = path.substr(lastFolder).slice(4).split('.')[0],
-					file = 'mod/' + tmpFile;
+					file = 'mod' + tmpFile;
 
 				pkg.tempAssets += "@import '" + file + "';\n";
 			});

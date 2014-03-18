@@ -4,12 +4,7 @@
 	"description": "Get FE Modules and dependencies from GIT repositories ()",
 	"author": "brandung GmbH & CO.KG (http://www.brandung.de)",
 	"private": true,
-	"dependencies": {
-		"mod-dummy": "https://github.com/Simpsonight/mod-dummy.git",
-		"mod-simple-flexslider": "https://github.com/brandung/mod-simple-flexslider.git",
-		"jquery": "~1.11.0",
-		"flexslider": "https://github.com/woothemes/FlexSlider.git"
-	},
+	"dependencies": {},
 	"exportsOverride": {
 		"mod-*": {
 			"%%private%%/js/mod": "*.js",

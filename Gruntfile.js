@@ -16,7 +16,7 @@ module.exports = function(grunt) {
 		'sprite' : ['grunt-spritesmith'],
 		'project:init' : ['mkdir:project', 'unzip', 'replace:project', 'copy:libs', 'clean:project', 'default', 'project:sync'],
 		'project:sync' : ['browserSync', 'watch'],
-		'build:installModules' : ['bower:install', 'build:insertAssets', 'default', 'project:sync'],
+		'build:installModules' : ['bower:install', 'build:insertAssets', 'default', 'clean:build', 'project:sync'],
 		'build:insertAssets' : ['appendAssets:html', 'appendAssets:scss', 'appendAssets:js'],
 		'unzip' : 'grunt-zip',
 		'replace' : 'grunt-text-replace',
@@ -58,7 +58,8 @@ module.exports = function(grunt) {
 		// https://github.com/gruntjs/grunt-contrib-clean
 		clean: {
 			project: ['<%= pkg.boilerplateFolder %>.zip', '<%= pkg.private %>/<%= pkg.boilerplateFolder %>/', '<%= pkg.private %>/js/libs/'],
-			js :  ['<%= pkg.public %>/js/global.js']
+			js :  ['<%= pkg.public %>/js/global.js'],
+			build: ['<%= pkg.private %>/templates/mod/**', '<%= pkg.private %>/sass/mod/**', '<%= pkg.private %>/js/mod/**']
 		},
 
 		// append assets into specific files
@@ -72,7 +73,7 @@ module.exports = function(grunt) {
 			scss: {
 				startBlock: '// --- start|bra-pb: scss ---\n',
 				endBlock: '// --- end|bra-pb: scss ---',
-				paths: ['<%= pkg.private %>/sass/mod/**/*.scss']
+				paths: ['<%= pkg.private %>/sass/partials/mod/*.scss']
 			},
 			js: {
 				startBlock: '// --- start|bra-pb: js ---\n',
@@ -165,6 +166,14 @@ module.exports = function(grunt) {
 				src : '*',
 				dest : '<%= pkg.public %>/js/widgets/',
 				flatten : true
+			},
+			scssmod : {
+				expand : true,
+				cwd : '<%= pkg.private %>/sass/mod/',
+				src : '**',
+				dest : '<%= pkg.private %>/sass/partials/mod/',
+				flatten : true,
+				filter: 'isFile'
 			}
 		},
 
@@ -352,36 +361,46 @@ module.exports = function(grunt) {
 		// empty tmpAssets
 		pkg.tempAssets = '';
 
-		// add start block
-		pkg.tempAssets += this.data.startBlock;
-
 		// HTML/JS Files
 		if (target === 'html' || target === 'js') {
 			paths.forEach(function (path) {
 				var content = grunt.file.read(path);
 				pkg.tempAssets += content + "\n";
+
+				grunt.log.writeln(['Add ' + path ]);
 			});
+
+			// add start and end block
+			pkg.tempAssets += this.data.startBlock;
+			pkg.tempAssets += this.data.endBlock;
 		}
 
 		// SCSS Files
 		if (target === 'scss') {
+
+			// add start block
+			pkg.tempAssets += this.data.startBlock;
+
 			// for each file add import rule
 			paths.forEach(function (path) {
 				var lastFolder = path.lastIndexOf('\/mod\/'),
 					tmpFile = path.substr(lastFolder).slice(4).split('.')[0],
-					file = 'mod' + tmpFile;
+					file = 'partials/mod' + tmpFile;
 
 				pkg.tempAssets += "@import '" + file + "';\n";
+
+				grunt.log.writeln(['Add ' + path ]);
 			});
+
+			// add end block
+			pkg.tempAssets += this.data.endBlock;
 		}
 
-		// add end block
-		pkg.tempAssets += this.data.endBlock;
+
+
 		// start task
 		grunt.task.run(tasks[target]);
 
-		// Print a success message.
-		grunt.log.writeln('\nAdd rule: \n' + pkg.tempAssets);
 	});
 
 	// Tasks: Code validation and minification; Sprite generation and compression
@@ -396,6 +415,6 @@ module.exports = function(grunt) {
 	grunt.registerTask('project:sync', ['browserSync', 'watch']);
 
 	// Tasks: download builder
-	grunt.registerTask('build:installModules', ['bower:install', 'build:insertAssets', 'default', 'project:sync']);
+	grunt.registerTask('build:installModules', ['bower:install', 'copy:scssmod', 'build:insertAssets', 'default', 'clean:build', 'project:sync']);
 	grunt.registerTask('build:insertAssets', ['appendAssets:html', 'appendAssets:scss', 'appendAssets:js']);
 };

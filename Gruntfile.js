@@ -13,7 +13,7 @@ module.exports = function(grunt) {
 		'code:compress' : ['uglify', 'cssmin'],
 		'code:validate' : ['jslint', 'csslint'],
 		'images:compress' : ['svgmin', 'imagemin'],
-		'sprite' : ['grunt-spritesmith'],
+		'sprite' : 'grunt-spritesmith',
 		'project:init' : ['mkdir:project', 'unzip', 'replace:project', 'copy:libs', 'clean:project', 'default', 'project:sync'],
 		'project:sync' : ['browserSync', 'watch'],
 		'build:installModules' : ['bower:install', 'build:insertAssets', 'default', 'clean:build', 'project:sync'],
@@ -253,9 +253,10 @@ module.exports = function(grunt) {
 			file : {
 				src : '<%= pkg.public %>/img/icons/*.png',
 				destImg : '<%= pkg.public %>/img/sprite-icons.png',
-				destCSS : '<%= pkg.private %>/sass/layout/_sprite-icons.scss',
+				destCSS : '<%= pkg.private %>/sass/partials/_sprite-icons.scss',
 				imgPath : '../img/sprite-icons.png',
-				algorithm : 'binary-tree'
+				algorithm : 'binary-tree',
+				engine : 'pngsmith'
 			}
 		},
 

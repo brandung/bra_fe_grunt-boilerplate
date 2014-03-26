@@ -83,6 +83,7 @@
 		"grunt-contrib-csslint": "~0.2.0",
 		"grunt-contrib-watch": "~0.6.0",
 		"grunt-browser-sync": "~0.7.0",
-		"grunt-bower-task": "~0.3.4"
+		"grunt-bower-task": "~0.3.4",
+		"pngsmith": "~0.1.0"
 	}
 }

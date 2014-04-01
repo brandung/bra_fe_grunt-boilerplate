@@ -333,7 +333,7 @@ module.exports = function(grunt) {
 				watchTask : true,
 				host : 'localhost',
 				server: {
-					baseDir : '/',
+					baseDir : './',
 					index : '<%= pkg.private %>/templates/_modules.html'
 				},
 				ghostMode : {

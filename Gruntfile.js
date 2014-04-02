@@ -332,7 +332,6 @@ module.exports = function(grunt) {
 			},
 			options : {
 				watchTask : true,
-				host : 'localhost',
 				server: {
 					baseDir : cwd,
 					index : '<%= pkg.private %>/templates/_modules.html'

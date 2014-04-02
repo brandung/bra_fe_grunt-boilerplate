@@ -7,12 +7,12 @@
 	"dependencies": {},
 	"exportsOverride": {
 		"mod-*": {
-			"src/private/js/mod": "*.js",
-			"src/private/sass/mod": "*.scss",
-			"src/private/templates/mod": "*.html"
+			"%%private%%/js/mod": "*.js",
+			"%%private%%/sass/mod": "*.scss",
+			"%%private%%/templates/mod": "*.html"
 		},
 		"*": {
-			"src/public/js/libs/vendor": "."
+			"%%public%%/js/libs/vendor": "."
 		}
 	}
 }

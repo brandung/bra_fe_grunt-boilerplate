@@ -1,6 +1,7 @@
 module.exports = function(grunt) {
 	var pkg = grunt.file.readJSON('package.json'),
-		path = require('path');
+		path = require('path'),
+		cwd = path.resolve(process.cwd(), '');
 
 	// measures the time grunt takes to complete all tasks
 	// https://www.npmjs.org/package/time-grunt
@@ -333,7 +334,7 @@ module.exports = function(grunt) {
 				watchTask : true,
 				host : 'localhost',
 				server: {
-					baseDir : './',
+					baseDir : cwd,
 					index : '<%= pkg.private %>/templates/_modules.html'
 				},
 				ghostMode : {

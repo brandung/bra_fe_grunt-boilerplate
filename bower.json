@@ -11,6 +11,14 @@
 			"%%private%%/sass/mod": "*.scss",
 			"%%private%%/templates/mod": "*.html"
 		},
+		"helper-*": {
+			"%%private%%/js/helpers": "*.js",
+			"%%private%%/sass/mod": "*.scss",
+			"%%public%%/img": "*.{png,jpg,gif}"
+		},
+		"bra-*": {
+			"%%public%%/js/libs/bra": "."
+		},
 		"*": {
 			"%%public%%/js/libs/vendor": "."
 		}

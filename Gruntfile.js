@@ -1,11 +1,12 @@
 module.exports = function(grunt) {
 	var pkg = grunt.file.readJSON('package.json'),
 		path = require('path'),
+		target = grunt.option('target'),
 		cwd = path.resolve(process.cwd(), '');
 
 	// measures the time grunt takes to complete all tasks
 	// https://www.npmjs.org/package/time-grunt
-	//require('time-grunt')(grunt);
+	require('time-grunt')(grunt);
 
 	// load only the modules that are currently needed instead of loading all modules on every build
 	// https://www.npmjs.org/package/jit-grunt
@@ -26,6 +27,11 @@ module.exports = function(grunt) {
 	pkg.folder = pkg.struct[pkg.system].folder;
 	pkg.private = pkg.struct[pkg.system].private;
 	pkg.public = pkg.struct[pkg.system].public;
+
+	if(target) {
+		pkg.private += '/' + target;
+		pkg.public += '/' + target;
+	}
 
 	pkg.boilerplateFolder = pkg.build.boilerplateFolder;
 	pkg.tempAssets = '';
@@ -367,7 +373,7 @@ module.exports = function(grunt) {
 				var content = grunt.file.read(path);
 				pkg.tempAssets += content + "\n";
 
-				grunt.log.writeln(['Add ' + path ]);
+				grunt.log.writeln(['Add ' + path]);
 			});
 
 			// add start and end block
@@ -389,14 +395,12 @@ module.exports = function(grunt) {
 
 				pkg.tempAssets += "@import '" + file + "';\n";
 
-				grunt.log.writeln(['Add ' + path ]);
+				grunt.log.writeln(['Add ' + path]);
 			});
 
 			// add end block
 			pkg.tempAssets += this.data.endBlock;
 		}
-
-
 
 		// start task
 		grunt.task.run(tasks[target]);

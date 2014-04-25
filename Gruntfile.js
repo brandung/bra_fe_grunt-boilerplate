@@ -152,7 +152,7 @@ module.exports = function(grunt) {
 		// https://npmjs.org/package/grunt-contrib-concat
 		concat : {
 			dist : {
-				src : ['<%= pkg.public %>/js/libs/bra/loadmodule/jquery.loadmodule.min.js', '<%= pkg.private %>/js/global.js'],
+				src : ['<%= pkg.public %>/js/libs/vendor/basket/basket.full.min.js', '<%= pkg.private %>/js/global.js'],
 				dest : '<%= pkg.public %>/js/main.js'
 			}
 		},
@@ -180,6 +180,20 @@ module.exports = function(grunt) {
 				dest : '<%= pkg.private %>/sass/partials/mod/',
 				flatten : true,
 				filter: 'isFile'
+			},
+			hotfixjs : {
+				expand : true,
+				cwd : './',
+				src : 'hotfix.js',
+				dest : '<%= pkg.public %>/js/',
+				flatten : true
+			},
+			hotfixcss : {
+				expand : true,
+				cwd : './',
+				src : 'hotfix.css',
+				dest : '<%= pkg.public %>/css/',
+				flatten : true
 			}
 		},
 
@@ -415,7 +429,7 @@ module.exports = function(grunt) {
 
 	// Tasks: project builder
 	grunt.registerTask('default', ['sass', 'copy', 'concat', 'clean:js']);
-	grunt.registerTask('project:init', ['mkdir:project', 'unzip', 'replace:project', 'copy:libs', 'clean:project', 'default', 'project:sync']);
+	grunt.registerTask('project:init', ['mkdir:project', 'unzip', 'replace:project', 'copy:libs', 'copy:hotfixjs', 'copy:hotfixcss', 'clean:project', 'default', 'project:sync']);
 	grunt.registerTask('project:sync', ['browserSync', 'watch']);
 
 	// Tasks: download builder

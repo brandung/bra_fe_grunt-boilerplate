@@ -3,58 +3,63 @@
 	"version": "1.0.0",
 	"description": "Grunt and Bower Setup for brandung frontend workflow",
 	"author": "brandung GmbH & CO.KG (http://www.brandung.de)",
-	"system": "[typo3|magento|zend]",
+	"system": "[magento|typo3|wordpress|zend]",
 	"struct": {
+		"magento": {
+			"folder": [
+				"dev/frontend",
+				"app/design/frontend/bragento/default",
+				"skin/frontend/bragento/default/css",
+				"skin/frontend/bragento/default/font",
+				"skin/frontend/bragento/default/img/_dummyPics",
+				"skin/frontend/bragento/default/img/icons",
+				"skin/frontend/bragento/default/img/touch",
+				"skin/frontend/bragento/default/js/libs/bra",
+				"skin/frontend/bragento/default/js/libs/vendor"
+			],
+			"private": "dev/frontend",
+			"public": "skin/frontend/bragento/default"
+		},
 		"typo3": {
 			"folder": [
 				"typo3conf/ext/bra_projectfiles/Resources/Private/Frontend",
-				"typo3conf/ext/bra_projectfiles/Resources/Public",
 				"typo3conf/ext/bra_projectfiles/Resources/Public/css",
 				"typo3conf/ext/bra_projectfiles/Resources/Public/font",
-				"typo3conf/ext/bra_projectfiles/Resources/Public/img",
 				"typo3conf/ext/bra_projectfiles/Resources/Public/img/_dummyPics",
 				"typo3conf/ext/bra_projectfiles/Resources/Public/img/icons",
 				"typo3conf/ext/bra_projectfiles/Resources/Public/img/touch",
-				"typo3conf/ext/bra_projectfiles/Resources/Public/js",
 				"typo3conf/ext/bra_projectfiles/Resources/Public/js/libs/bra",
 				"typo3conf/ext/bra_projectfiles/Resources/Public/js/libs/vendor"
 			],
 			"private": "typo3conf/ext/bra_projectfiles/Resources/Private/Frontend",
 			"public": "typo3conf/ext/bra_projectfiles/Resources/Public"
 		},
-		"magento": {
+		"wordpress": {
 			"folder": [
-				"skin/frontend/bragento/theme/",
-				"skin/frontend/bragento/theme/private",
-				"skin/frontend/bragento/theme/css",
-				"skin/frontend/bragento/theme/font",
-				"skin/frontend/bragento/theme/img",
-				"skin/frontend/bragento/theme/img/_dummyPics",
-				"skin/frontend/bragento/theme/img/icons",
-				"skin/frontend/bragento/theme/img/touch",
-				"skin/frontend/bragento/theme/js",
-				"skin/frontend/bragento/theme/js/libs/bra",
-				"skin/frontend/bragento/theme/js/libs/vendor"
+				"wp-content/themes/brandung-custom-theme/private",
+				"wp-content/themes/brandung-custom-theme/css",
+				"wp-content/themes/brandung-custom-theme/font",
+				"wp-content/themes/brandung-custom-theme/img/_dummyPics",
+				"wp-content/themes/brandung-custom-theme/img/icons",
+				"wp-content/themes/brandung-custom-theme/img/touch",
+				"wp-content/themes/brandung-custom-theme/js/libs/bra",
+				"wp-content/themes/brandung-custom-theme/js/libs/vendor"
 			],
-			"private": "skin/frontend/bragento/theme/private",
-			"public": "skin/frontend/bragento/theme"
+			"private": "wp-content/themes/brandung-custom-theme/private",
+			"public": "wp-content/themes/brandung-custom-theme"
 		},
 		"zend": {
 			"folder": [
-				"src",
-				"src/private",
-				"src/public",
+				"src/private/frontend",
 				"src/public/css",
 				"src/public/font",
-				"src/public/img",
 				"src/public/img/_dummyPics",
 				"src/public/img/icons",
 				"src/public/img/touch",
-				"src/public/js",
 				"src/public/js/libs/bra",
 				"src/public/js/libs/vendor"
 			],
-			"private": "src/private",
+			"private": "src/private/frontend",
 			"public": "src/public"
 		}
 	},
@@ -65,7 +70,7 @@
 	},
 	"devDependencies": {
 		"time-grunt": "^0.2.10",
-		"jit-grunt": "^0.3.1",
+		"jit-grunt": "^0.3.2",
 		"grunt": "~0.4.4",
 		"grunt-mkdir": "~0.1.1",
 		"grunt-zip": "~0.13.0",
@@ -82,7 +87,7 @@
 		"grunt-jslint": "~1.1.6",
 		"grunt-contrib-csslint": "~0.2.0",
 		"grunt-contrib-watch": "~0.6.0",
-		"grunt-browser-sync": "~0.7.0",
+		"grunt-browser-sync": "~0.7.7",
 		"grunt-bower-task": "~0.3.4",
 		"pngsmith": "~0.1.0"
 	}

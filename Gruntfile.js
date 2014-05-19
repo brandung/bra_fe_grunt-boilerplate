@@ -63,7 +63,7 @@ module.exports = function(grunt) {
 		// removes the html5-boilerplate zip after unpacking it in the specified folder
 		// https://github.com/gruntjs/grunt-contrib-clean
 		clean: {
-			project: ['<%= pkg.boilerplateFolder %>.zip', '<%= pkg.private %>/<%= pkg.boilerplateFolder %>/', '<%= pkg.private %>/js/libs/'],
+			project: ['<%= pkg.boilerplateFolder %>.zip', '<%= pkg.private %>/<%= pkg.boilerplateFolder %>/', '<%= pkg.private %>/js/libs/', 'hotfix.js', 'hotfix.css'],
 			js :  ['<%= pkg.public %>/js/global.js'],
 			build: ['<%= pkg.private %>/templates/mod/**', '<%= pkg.private %>/sass/mod/**', '<%= pkg.private %>/js/mod/**']
 		},
@@ -132,6 +132,10 @@ module.exports = function(grunt) {
 					{
 						from : '%%private%%',
 						to : pkg.private
+					},
+					{
+						from : '%%project%%',
+						to : pkg.name
 					}
 				]
 			}
@@ -421,9 +425,11 @@ module.exports = function(grunt) {
 
 	});
 
-	// Tasks: Code validation and minification; Sprite generation and compression
+	// Tasks: Code validation and minification
 	grunt.registerTask('code:compress', ['uglify', 'cssmin']);
 	grunt.registerTask('code:validate', ['jslint', 'csslint']);
+
+	// Tasks: Sprite generation and compression
 	grunt.registerTask('images:compress', ['svgmin', 'imagemin']);
 	grunt.registerTask('images:sprite', ['sprite']);
 

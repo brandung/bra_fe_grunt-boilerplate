@@ -122,7 +122,7 @@ module.exports = function(grunt) {
 				]
 			},
 			project : {
-				src : ['<%= pkg.private %>/templates/_modules.html', '<%= pkg.private %>/js/global.js', 'bower.json'],
+				src : ['<%= pkg.private %>/templates/_modules.html', '<%= pkg.private %>/js/global.js', '<%= pkg.private %>/sass/partials/*.*', 'bower.json'],
 				overwrite : true,
 				replacements : [
 					{

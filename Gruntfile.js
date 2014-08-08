@@ -2,7 +2,8 @@ module.exports = function(grunt) {
 	var pkg = grunt.file.readJSON('package.json'),
 		path = require('path'),
 		target = grunt.option('target'),
-		cwd = path.resolve(process.cwd(), '');
+		cwd = path.resolve(process.cwd(), ''),
+		dbug = !!grunt.option('dbug');
 
 	// measures the time grunt takes to complete all tasks
 	// https://www.npmjs.org/package/time-grunt
@@ -122,7 +123,7 @@ module.exports = function(grunt) {
 				]
 			},
 			project : {
-				src : ['<%= pkg.private %>/templates/_modules.html', '<%= pkg.private %>/js/global.js', '<%= pkg.private %>/sass/partials/*.*', 'bower.json'],
+				src : ['<%= pkg.private %>/templates/_modules.html', '<%= pkg.private %>/js/global.js', '<%= pkg.private %>/js/dbug/dbug.js', '<%= pkg.private %>/sass/partials/*.*', 'bower.json'],
 				overwrite : true,
 				replacements : [
 					{
@@ -370,7 +371,11 @@ module.exports = function(grunt) {
 		}
 	});
 
-	// MultiTasks
+	/**
+	 * MultiTasks
+ 	 */
+
+	// appendAssets task
 	// task for insert assets into file
 	grunt.registerMultiTask('appendAssets', 'Insert JS/SCSS/HTML assets to a file', function () {
 		// get all files in target folder
@@ -425,6 +430,32 @@ module.exports = function(grunt) {
 
 	});
 
+	// dbug task
+	grunt.registerTask('dbug', 'Activate debug tools', function(n) {
+		console.log("\nDEBUG MODE: " + dbug);
+		// define placeholder
+		var startBlock = '// --- start|bra-pb: js ---\n',
+			endBlock = '// --- end|bra-pb: js ---';
+		// empty tmpAssets
+		pkg.tempAssets = '';
+		// add or remove content from debug.js
+		if(dbug) {
+			var dbugFileContent = grunt.file.read(pkg.private + '/js/dbug/dbug.js');
+			pkg.tempAssets += startBlock;
+			pkg.tempAssets += dbugFileContent + "\n";
+			pkg.tempAssets += endBlock;
+		} else {
+			pkg.tempAssets += startBlock;
+			pkg.tempAssets += endBlock;
+		}
+		// start task
+		grunt.task.run('replace:appendAssetsJS');
+	});
+
+
+	/**
+	 * dev tasks
+	 */
 	// Tasks: Code validation and minification
 	grunt.registerTask('code:compress', ['uglify', 'cssmin']);
 	grunt.registerTask('code:validate', ['jslint', 'csslint']);
@@ -436,7 +467,7 @@ module.exports = function(grunt) {
 	// Tasks: project builder
 	grunt.registerTask('default', ['sass', 'copy', 'concat', 'clean:js']);
 	grunt.registerTask('project:init', ['mkdir:project', 'unzip', 'replace:project', 'copy:libs', 'copy:hotfixjs', 'copy:hotfixcss', 'clean:project', 'default', 'project:sync']);
-	grunt.registerTask('project:sync', ['browserSync', 'watch']);
+	grunt.registerTask('project:sync', ['browserSync', 'dbug', 'concat', 'watch']);
 
 	// Tasks: download builder
 	grunt.registerTask('build:installModules', ['bower:install', 'copy:scssmod', 'build:insertAssets', 'default', 'clean:build', 'project:sync']);

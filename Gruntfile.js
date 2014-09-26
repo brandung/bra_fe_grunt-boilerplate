@@ -169,6 +169,10 @@ module.exports = function(grunt) {
 		// Copy js files from private to public to the proper directories
 		// https://www.npmjs.org/package/grunt-contrib-copy
 		copy : {
+			boilerplate : {
+				src : 'bower-temp/*',
+				dest : '<%= pkg.private %>'
+			},
 			libs : {
 				expand : true,
 				cwd : '<%= pkg.private %>/js/libs/',
@@ -322,11 +326,22 @@ module.exports = function(grunt) {
 		bower: {
 			install: {
 				options: {
-					targetDir: './',
+					//targetDir: './',
 					layout: 'byType',
 					cleanTargetDir: false,
 					cleanBowerDir: true,
 					verbose: true
+				}
+			},
+			boilerplate: {
+				options: {
+					//targetDir: './',
+					/*layout: 'byType',
+					 cleanTargetDir: false,
+					 cleanBowerDir: true,
+					 verbose: true*/
+					install: true,
+					cleanBowerDir: true
 				}
 			}
 		},
@@ -377,10 +392,10 @@ module.exports = function(grunt) {
 
 	/**
 	 * MultiTasks
- 	 */
+	 */
 
-	// appendAssets task
-	// task for insert assets into file
+		// appendAssets task
+		// task for insert assets into file
 	grunt.registerMultiTask('appendAssets', 'Insert JS/SCSS/HTML assets to a file', function () {
 		// get all files in target folder
 		var paths = grunt.file.expand(this.data.paths),
@@ -460,7 +475,7 @@ module.exports = function(grunt) {
 	/**
 	 * dev tasks
 	 */
-	// Tasks: Code validation and minification
+		// Tasks: Code validation and minification
 	grunt.registerTask('code:compress', ['uglify', 'cssmin']);
 	grunt.registerTask('code:validate', ['jslint', 'csslint']);
 
@@ -470,7 +485,7 @@ module.exports = function(grunt) {
 
 	// Tasks: project builder
 	grunt.registerTask('default', ['sass', 'copy', 'concat', 'clean:js']);
-	grunt.registerTask('project:init', ['mkdir:project', 'unzip', 'replace:project', 'copy:libs', 'copy:hotfixjs', 'copy:hotfixcss', 'clean:project', 'default', 'project:sync']);
+	grunt.registerTask('project:init', ['mkdir:project', 'replace:project', 'bower:boilerplate'/*, 'copy:libs', 'copy:hotfixjs', 'copy:hotfixcss', 'clean:project', 'default', 'project:sync'*/]);
 	grunt.registerTask('project:sync', ['browserSync', 'dbug', 'concat', 'watch']);
 
 	// Tasks: download builder

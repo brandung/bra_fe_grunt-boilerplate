@@ -145,6 +145,10 @@ module.exports = function(grunt) {
 		// compiles sass files using libsass (damn fast!)
 		// https://www.npmjs.org/package/grunt-sass
 		sass : {
+			options : {
+				sourceMap: true,
+				sourceComments: 'map'
+			},
 			files : {
 				files : {
 					'<%= pkg.public %>/css/all-old-ie.css' : '<%= pkg.private %>/sass/all-old-ie.scss',

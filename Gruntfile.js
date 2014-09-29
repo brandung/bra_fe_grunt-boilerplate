@@ -105,15 +105,25 @@ module.exports = function (grunt) {
 			project: [
 				'<%= pkg.private %>/README.md',
 				'<%= pkg.private %>/LICENSE',
+				'<%= pkg.private %>/.gitignore',
+				'<%= pkg.private %>/.bower.json',
 				'<%= pkg.private %>/js/libs/',
 				'hotfix.js',
 				'hotfix.css'
 			],
-			js: ['<%= pkg.public %>/js/global.js'],
+			js: [
+				'<%= pkg.public %>/js/global.js'
+			],
 			build: [
 				'<%= pkg.private %>/templates/mod/**',
 				'<%= pkg.private %>/sass/mod/**',
 				'<%= pkg.private %>/js/mod/**'
+			],
+			icons: [
+				'<%= pkg.private %>/apple-touch-icon-precomposed.png',
+				'<%= pkg.private %>/favicon.ico',
+				'<%= pkg.private %>/tile.png',
+				'<%= pkg.private %>/tile-wide.png'
 			],
 			zip: [
 				'<%= pkg.name %>'
@@ -260,6 +270,18 @@ module.exports = function (grunt) {
 				dest: '<%= pkg.private %>/sass/partials/mod/',
 				flatten: true,
 				filter: 'isFile'
+			},
+			icons: {
+				expand: true,
+				cwd: '<%= pkg.private %>/',
+				src: [
+					'apple-touch-icon-precomposed.png',
+					'favicon.ico',
+					'tile.png',
+					'tile-wide.png'
+				],
+				dest: './',
+				flatten: true
 			},
 			hotfixjs: {
 				expand: true,
@@ -628,7 +650,9 @@ module.exports = function (grunt) {
 		'copy:libs',
 		'copy:hotfixjs',
 		'copy:hotfixcss',
+		'copy:icons',
 		'clean:project',
+		'clean:icons',
 		'default',
 		'project:sync'
 	]);

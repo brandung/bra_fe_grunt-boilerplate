@@ -4,7 +4,9 @@
 	"description": "Get FE Modules and dependencies from GIT repositories ()",
 	"author": "brandung GmbH & CO.KG (http://www.brandung.de)",
 	"private": true,
-	"dependencies": { "html-boilerplate" : "https://github.com/brandung/html-boilerplate.git" },
+	"dependencies": {
+		"html-boilerplate" : "https://github.com/brandung/html-boilerplate.git"
+	},
 	"exportsOverride": {
 		"mod-*": {
 			"%%private%%/js/mod": "*.js",

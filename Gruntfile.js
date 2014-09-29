@@ -73,7 +73,6 @@ module.exports = function (grunt) {
 	grunt.initConfig({
 		pkg: pkg,
 
-		// updated - works
 		// Create folder structure specified in package.json
 		// https://npmjs.org/package/grunt-mkdir
 		mkdir: {
@@ -89,7 +88,6 @@ module.exports = function (grunt) {
 			}
 		},
 
-		// updated - works
 		// zips the project for external use
 		// https://npmjs.org/package/grunt-zip
 		'zip': {
@@ -98,7 +96,6 @@ module.exports = function (grunt) {
 			]
 		},
 
-		// updated - works
 		// removes build folder after zipping it
 		// https://github.com/gruntjs/grunt-contrib-clean
 		clean: {
@@ -119,11 +116,16 @@ module.exports = function (grunt) {
 				'<%= pkg.private %>/sass/mod/**',
 				'<%= pkg.private %>/js/mod/**'
 			],
-			icons: [
+			rootFiles: [
 				'<%= pkg.private %>/apple-touch-icon-precomposed.png',
 				'<%= pkg.private %>/favicon.ico',
 				'<%= pkg.private %>/tile.png',
-				'<%= pkg.private %>/tile-wide.png'
+				'<%= pkg.private %>/tile-wide.png',
+				'<%= pkg.private %>/.htaccess',
+				'<%= pkg.private %>/browserconfig.xml',
+				//'hotfix.css',
+				//'hotfix.js',
+				'<%= pkg.private %>/robots.txt'
 			],
 			zip: [
 				'<%= pkg.name %>'
@@ -157,7 +159,6 @@ module.exports = function (grunt) {
 			}
 		},
 
-		// updated - works
 		// replaces a placeholder for the assets path relative to the project type
 		// https://npmjs.org/package/grunt-text-replace
 		replace: {
@@ -214,10 +215,25 @@ module.exports = function (grunt) {
 						to: pkg.name
 					}
 				]
+			},
+			zip: {
+				src: [
+					'<%= pkg.name %>/*.*'
+				],
+				overwrite: true,
+				replacements: [
+					{
+						from: 'src="/',
+						to: 'src="'
+					},
+					{
+						from: 'href="/',
+						to: 'href="'
+					}
+				]
 			}
 		},
 
-		// updated - works
 		// compiles sass files using libsass (damn fast!)
 		// https://www.npmjs.org/package/grunt-sass
 		sass: {
@@ -233,7 +249,6 @@ module.exports = function (grunt) {
 			}
 		},
 
-		// updated - works
 		// Concats specified js files in a given order
 		// https://npmjs.org/package/grunt-contrib-concat
 		concat: {
@@ -246,7 +261,6 @@ module.exports = function (grunt) {
 			}
 		},
 
-		// updated - works
 		// Copy js files from private to public to the proper directories
 		// https://www.npmjs.org/package/grunt-contrib-copy
 		copy: {
@@ -271,14 +285,19 @@ module.exports = function (grunt) {
 				flatten: true,
 				filter: 'isFile'
 			},
-			icons: {
+			rootFiles: {
 				expand: true,
 				cwd: '<%= pkg.private %>/',
 				src: [
 					'apple-touch-icon-precomposed.png',
 					'favicon.ico',
 					'tile.png',
-					'tile-wide.png'
+					'tile-wide.png',
+					'.htaccess',
+					'browserconfig.xml',
+					'hotfix.css',
+					'hotfix.js',
+					'robots.txt'
 				],
 				dest: './',
 				flatten: true
@@ -308,10 +327,23 @@ module.exports = function (grunt) {
 				cwd: '<%= pkg.private %>/templates/',
 				src: '**',
 				dest: '<%= pkg.name %>/'
+			},
+			packRootfiles: {
+				expand: true,
+				cwd: './',
+				src: [
+					'.htaccess',
+					'apple-touch-icon-precomposed.png',
+					'browserconfig.xml',
+					'favicon.ico',
+					'robots.txt',
+					'tile.png',
+					'tile-wide.png'
+				],
+				dest: '<%= pkg.name %>/'
 			}
 		},
 
-		// updated - works
 		// minify all js files (has no effect on vendor js files under js/vendor)
 		// https://npmjs.org/package/grunt-contrib-uglify
 		uglify: {
@@ -332,7 +364,6 @@ module.exports = function (grunt) {
 			}
 		},
 
-		// updated - works
 		// minfies all stylesheets
 		// https://github.com/gruntjs/grunt-contrib-cssmin
 		cssmin: {
@@ -350,7 +381,6 @@ module.exports = function (grunt) {
 			}
 		},
 
-		// updated
 		// minify svg files by deleting unnecessary attributes and whitespace
 		// https://npmjs.org/package/grunt-svgmin
 		svgmin: {
@@ -376,7 +406,6 @@ module.exports = function (grunt) {
 			}
 		},
 
-		// updated - works
 		// recompress images without loss
 		// https://npmjs.org/package/grunt-contrib-imagemin
 		imagemin: {
@@ -397,7 +426,6 @@ module.exports = function (grunt) {
 			}
 		},
 
-		// updated - works
 		// Creates sprites and related sass partials
 		// https://www.npmjs.org/package/grunt-spritesmith
 		sprite: {
@@ -411,7 +439,6 @@ module.exports = function (grunt) {
 			}
 		},
 
-		// updated - works
 		// validates js and saves all found errors and warnings in a log file
 		// https://npmjs.org/package/grunt-jslint
 		jslint: {
@@ -438,7 +465,6 @@ module.exports = function (grunt) {
 			}
 		},
 
-		// updated - works
 		// validates css and checks for possible optimizations
 		// https://npmjs.org/package/grunt-contrib-csslint
 		csslint: {
@@ -452,7 +478,6 @@ module.exports = function (grunt) {
 			}
 		},
 
-		// updated - works
 		// do the bower packaging stuff
 		// https://www.npmjs.org/package/grunt-bower-task
 		bower: {
@@ -478,7 +503,6 @@ module.exports = function (grunt) {
 			}
 		},
 
-		// updated - workd
 		// the awesome watch task which recognizes changes in the specified filetypes and rebuilds the project after hitting strg + s
 		// https://npmjs.org/package/grunt-contrib-watch
 		watch: {
@@ -648,11 +672,11 @@ module.exports = function (grunt) {
 		'bower:boilerplate',
 		'replace:project',
 		'copy:libs',
+		'copy:rootFiles',
+		'clean:rootFiles',
 		'copy:hotfixjs',
 		'copy:hotfixcss',
-		'copy:icons',
 		'clean:project',
-		'clean:icons',
 		'default',
 		'project:sync'
 	]);
@@ -666,6 +690,8 @@ module.exports = function (grunt) {
 		'mkdir:pack',
 		'copy:packPublicFolder',
 		'copy:packTemplates',
+		'copy:packRootfiles',
+		'replace:zip',
 		'zip',
 		'clean:zip'
 	]);

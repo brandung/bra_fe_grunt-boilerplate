@@ -1,4 +1,4 @@
-module.exports = function(grunt) {
+module.exports = function (grunt) {
 	var pkg = grunt.file.readJSON('package.json'),
 		path = require('path'),
 		target = grunt.option('target'),
@@ -12,61 +12,124 @@ module.exports = function(grunt) {
 	// load only the modules that are currently needed instead of loading all modules on every build
 	// https://www.npmjs.org/package/jit-grunt
 	require('jit-grunt')(grunt, {
-		'code:compress' : ['uglify', 'cssmin'],
-		'code:validate' : ['jslint', 'csslint'],
-		'images:compress' : ['svgmin', 'imagemin'],
-		'sprite' : 'grunt-spritesmith',
-		'project:init' : ['mkdir:project', 'unzip', 'replace:project', 'copy:libs', 'clean:project', 'default', 'project:sync'],
-		'project:sync' : ['browserSync', 'watch'],
-		'build:installModules' : ['bower:install', 'build:insertAssets', 'default', 'clean:build', 'project:sync'],
-		'build:insertAssets' : ['appendAssets:html', 'appendAssets:scss', 'appendAssets:js'],
-		'unzip' : 'grunt-zip',
-		'replace' : 'grunt-text-replace',
-		'bower' : 'grunt-bower-task'
+		'code:compress': [
+			'uglify',
+			'cssmin'
+		],
+		'code:validate': [
+			'jslint',
+			'csslint'
+		],
+		'images:compress': [
+			'svgmin',
+			'imagemin'
+		],
+		'sprite': 'grunt-spritesmith',
+		'project:init': [
+			'mkdir:project',
+			'unzip',
+			'replace:project',
+			'copy:libs',
+			'clean:project',
+			'default',
+			'project:sync'
+		],
+		'project:sync': [
+			'browserSync',
+			'watch'
+		],
+		'build:installModules': [
+			'bower:install',
+			'build:insertAssets',
+			'default',
+			'clean:build',
+			'project:sync'
+		],
+		'build:insertAssets': [
+			'appendAssets:html',
+			'appendAssets:scss',
+			'appendAssets:js'
+		],
+		'unzip': 'grunt-zip',
+		'replace': 'grunt-text-replace',
+		'bower': 'grunt-bower-task'
 	});
 
 	pkg.folder = pkg.struct[pkg.system].folder;
 	pkg.private = pkg.struct[pkg.system].private;
 	pkg.public = pkg.struct[pkg.system].public;
 
-	if(target) {
+	if (target) {
 		pkg.private += '/' + target;
 		pkg.public += '/' + target;
 	}
 
-	pkg.boilerplateFolder = pkg.build.boilerplateFolder;
+	pkg.packFolder = pkg.name + '/' + pkg.public;
+
+	//pkg.boilerplateFolder = pkg.build.boilerplateFolder;
 	pkg.tempAssets = '';
 
 	// Project configuration
 	grunt.initConfig({
-		pkg : pkg,
+		pkg: pkg,
 
 		// Create folder structure specified in package.json
 		// https://npmjs.org/package/grunt-mkdir
-		mkdir : {
-			project :  {
-				options : {
-					create : '<%= pkg.folder %>'
+		mkdir: {
+			project: { // create initial folder structure
+				options: {
+					create: '<%= pkg.folder %>'
+				}
+			},
+			pack: { // create zip folder
+				options: {
+					create: [pkg.packFolder]
 				}
 			}
 		},
 
-		// unzips the boilerplate in the proper folder
+		// zips the project for external use
 		// https://npmjs.org/package/grunt-zip
-		'unzip' : {
-			boilerplate : {
-				src : '<%= pkg.boilerplateFolder %>.zip',
-				dest : '<%= pkg.private %>/'
-			}
+		'zip': {
+			'<%= pkg.name %>.zip': [
+				'<%= pkg.name %>/**'
+			]
 		},
 
 		// removes build folder after zipping it
-		// removes the html5-boilerplate zip after unpacking it in the specified folder
 		// https://github.com/gruntjs/grunt-contrib-clean
 		clean: {
-			project: ['<%= pkg.boilerplateFolder %>.zip', '<%= pkg.private %>/<%= pkg.boilerplateFolder %>/', '<%= pkg.private %>/js/libs/', 'hotfix.js', 'hotfix.css'],
-			js :  ['<%= pkg.public %>/js/global.js'],
-			build: ['<%= pkg.private %>/templates/mod/**', '<%= pkg.private %>/sass/mod/**', '<%= pkg.private %>/js/mod/**']
+			project: [
+				'<%= pkg.private %>/README.md',
+				'<%= pkg.private %>/LICENSE',
+				'<%= pkg.private %>/.gitignore',
+				'<%= pkg.private %>/.bower.json',
+				'<%= pkg.private %>/js/libs/',
+				'hotfix.js',
+				'hotfix.css'
+			],
+			js: [
+				'<%= pkg.public %>/js/global.js'
+			],
+			build: [
+				'<%= pkg.private %>/templates/mod/**',
+				'<%= pkg.private %>/sass/mod/**',
+				'<%= pkg.private %>/js/mod/**'
+			],
+			rootFiles: [
+				'<%= pkg.private %>/apple-touch-icon-precomposed.png',
+				'<%= pkg.private %>/favicon.ico',
+				'<%= pkg.private %>/tile.png',
+				'<%= pkg.private %>/tile-wide.png',
+				'<%= pkg.private %>/.htaccess',
+				'<%= pkg.private %>/browserconfig.xml',
+				//'hotfix.css',
+				//'hotfix.js',
+				'<%= pkg.private %>/robots.txt'
+			],
+			zip: [
+				'<%= pkg.name %>'
+			]
 		},
 
 		// append assets into specific files
@@ -75,23 +138,30 @@ module.exports = function(grunt) {
 			html: {
 				startBlock: '<!-- start|bra-pb: html -->\n',
 				endBlock: '<!-- end|bra-pb: html -->',
-				paths: ['<%= pkg.private %>/templates/mod/**/*.html']
+				paths: [
+					'<%= pkg.private %>/templates/mod/**/*.html'
+				]
 			},
 			scss: {
 				startBlock: '// --- start|bra-pb: scss ---\n',
 				endBlock: '// --- end|bra-pb: scss ---',
-				paths: ['<%= pkg.private %>/sass/partials/mod/*.scss']
+				paths: [
+					'<%= pkg.private %>/sass/partials/mod/*.scss'
+				]
 			},
 			js: {
 				startBlock: '// --- start|bra-pb: js ---\n',
 				endBlock: '// --- end|bra-pb: js ---',
-				paths: ['<%= pkg.private %>/js/helpers/**/*.js', '<%= pkg.private %>/js/mod/**/*.js']
+				paths: [
+					'<%= pkg.private %>/js/helpers/**/*.js',
+					'<%= pkg.private %>/js/mod/**/*.js'
+				]
 			}
 		},
 
 		// replaces a placeholder for the assets path relative to the project type
 		// https://npmjs.org/package/grunt-text-replace
-		replace : {
+		replace: {
 			appendAssetsHTML: {
 				src: ['<%= pkg.private %>/templates/_modules.html'],
 				overwrite: true,
@@ -122,21 +192,43 @@ module.exports = function(grunt) {
 					}
 				]
 			},
-			project : {
-				src : ['<%= pkg.private %>/templates/_modules.html', '<%= pkg.private %>/js/global.js', '<%= pkg.private %>/js/dbug/dbug.js', '<%= pkg.private %>/sass/partials/*.*', 'bower.json'],
-				overwrite : true,
-				replacements : [
+			project: {
+				src: [
+					'<%= pkg.private %>/templates/_modules.html',
+					'<%= pkg.private %>/js/global.js',
+					'<%= pkg.private %>/js/dbug/dbug.js',
+					'<%= pkg.private %>/sass/partials/*.*',
+					'bower.json'
+				],
+				overwrite: true,
+				replacements: [
 					{
-						from : '%%public%%',
-						to : pkg.public
+						from: '%%public%%',
+						to: pkg.public
 					},
 					{
-						from : '%%private%%',
-						to : pkg.private
+						from: '%%private%%',
+						to: pkg.private
 					},
 					{
-						from : '%%project%%',
-						to : pkg.name
+						from: '%%project%%',
+						to: pkg.name
+					}
+				]
+			},
+			zip: {
+				src: [
+					'<%= pkg.name %>/*.*'
+				],
+				overwrite: true,
+				replacements: [
+					{
+						from: 'src="/',
+						to: 'src="'
+					},
+					{
+						from: 'href="/',
+						to: 'href="'
 					}
 				]
 			}
@@ -144,176 +236,245 @@ module.exports = function(grunt) {
 
 		// compiles sass files using libsass (damn fast!)
 		// https://www.npmjs.org/package/grunt-sass
-		sass : {
-			options : {
+		sass: {
+			options: {
 				sourceMap: true,
 				sourceComments: 'map'
 			},
-			files : {
-				files : {
-					'<%= pkg.public %>/css/all-old-ie.css' : '<%= pkg.private %>/sass/all-old-ie.scss',
-					'<%= pkg.public %>/css/main.css' : '<%= pkg.private %>/sass/main.scss'
+			files: {
+				files: {
+					'<%= pkg.public %>/css/all-old-ie.css': '<%= pkg.private %>/sass/all-old-ie.scss',
+					'<%= pkg.public %>/css/main.css': '<%= pkg.private %>/sass/main.scss'
 				}
 			}
 		},
 
 		// Concats specified js files in a given order
 		// https://npmjs.org/package/grunt-contrib-concat
-		concat : {
-			dist : {
-				src : ['<%= pkg.public %>/js/libs/vendor/basket/basket.full.min.js', '<%= pkg.private %>/js/global.js'],
-				dest : '<%= pkg.public %>/js/main.js'
+		concat: {
+			dist: {
+				src: [
+					'<%= pkg.public %>/js/libs/vendor/basket/basket.full.min.js',
+					'<%= pkg.private %>/js/global.js'
+				],
+				dest: '<%= pkg.public %>/js/main.js'
 			}
 		},
 
 		// Copy js files from private to public to the proper directories
 		// https://www.npmjs.org/package/grunt-contrib-copy
-		copy : {
-			libs : {
-				expand : true,
-				cwd : '<%= pkg.private %>/js/libs/',
-				src : '**',
-				dest : '<%= pkg.public %>/js/libs/'
+		copy: {
+			libs: {
+				expand: true,
+				cwd: '<%= pkg.private %>/js/libs/',
+				src: '**',
+				dest: '<%= pkg.public %>/js/libs/'
 			},
-			widgets : {
-				expand : true,
-				cwd : '<%= pkg.private %>/js/widgets/',
-				src : '*',
-				dest : '<%= pkg.public %>/js/widgets/',
-				flatten : true
+			widgets: {
+				expand: true,
+				cwd: '<%= pkg.private %>/js/widgets/',
+				src: '*',
+				dest: '<%= pkg.public %>/js/widgets/',
+				flatten: true
 			},
-			scssmod : {
-				expand : true,
-				cwd : '<%= pkg.private %>/sass/mod/',
-				src : '**',
-				dest : '<%= pkg.private %>/sass/partials/mod/',
-				flatten : true,
+			scssmod: {
+				expand: true,
+				cwd: '<%= pkg.private %>/sass/mod/',
+				src: '**',
+				dest: '<%= pkg.private %>/sass/partials/mod/',
+				flatten: true,
 				filter: 'isFile'
 			},
-			hotfixjs : {
-				expand : true,
-				cwd : './',
-				src : 'hotfix.js',
-				dest : '<%= pkg.public %>/js/',
-				flatten : true
+			rootFiles: {
+				expand: true,
+				cwd: '<%= pkg.private %>/',
+				src: [
+					'apple-touch-icon-precomposed.png',
+					'favicon.ico',
+					'tile.png',
+					'tile-wide.png',
+					'.htaccess',
+					'browserconfig.xml',
+					'hotfix.css',
+					'hotfix.js',
+					'robots.txt'
+				],
+				dest: './',
+				flatten: true
 			},
-			hotfixcss : {
-				expand : true,
-				cwd : './',
-				src : 'hotfix.css',
-				dest : '<%= pkg.public %>/css/',
-				flatten : true
+			hotfixjs: {
+				expand: true,
+				cwd: './',
+				src: 'hotfix.js',
+				dest: '<%= pkg.public %>/js/',
+				flatten: true
+			},
+			hotfixcss: {
+				expand: true,
+				cwd: './',
+				src: 'hotfix.css',
+				dest: '<%= pkg.public %>/css/',
+				flatten: true
+			},
+			packPublicFolder: {
+				expand: true,
+				cwd: '<%= pkg.public %>/',
+				src: '**',
+				dest: '<%= pkg.packFolder %>/'
+			},
+			packTemplates: {
+				expand: true,
+				cwd: '<%= pkg.private %>/templates/',
+				src: '**',
+				dest: '<%= pkg.name %>/'
+			},
+			packRootfiles: {
+				expand: true,
+				cwd: './',
+				src: [
+					'.htaccess',
+					'apple-touch-icon-precomposed.png',
+					'browserconfig.xml',
+					'favicon.ico',
+					'robots.txt',
+					'tile.png',
+					'tile-wide.png'
+				],
+				dest: '<%= pkg.name %>/'
 			}
 		},
 
 		// minify all js files (has no effect on vendor js files under js/vendor)
 		// https://npmjs.org/package/grunt-contrib-uglify
-		uglify : {
-			options : {
-				report : 'min'
+		uglify: {
+			options: {
+				report: 'min'
 			},
-			global : {
-				expand : true,
-				cwd : '<%= pkg.public %>/js/',
-				src : '*.js',
-				dest : '<%= pkg.public %>/js/'
+			global: {
+				expand: true,
+				cwd: '<%= pkg.public %>/js/',
+				src: '*.js',
+				dest: '<%= pkg.public %>/js/'
 			},
-			widgets : {
-				expand : true,
-				cwd : '<%= pkg.public %>/js/widgets/',
-				src : '*.js',
-				dest : '<%= pkg.public %>/js/widgets/'
+			widgets: {
+				expand: true,
+				cwd: '<%= pkg.public %>/js/widgets/',
+				src: '*.js',
+				dest: '<%= pkg.public %>/js/widgets/'
 			}
 		},
 
 		// minfies all stylesheets
 		// https://github.com/gruntjs/grunt-contrib-cssmin
-		cssmin : {
-			minify : {
-				expand : true,
-				cwd : '<%= pkg.public %>/css/',
-				src : ['*.css'],
-				dest : '<%= pkg.public %>/css/',
-				ext : '.css',
-				options : {
-					report : 'min'
+		cssmin: {
+			minify: {
+				expand: true,
+				cwd: '<%= pkg.public %>/css/',
+				src: [
+					'*.css'
+				],
+				dest: '<%= pkg.public %>/css/',
+				ext: '.css',
+				options: {
+					report: 'min'
 				}
 			}
 		},
 
 		// minify svg files by deleting unnecessary attributes and whitespace
 		// https://npmjs.org/package/grunt-svgmin
-		svgmin : {
-			options : {
-				plugins : [{
-					removeViewBox : true
-				}]
+		svgmin: {
+			options: {
+				plugins: [
+					{
+						removeViewBox: true
+					}
+				]
 			},
-			dist : {
-				files : [{
-					expand : true,
-					cwd : '<%= pkg.public %>/img/icons',
-					src : ['*.svg'],
-					dest : '<%= pkg.public %>/img/icons',
-					ext : '.svg'
-				}]
+			dist: {
+				files: [
+					{
+						expand: true,
+						cwd: '<%= pkg.public %>/img/icons',
+						src: [
+							'*.svg'
+						],
+						dest: '<%= pkg.public %>/img/icons',
+						ext: '.svg'
+					}
+				]
 			}
 		},
 
 		// recompress images without loss
 		// https://npmjs.org/package/grunt-contrib-imagemin
-		imagemin : {
-			dynamic : {
-				options : {
-					optimizationLevel : 3
+		imagemin: {
+			dynamic: {
+				options: {
+					optimizationLevel: 3
 				},
-				files : [{
-					expand : true,
-					cwd : '<%= pkg.public %>/img',
-					src : ['**/*.{png,jpg,gif}'],
-					dest : '<%= pkg.public %>/img'
-				}]
+				files: [
+					{
+						expand: true,
+						cwd: '<%= pkg.public %>/img',
+						src: [
+							'**/*.{png,jpg,gif}'
+						],
+						dest: '<%= pkg.public %>/img'
+					}
+				]
 			}
 		},
 
 		// Creates sprites and related sass partials
 		// https://www.npmjs.org/package/grunt-spritesmith
-		sprite : {
-			file : {
-				src : '<%= pkg.public %>/img/icons/*.png',
-				destImg : '<%= pkg.public %>/img/sprite-icons.png',
-				destCSS : '<%= pkg.private %>/sass/partials/_sprite-icons.scss',
-				imgPath : '../img/sprite-icons.png',
-				algorithm : 'binary-tree',
-				engine : 'pngsmith'
+		sprite: {
+			file: {
+				src: '<%= pkg.public %>/img/icons/*.png',
+				destImg: '<%= pkg.public %>/img/sprite-icons.png',
+				destCSS: '<%= pkg.private %>/sass/partials/_sprite-icons.scss',
+				imgPath: '../img/sprite-icons.png',
+				algorithm: 'binary-tree',
+				engine: 'pngsmith'
 			}
 		},
 
 		// validates js and saves all found errors and warnings in a log file
 		// https://npmjs.org/package/grunt-jslint
-		jslint : {
-			client : {
-				src : ['<%= pkg.private %>/js/*.js', '<%= pkg.private %>/js/helpers/*.js', '<%= pkg.private %>/js/widgets/*.js'],
-				directives : {
-					browser : true,
-					predef : ['jQuery', 'Modernizr']
+		jslint: {
+			client: {
+				src: [
+					'<%= pkg.private %>/js/*.js',
+					'<%= pkg.private %>/js/helpers/*.js',
+					'<%= pkg.private %>/js/widgets/*.js',
+					'<%= pkg.private %>/js/ngapp/**/*.js'
+				],
+				directives: {
+					browser: true,
+					predef: [
+						'jQuery',
+						'Modernizr',
+						'angular'
+					]
 				},
-				options : {
-					log : '<%= pkg.private %>/js/jslint.log',
-					failOnError : false,
-					errorsOnly : true
+				options: {
+					log: '<%= pkg.private %>/js/jslint.log',
+					failOnError: false,
+					errorsOnly: true
 				}
 			}
 		},
 
 		// validates css and checks for possible optimizations
 		// https://npmjs.org/package/grunt-contrib-csslint
-		csslint : {
-			strict : {
-				options : {
-					import : 2
+		csslint: {
+			strict: {
+				options: {
+					import: 2
 				},
-				src : ['<%= pkg.public %>/css/*.css']
+				src: [
+					'<%= pkg.public %>/css/*.css'
+				]
 			}
 		},
 
@@ -328,48 +489,67 @@ module.exports = function(grunt) {
 					cleanBowerDir: true,
 					verbose: true
 				}
+			},
+			boilerplate: {
+				options: {
+					targetDir: './',
+					layout: function (type, component, src) {
+						return path.join(pkg.private);
+					},
+					cleanTargetDir: false,
+					cleanBowerDir: true,
+					verbose: true
+				}
 			}
 		},
 
 		// the awesome watch task which recognizes changes in the specified filetypes and rebuilds the project after hitting strg + s
 		// https://npmjs.org/package/grunt-contrib-watch
-		watch : {
-			styles : {
-				files : '<%= pkg.private %>/sass/**/*.scss',
-				tasks : ['sass']
+		watch: {
+			styles: {
+				files: '<%= pkg.private %>/sass/**/*.scss',
+				tasks: [
+					'sass'
+				]
 			},
-			scripts : {
-				files : '<%= pkg.private %>/js/**/*.js',
-				tasks : ['copy', 'concat', 'clean:js']
+			scripts: {
+				files: '<%= pkg.private %>/js/**/*.js',
+				tasks: [
+					'copy',
+					'concat',
+					'clean:js'
+				]
 			},
-			images : {
-				files : '<%= pkg.public %>/img/icons/*.png',
-				tasks : ['sprite']
+			images: {
+				files: '<%= pkg.public %>/img/icons/*.png',
+				tasks: [
+					'sprite'
+				]
 			}
 		},
 
 		// the magical sync task executes the watch task after one of the specified file types change and reloads the browser
 		// https://npmjs.org/package/grunt-browser-sync
-		browserSync : {
-			bsFiles : {
-				src : [
+		browserSync: {
+			bsFiles: {
+				src: [
 					'<%= pkg.public %>/css/*.css',
 					'<%= pkg.private %>/templates/*.html',
 					'<%= pkg.public %>/img/**/*',
 					'<%= pkg.public %>/js/**/*.js'
 				]
 			},
-			options : {
-				watchTask : true,
+			options: {
+				watchTask: true,
 				server: {
-					baseDir : cwd,
-					index : '<%= pkg.private %>/templates/_modules.html'
+					baseDir: cwd,
+					index: '<%= pkg.private %>/templates/_modules.html'
 				},
-				ghostMode : {
-					clicks : true,
-					scroll : true,
-					links : true,
-					forms : true
+				ghostMode: {
+					clicks: true,
+					scroll: true,
+					links: true,
+					forms: true
 				}
 			}
 		}
@@ -377,17 +557,17 @@ module.exports = function(grunt) {
 
 	/**
 	 * MultiTasks
- 	 */
+	 */
 
-	// appendAssets task
-	// task for insert assets into file
+		// appendAssets task
+		// task for insert assets into file
 	grunt.registerMultiTask('appendAssets', 'Insert JS/SCSS/HTML assets to a file', function () {
 		// get all files in target folder
 		var paths = grunt.file.expand(this.data.paths),
 			tasks = {
-				'html' : 'replace:appendAssetsHTML',
-				'js' : 'replace:appendAssetsJS',
-				'scss' : 'replace:appendAssetsSCSS'
+				'html': 'replace:appendAssetsHTML',
+				'js': 'replace:appendAssetsJS',
+				'scss': 'replace:appendAssetsSCSS'
 			},
 			target = this.target;
 
@@ -435,7 +615,7 @@ module.exports = function(grunt) {
 	});
 
 	// dbug task
-	grunt.registerTask('dbug', 'Activate debug tools', function(n) {
+	grunt.registerTask('dbug', 'Activate debug tools', function (n) {
 		console.log("\nDEBUG MODE: " + dbug);
 		// define placeholder
 		var startBlock = '// --- start|bra-pb: js ---\n',
@@ -443,7 +623,7 @@ module.exports = function(grunt) {
 		// empty tmpAssets
 		pkg.tempAssets = '';
 		// add or remove content from debug.js
-		if(dbug) {
+		if (dbug) {
 			var dbugFileContent = grunt.file.read(pkg.private + '/js/dbug/dbug.js');
 			pkg.tempAssets += startBlock;
 			pkg.tempAssets += dbugFileContent + "\n";
@@ -460,20 +640,74 @@ module.exports = function(grunt) {
 	/**
 	 * dev tasks
 	 */
-	// Tasks: Code validation and minification
-	grunt.registerTask('code:compress', ['uglify', 'cssmin']);
-	grunt.registerTask('code:validate', ['jslint', 'csslint']);
+		// Tasks: Code validation and minification
+	grunt.registerTask('code:compress', [
+		'uglify',
+		'cssmin'
+	]);
+	grunt.registerTask('code:validate', [
+		'jslint',
+		'csslint'
+	]);
 
 	// Tasks: Sprite generation and compression
-	grunt.registerTask('images:compress', ['svgmin', 'imagemin']);
-	grunt.registerTask('images:sprite', ['sprite']);
+	grunt.registerTask('images:compress', [
+		'svgmin',
+		'imagemin'
+	]);
+	grunt.registerTask('images:sprite', [
+		'sprite'
+	]);
 
 	// Tasks: project builder
-	grunt.registerTask('default', ['sass', 'copy', 'concat', 'clean:js']);
-	grunt.registerTask('project:init', ['mkdir:project', 'unzip', 'replace:project', 'copy:libs', 'copy:hotfixjs', 'copy:hotfixcss', 'clean:project', 'default', 'project:sync']);
-	grunt.registerTask('project:sync', ['browserSync', 'dbug', 'concat', 'watch']);
+	grunt.registerTask('default', [
+		'sass',
+		'copy:libs',
+		'copy:widgets',
+		'concat',
+		'clean:js'
+	]);
+	grunt.registerTask('project:init', [
+		'mkdir:project',
+		'bower:boilerplate',
+		'replace:project',
+		'copy:libs',
+		'copy:rootFiles',
+		'clean:rootFiles',
+		'copy:hotfixjs',
+		'copy:hotfixcss',
+		'clean:project',
+		'default',
+		'project:sync'
+	]);
+	grunt.registerTask('project:sync', [
+		'browserSync',
+		'dbug',
+		'concat',
+		'watch'
+	]);
+	grunt.registerTask('project:zip', [
+		'mkdir:pack',
+		'copy:packPublicFolder',
+		'copy:packTemplates',
+		'copy:packRootfiles',
+		'replace:zip',
+		'zip',
+		'clean:zip'
+	]);
 
 	// Tasks: download builder
-	grunt.registerTask('build:installModules', ['bower:install', 'copy:scssmod', 'build:insertAssets', 'default', 'clean:build', 'project:sync']);
-	grunt.registerTask('build:insertAssets', ['appendAssets:html', 'appendAssets:scss', 'appendAssets:js']);
+	grunt.registerTask('build:installModules', [
+		'bower:install',
+		'copy:scssmod',
+		'build:insertAssets',
+		'default',
+		'clean:build',
+		'project:sync'
+	]);
+	grunt.registerTask('build:insertAssets', [
+		'appendAssets:html',
+		'appendAssets:scss',
+		'appendAssets:js'
+	]);
 };

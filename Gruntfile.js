@@ -27,19 +27,26 @@ module.exports = function (grunt) {
 		'sprite': 'grunt-spritesmith',
 		'project:init': [
 			'mkdir:project',
-			'unzip',
+			'bower:boilerplate',
 			'replace:project',
 			'copy:libs',
+			'copy:rootFiles',
+			'clean:rootFiles',
+			'copy:hotfixjs',
+			'copy:hotfixcss',
 			'clean:project',
 			'default',
 			'project:sync'
 		],
 		'project:sync': [
 			'browserSync',
+			'dbug',
+			'concat',
 			'watch'
 		],
 		'build:installModules': [
 			'bower:install',
+			'copy:scssmod',
 			'build:insertAssets',
 			'default',
 			'clean:build',
@@ -515,7 +522,8 @@ module.exports = function (grunt) {
 			scripts: {
 				files: '<%= pkg.private %>/js/**/*.js',
 				tasks: [
-					'copy',
+					'copy:libs',
+					'copy:widgets',
 					'concat',
 					'clean:js'
 				]

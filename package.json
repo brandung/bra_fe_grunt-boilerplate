@@ -37,16 +37,16 @@
 		"wordpress": {
 			"folder": [
 				"wp-content/themes/brandung-custom-theme/private",
-				"wp-content/themes/brandung-custom-theme/css",
-				"wp-content/themes/brandung-custom-theme/font",
-				"wp-content/themes/brandung-custom-theme/img/_dummyPics",
-				"wp-content/themes/brandung-custom-theme/img/icons",
-				"wp-content/themes/brandung-custom-theme/img/touch",
-				"wp-content/themes/brandung-custom-theme/js/libs/bra",
-				"wp-content/themes/brandung-custom-theme/js/libs/vendor"
+				"wp-content/themes/brandung-custom-theme/public/css",
+				"wp-content/themes/brandung-custom-theme/public/font",
+				"wp-content/themes/brandung-custom-theme/public/img/_dummyPics",
+				"wp-content/themes/brandung-custom-theme/public/img/icons",
+				"wp-content/themes/brandung-custom-theme/public/img/touch",
+				"wp-content/themes/brandung-custom-theme/public/js/libs/bra",
+				"wp-content/themes/brandung-custom-theme/public/js/libs/vendor"
 			],
 			"private": "wp-content/themes/brandung-custom-theme/private",
-			"public": "wp-content/themes/brandung-custom-theme"
+			"public": "wp-content/themes/brandung-custom-theme/public"
 		},
 		"zend": {
 			"folder": [

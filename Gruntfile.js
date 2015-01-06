@@ -1,6 +1,7 @@
 module.exports = function (grunt) {
 	var pkg = grunt.file.readJSON('package.json'),
 		path = require('path'),
+		fs = require('fs'),
 		target = grunt.option('target'),
 		cwd = path.resolve(process.cwd(), ''),
 		dbug = !!grunt.option('dbug');
@@ -69,6 +70,11 @@ module.exports = function (grunt) {
 	if (target) {
 		pkg.private += '/' + target;
 		pkg.public += '/' + target;
+
+		// FIXME: must be case sensitive!
+		if(fs.existsSync(path.resolve(pkg.private, '')) === false) {
+			grunt.fail.fatal('Could not resolve path: ' + path.resolve(pkg.private, '') + '; specified directory does not exist.');
+		}
 	}
 
 	pkg.packFolder = pkg.name + '/' + pkg.public;

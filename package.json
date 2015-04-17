@@ -12,7 +12,6 @@
 				"skin/frontend/bragento/default/css",
 				"skin/frontend/bragento/default/font",
 				"skin/frontend/bragento/default/img/_dummyPics",
-				"skin/frontend/bragento/default/img/icons",
 				"skin/frontend/bragento/default/img/touch",
 				"skin/frontend/bragento/default/js/libs/bra",
 				"skin/frontend/bragento/default/js/libs/vendor"
@@ -26,7 +25,6 @@
 				"typo3conf/ext/bra_projectfiles/Resources/Public/css",
 				"typo3conf/ext/bra_projectfiles/Resources/Public/font",
 				"typo3conf/ext/bra_projectfiles/Resources/Public/img/_dummyPics",
-				"typo3conf/ext/bra_projectfiles/Resources/Public/img/icons",
 				"typo3conf/ext/bra_projectfiles/Resources/Public/img/touch",
 				"typo3conf/ext/bra_projectfiles/Resources/Public/js/libs/bra",
 				"typo3conf/ext/bra_projectfiles/Resources/Public/js/libs/vendor"
@@ -40,7 +38,6 @@
 				"wp-content/themes/brandung-custom-theme/public/css",
 				"wp-content/themes/brandung-custom-theme/public/font",
 				"wp-content/themes/brandung-custom-theme/public/img/_dummyPics",
-				"wp-content/themes/brandung-custom-theme/public/img/icons",
 				"wp-content/themes/brandung-custom-theme/public/img/touch",
 				"wp-content/themes/brandung-custom-theme/public/js/libs/bra",
 				"wp-content/themes/brandung-custom-theme/public/js/libs/vendor"
@@ -54,7 +51,6 @@
 				"src/public/css",
 				"src/public/font",
 				"src/public/img/_dummyPics",
-				"src/public/img/icons",
 				"src/public/img/touch",
 				"src/public/js/libs/bra",
 				"src/public/js/libs/vendor"
@@ -76,19 +72,17 @@
 		"grunt-zip": "~0.16.0",
 		"grunt-contrib-clean": "~0.6.0",
 		"grunt-text-replace": "~0.3.12",
-		"grunt-sass": "~0.17.0",
+		"grunt-sass": "~0.18.1",
 		"grunt-contrib-concat": "~0.5.0",
 		"grunt-contrib-copy": "~0.6.0",
 		"grunt-contrib-uglify": "~0.6.0",
 		"grunt-contrib-cssmin": "~0.12.2",
-		"grunt-svgmin": "~1.0.0",
 		"grunt-contrib-imagemin": "~0.8.1",
-		"grunt-spritesmith": "~2.1.1",
 		"grunt-jslint": "~1.1.12",
 		"grunt-contrib-csslint": "~0.3.1",
 		"grunt-contrib-watch": "~0.6.1",
 		"grunt-browser-sync": "~1.5.2",
 		"grunt-bower-task": "~0.4.0",
-		"pngsmith": "~0.1.0"
+        "grunt-tasty-swig": "~0.1.0"
 	}
 }

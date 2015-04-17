@@ -20,11 +20,6 @@ module.exports = function (grunt) {
 			'jslint',
 			'csslint'
 		],
-		'images:compress': [
-			'svgmin',
-			'imagemin'
-		],
-		'sprite': 'grunt-spritesmith',
 		'project:init': [
 			'mkdir:project',
 			'bower:boilerplate',
@@ -170,7 +165,7 @@ module.exports = function (grunt) {
 		// https://npmjs.org/package/grunt-text-replace
 		replace: {
 			appendAssetsHTML: {
-				src: ['<%= pkg.private %>/templates/_modules.html'],
+				src: ['<%= pkg.private %>/templates/tpl/_modules.tpl'],
 				overwrite: true,
 				replacements: [
 					{
@@ -201,7 +196,7 @@ module.exports = function (grunt) {
 			},
 			project: {
 				src: [
-					'<%= pkg.private %>/templates/_modules.html',
+					'<%= pkg.private %>/templates/tpl/**/*.tpl',
 					'<%= pkg.private %>/js/global.js',
 					'<%= pkg.private %>/js/dbug/dbug.js',
 					'<%= pkg.private %>/sass/partials/*.*',
@@ -388,64 +383,6 @@ module.exports = function (grunt) {
 			}
 		},
 
-		// minify svg files by deleting unnecessary attributes and whitespace
-		// https://npmjs.org/package/grunt-svgmin
-		svgmin: {
-			options: {
-				plugins: [
-					{
-						removeViewBox: true
-					}
-				]
-			},
-			dist: {
-				files: [
-					{
-						expand: true,
-						cwd: '<%= pkg.public %>/img/icons',
-						src: [
-							'*.svg'
-						],
-						dest: '<%= pkg.public %>/img/icons',
-						ext: '.svg'
-					}
-				]
-			}
-		},
-
-		// recompress images without loss
-		// https://npmjs.org/package/grunt-contrib-imagemin
-		imagemin: {
-			dynamic: {
-				options: {
-					optimizationLevel: 3
-				},
-				files: [
-					{
-						expand: true,
-						cwd: '<%= pkg.public %>/img',
-						src: [
-							'**/*.{png,jpg,gif}'
-						],
-						dest: '<%= pkg.public %>/img'
-					}
-				]
-			}
-		},
-
-		// Creates sprites and related sass partials
-		// https://www.npmjs.org/package/grunt-spritesmith
-		sprite: {
-			file: {
-				src: '<%= pkg.public %>/img/icons/*.png',
-				destImg: '<%= pkg.public %>/img/sprite-icons.png',
-				destCSS: '<%= pkg.private %>/sass/partials/_sprite-icons.scss',
-				imgPath: '../img/sprite-icons.png',
-				algorithm: 'binary-tree',
-				engine: 'pngsmith'
-			}
-		},
-
 		// validates js and saves all found errors and warnings in a log file
 		// https://npmjs.org/package/grunt-jslint
 		jslint: {
@@ -510,6 +447,18 @@ module.exports = function (grunt) {
 			}
 		},
 
+		// template engine plugin swig
+		// https://www.npmjs.com/package/grunt-tasty-swig
+		tasty_swig: {
+			options: {
+				extension: '.tpl'
+			},
+			index: {
+				src: ['<%= pkg.private %>/templates/tpl/**.tpl'],
+				dest: '<%= pkg.private %>/templates'
+			}
+		},
+
 		// the awesome watch task which recognizes changes in the specified filetypes and rebuilds the project after hitting strg + s
 		// https://npmjs.org/package/grunt-contrib-watch
 		watch: {
@@ -528,10 +477,10 @@ module.exports = function (grunt) {
 					'clean:js'
 				]
 			},
-			images: {
-				files: '<%= pkg.public %>/img/icons/*.png',
+			tpl: {
+				files: '<%= pkg.private %>/templates/tpl/**/*.tpl',
 				tasks: [
-					'sprite'
+					'tasty_swig'
 				]
 			}
 		},
@@ -542,8 +491,7 @@ module.exports = function (grunt) {
 			bsFiles: {
 				src: [
 					'<%= pkg.public %>/css/*.css',
-					'<%= pkg.private %>/templates/*.html',
-					'<%= pkg.public %>/img/**/*',
+					'<%= pkg.private %>/templates/*',
 					'<%= pkg.public %>/js/**/*.js'
 				]
 			},
@@ -659,18 +607,10 @@ module.exports = function (grunt) {
 		'csslint'
 	]);
 
-	// Tasks: Sprite generation and compression
-	grunt.registerTask('images:compress', [
-		'svgmin',
-		'imagemin'
-	]);
-	grunt.registerTask('images:sprite', [
-		'sprite'
-	]);
-
 	// Tasks: project builder
 	grunt.registerTask('default', [
 		'sass',
+		'tasty_swig',
 		'copy:libs',
 		'copy:widgets',
 		'concat',

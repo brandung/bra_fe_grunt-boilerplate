@@ -1,7 +1,7 @@
 module.exports = function (grunt) {
 	var pkg = grunt.file.readJSON('package.json'),
 		path = require('path'),
-		target = grunt.option('target'),
+		target = grunt.option('target') || '',
 		cwd = path.resolve(process.cwd(), ''),
 		//dbug = !!grunt.option('dbug'),
 		component = grunt.option('name') || '',
@@ -106,12 +106,15 @@ module.exports = function (grunt) {
 				'<%= pkg.private %>/.gitignore',
 				'<%= pkg.private %>/.bower.json',
 				'<%= pkg.private %>/js/libs/',
+				'<%= pkg.private %>/hotfix.js',
+				'<%= pkg.private %>/hotfix.css',
 				'hotfix.js',
 				'hotfix.css'
 			],
 			js: [
 				'<%= pkg.public %>/js/global.js'
 			],
+			// todo refactor
 			build: [
 				'<%= pkg.private %>/templates/mod/**',
 				'<%= pkg.private %>/sass/mod/**',
@@ -305,7 +308,7 @@ module.exports = function (grunt) {
 						to: 'href="'
 					}
 				]
-			}
+			},
 			unique: {
 				src: [
 					'<%= pkg.public %>/js/main.js'
@@ -369,8 +372,8 @@ module.exports = function (grunt) {
 						to: "<h3 class=\"mod-headline\">" +
 						component.charAt(0).toUpperCase() + component.slice(1) +
 						"</h3>\n" +
-						"\t\t\t\t{% include \"./partials/component/" + component.toString() + ".tpl\" %} \n\n" +
-						"\t\t\t\t<!-- <@newComponent@> -->"
+						"\t\t\t{% include \"./partials/component/" + component.toString() + ".tpl\" %} \n\n" +
+						"\t\t\t<!-- <@newComponent@> -->"
 					}
 				]
 			},
@@ -385,8 +388,8 @@ module.exports = function (grunt) {
 						to: "<h3 class=\"mod-headline\">" +
 						component.charAt(0).toUpperCase() + component.slice(1) +
 						"</h3>\n" +
-						"\t\t\t\t{% include \"./partials/views/" + component.toString() + ".tpl\" %} \n\n" +
-						"\t\t\t\t<!-- <@newView@> -->"
+						"\t\t\t{% include \"./partials/views/" + component.toString() + ".tpl\" %} \n\n" +
+						"\t\t\t<!-- <@newView@> -->"
 					}
 				]
 			}
@@ -636,6 +639,11 @@ module.exports = function (grunt) {
 			options: {
 				watchTask: true,
 				open: 'external',
+				notify: false,
+				injectChanges: false,
+				reloadDelay: 1000,
+				port: 443,
+				tunnel: user,
 				server: {
 					baseDir: cwd,
 					index: '<%= pkg.private %>/templates/_modules.html'
@@ -765,7 +773,7 @@ module.exports = function (grunt) {
 								key = key.toUpperCase();
 								key = key.replace('$', '');
 
-								return "<div style='width: " + value + "px; background: black; box-sizing: border-box; padding: 0 15px; height:40px; line-height: 40px; color:white; margin-bottom: 20px;'>" + key + "<span class='right'>" + value + "px</span></div>\n";
+								return "<div style='width: " + value + "px; background: black; box-sizing: border-box; padding: 0 15px; height:40px; line-height: 40px; color:white; margin-bottom: 20px;'>" + key + "<span class='util-right'>" + value + "px</span></div>\n";
 							}
 						}
 					},
@@ -817,6 +825,8 @@ module.exports = function (grunt) {
 	/**
 	 * dev tasks
 	 */
+	grunt.loadNpmTasks('grunt-notify');
+
 		// Tasks: Code validation and minification
 	grunt.registerTask('code:compress', [
 		'uglify',

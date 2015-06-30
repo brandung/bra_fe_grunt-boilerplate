@@ -527,19 +527,21 @@ module.exports = function (grunt) {
 		// https://npmjs.org/package/grunt-contrib-uglify
 		uglify: {
 			options: {
-				report: 'min'
+				report: 'min',
+				screwIE8: true,
+				banner: "/**\n" +
+					" * Copyright brandung GmbH & Co.KG\n" +
+					" * http://www.brandung.de/\n" +
+					" *\n" +
+					" * Date: " + new Date().toISOString().substring(0, 10) + "\n" +
+					" * MIT License (MIT)\n" +
+					" */"
 			},
 			global: {
 				expand: true,
 				cwd: '<%= pkg.public %>/js/',
-				src: '*.js',
+				src: '**/*.js',
 				dest: '<%= pkg.public %>/js/'
-			},
-			widgets: {
-				expand: true,
-				cwd: '<%= pkg.public %>/js/widgets/',
-				src: '*.js',
-				dest: '<%= pkg.public %>/js/widgets/'
 			}
 		},
 
@@ -550,7 +552,7 @@ module.exports = function (grunt) {
 				expand: true,
 				cwd: '<%= pkg.public %>/css/',
 				src: [
-					'*.css'
+					'**/*.css'
 				],
 				dest: '<%= pkg.public %>/css/',
 				ext: '.css',

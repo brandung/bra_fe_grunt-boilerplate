@@ -1,87 +1,15 @@
 {
-	"name": "[project]",
-	"version": "1.0.0",
-	"description": "Grunt and Bower Setup for brandung frontend workflow",
-	"author": "brandung GmbH & CO.KG (http://www.brandung.de)",
-	"system": "[magento|typo3|wordpress|zend]",
-	"struct": {
-		"magento": {
-			"folder": [
-				"dev/frontend",
-				"app/design/frontend/bragento/default",
-				"skin/frontend/bragento/default/css",
-				"skin/frontend/bragento/default/font",
-				"skin/frontend/bragento/default/img/_dummyPics",
-				"skin/frontend/bragento/default/img/touch",
-				"skin/frontend/bragento/default/js/libs/bra",
-				"skin/frontend/bragento/default/js/libs/vendor"
-			],
-			"private": "dev/frontend",
-			"public": "skin/frontend/bragento/default"
-		},
-		"typo3": {
-			"folder": [
-				"typo3conf/ext/bra_projectfiles/Resources/Private/Frontend",
-				"typo3conf/ext/bra_projectfiles/Resources/Public/css",
-				"typo3conf/ext/bra_projectfiles/Resources/Public/font",
-				"typo3conf/ext/bra_projectfiles/Resources/Public/img/_dummyPics",
-				"typo3conf/ext/bra_projectfiles/Resources/Public/img/touch",
-				"typo3conf/ext/bra_projectfiles/Resources/Public/js/libs/bra",
-				"typo3conf/ext/bra_projectfiles/Resources/Public/js/libs/vendor"
-			],
-			"private": "typo3conf/ext/bra_projectfiles/Resources/Private/Frontend",
-			"public": "typo3conf/ext/bra_projectfiles/Resources/Public"
-		},
-		"wordpress": {
-			"folder": [
-				"wp-content/themes/brandung-custom-theme/private",
-				"wp-content/themes/brandung-custom-theme/public/css",
-				"wp-content/themes/brandung-custom-theme/public/font",
-				"wp-content/themes/brandung-custom-theme/public/img/_dummyPics",
-				"wp-content/themes/brandung-custom-theme/public/img/touch",
-				"wp-content/themes/brandung-custom-theme/public/js/libs/bra",
-				"wp-content/themes/brandung-custom-theme/public/js/libs/vendor"
-			],
-			"private": "wp-content/themes/brandung-custom-theme/private",
-			"public": "wp-content/themes/brandung-custom-theme/public"
-		},
-		"zend": {
-			"folder": [
-				"src/private/frontend",
-				"src/public/css",
-				"src/public/font",
-				"src/public/img/_dummyPics",
-				"src/public/img/touch",
-				"src/public/js/libs/bra",
-				"src/public/js/libs/vendor"
-			],
-			"private": "src/private/frontend",
-			"public": "src/public"
-		}
-	},
-	"build": {
-		"boilerplateFolder": [
-			"html-boilerplate"
-		]
-	},
-	"devDependencies": {
-		"time-grunt": "~1.2.1",
-		"jit-grunt": "~0.9.1",
-		"grunt": "~0.4.5",
-		"grunt-mkdir": "~0.1.2",
-	 	"grunt-file-creator": "^0.1.3",
-		"grunt-zip": "~0.16.2",
-		"grunt-contrib-clean": "~0.6.0",
-		"grunt-text-replace": "~0.4.0",
-		"grunt-sass": "~1.0.0",
-		"grunt-contrib-concat": "~0.5.1",
-		"grunt-contrib-copy": "~0.8.0",
-		"grunt-contrib-uglify": "~0.9.1",
-		"grunt-contrib-cssmin": "~0.12.3",
-		"grunt-contrib-watch": "~0.6.1",
-		"grunt-browser-sync": "~2.1.3",
-		"grunt-bower-task": "~0.4.0",
-        "grunt-tasty-swig": "~0.1.0",
-	  	"grunt-notify": "^0.4.1"
-	}
+  "name": "maintainable-grundfile",
+  "version": "1.0.0",
+  "description": "Grunt and Bower Setup for brandung frontend workflow",
+  "homepage": "http://www.brandung.de",
+  "author": "brandung GmbH & CO.KG",
+  "license": "MIT",
+  "devDependencies": {
+    "grunt": "~0.4.5",
+    "grunt-sass": "^1.0.0",
+    "grunt-text-replace": "^0.4.0",
+    "load-grunt-config": "~0.17.2",
+    "time-grunt": "^1.2.1"
+  }
 }

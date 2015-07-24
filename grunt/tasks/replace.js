@@ -2,14 +2,14 @@
  * Replaces a placeholder for the assets path relative to the project type
  * https://npmjs.org/package/grunt-text-replace
  */
-	
+
 var grunt = require('grunt'),
 	Config = require('../config');
 
 module.exports = {
 	init: {
 		src: [
-			'./tasks/config.js'
+			'./grunt/config.js'
 		],
 		overwrite: true,
 		replacements: [

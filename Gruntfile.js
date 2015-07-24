@@ -13,7 +13,7 @@ module.exports = function (grunt) {
 	/**
 	 * Define our global vars
 	 */
-	var Config = require('./tasks/config'),
+	var Config = require('./grunt/config'),
 		_ = grunt.util._,
 		path = require('path');
 
@@ -31,7 +31,7 @@ module.exports = function (grunt) {
 	 */
 	var taskConfig = _.extend({},
 		require('load-grunt-config')(grunt, {
-			configPath: path.join(process.cwd(), 'tasks/options'),
+			configPath: path.join(process.cwd(), 'grunt/tasks'),
 			loadGruntTasks: true,
 			init: false
 		})

@@ -25,7 +25,7 @@ module.exports = function (grunt) {
 
 
 	/**
-	 * Loads task options from 'tasks/options/'
+	 * Loads task options from 'grunt/tasks/' folder
 	 * and loads tasks defined in `package.json`
 	 * https://www.npmjs.com/package/load-grunt-config
 	 */

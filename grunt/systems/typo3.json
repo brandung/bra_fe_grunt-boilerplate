@@ -1,0 +1,12 @@
+{
+    "folder": [
+        "typo3conf/ext/bra_projectfiles/Resources/Private/Frontend",
+        "typo3conf/ext/bra_projectfiles/Resources/Public/css",
+        "typo3conf/ext/bra_projectfiles/Resources/Public/font",
+        "typo3conf/ext/bra_projectfiles/Resources/Public/img/",
+        "typo3conf/ext/bra_projectfiles/Resources/Public/js/libs/bra",
+        "typo3conf/ext/bra_projectfiles/Resources/Public/js/libs/vendor"
+    ],
+    "private": "typo3conf/ext/bra_projectfiles/Resources/Private/Frontend",
+    "public": "typo3conf/ext/bra_projectfiles/Resources/Public"
+}

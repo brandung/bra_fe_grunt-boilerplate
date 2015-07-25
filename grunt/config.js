@@ -1,27 +1,34 @@
 /**
  * config.js
  *
- * This file contains all configuration items for the build process
+ * The 'Config' object contains all our system configurations for our build tasks.
+ * In the 'SystemPath' object we will store the folder paths of the selected system.
  */
 
 var grunt = require('grunt'),
-	SystemObj =  grunt.file.readJSON('./grunt/system.json'),
-	Config = {};
+	Config = {
+		// SYSTEM: '%%system%%'
+		SYSTEM: 'typo3'
+	},
+	SystemPath =  grunt.file.readJSON('./grunt/systems/' + Config.SYSTEM + '.json');
 
 
 /**
  * Define our global configuration vars
  */
-// Config.SYSTEM = '%%system%%',
-Config.SYSTEM = 'zend'; 									// Our app system; was set on project:init task
-Config.folderArr = SystemObj.struct[Config.SYSTEM].folder;	// Folder structure of the given system
-Config.srcFolderName = 'src';								// The `src` folder contains all production assets, like js, scss und tpl files
-Config.buildFolderName = 'build';							// Into the `build` folder our build process will copy the dev assets
-Config.env = process.env;									// Get User environment
-Config.PRIVATE_DIR = SystemObj.struct[Config.SYSTEM].private;
-Config.PUBLIC_DIR = SystemObj.struct[Config.SYSTEM].public;
-Config.SRC_DIR = SystemObj.struct[Config.SYSTEM].private + Config.srcFolderName;
-Config.BUILD_DIR = SystemObj.struct[Config.SYSTEM].private + Config.buildFolderName;
+Config.folderArr = SystemPath.folder;	// Folder structure of the given system
+Config.srcFolderName = 'src';			// The `src` folder contains all production assets, like js, scss und tpl files
+Config.buildFolderName = 'build';		// Into the `build` folder our build process will copy the dev assets
+Config.env = process.env;				// Get User environment
+
+
+/**
+ * Define our global directory paths
+ */
+Config.PRIVATE_DIR = SystemPath.private;
+Config.PUBLIC_DIR = SystemPath.public;
+Config.SRC_DIR = SystemPath.private + Config.srcFolderName;
+Config.BUILD_DIR = SystemPath.private + Config.buildFolderName;
 
 
 /**
@@ -30,8 +37,8 @@ Config.BUILD_DIR = SystemObj.struct[Config.SYSTEM].private + Config.buildFolderN
  * build tasks.
  */
 Config.app_files = {
-	js: ['%%system%%/src/**/*.js'],
-	scss: ['%%system%%/src/**/*.scss']
+	js: ['%%private%%/src/**/*.js'],
+	scss: ['%%private%%/src/**/*.scss']
 };
 
 

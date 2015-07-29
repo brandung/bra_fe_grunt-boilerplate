@@ -1,10 +1,10 @@
 /**
  * Replaces a placeholder for the assets path relative to the project type
  * https://npmjs.org/package/grunt-text-replace
+ *
+ * init:
+ * - the template string is set by the prompt:init task
  */
-
-var grunt = require('grunt'),
-	Config = require('../config');
 
 module.exports = {
 	init: {
@@ -15,11 +15,7 @@ module.exports = {
 		replacements: [
 			{
 				from: '%%system%%',
-				to: Config.SYSTEM
-			},
-			{
-				from: '%%private%%',
-				to: '<%= Config.PRIVATE_DIR %>'
+				to: '<%= grunt.config("initSystem") %>'
 			}
 		]
 	}

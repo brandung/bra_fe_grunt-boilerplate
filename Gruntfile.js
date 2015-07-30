@@ -13,7 +13,9 @@ module.exports = function (grunt) {
 	/**
 	 * Define our global vars
 	 */
-	var Config = require('./grunt/config'),
+	var Config = {},
+		configFile = './grunt/config.js',
+		Helpers = require('./grunt/helpers'),
 		_ = grunt.util._,
 		path = require('path');
 
@@ -24,18 +26,21 @@ module.exports = function (grunt) {
 	require("time-grunt")(grunt);
 
 
-	//if(Helpers.isSystemSet(Config) === false) {
-	//	grunt.task.run('project:init');
-	//}
+	/**
+	 * Check if the Config.SYSTEM var is already set
+	 * and load the config.js file
+	 */
+	if(!Helpers.checkString('%%system%%', configFile)) {
+		Config = require(configFile);
+	}
+
 
 	/**
 	 * We have to bind the 'Config' object to our taskConfig,
 	 * so we have access to the global vars for e.g. using `<% %>` template strings
 	 */
 	var taskConfig = {
-		Config: Config,
-		// TODO: var for replace:init task
-		initSystem: Config.SYSTEM
+		Config: Config
 	};
 
 	/**

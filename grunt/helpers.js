@@ -71,4 +71,22 @@ Helpers.isPackageAvailable = function (pkgNames) {
 	});
 };
 
+
+/**
+ * Check specific string within a file
+ *
+ * @param regStr
+ * @param file
+ * @returns {boolean}
+ */
+Helpers.checkString = function (regStr, file) {
+
+	var configFile = grunt.file.read(file),
+		str = configFile,
+		patt = new RegExp(regStr),
+		res = patt.test(str);
+
+	return res;
+};
+
 module.exports = Helpers;

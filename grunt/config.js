@@ -6,39 +6,21 @@
  */
 
 var grunt = require('grunt'),
-	Helpers = require('./helpers'),
-	Config = {
-		SYSTEM: '%%system%%'
-		//SYSTEM: 'typo3'
-	};
-
+	Config = {};
 
 /**
- * Set the backend system var for the project via grunt.option.
- * If no option is set we check if the
- * system variable exist in our config.
- *
- * @options: 'typo3', 'magento', 'wordpress', 'zend'
+ * Our init System
  */
-
-// TODO: exclude grunt option and automatically
-// TODO: start project:init task if no system var is set
-var system = grunt.option('system') || '';
-
-if (system) {
-	Config.SYSTEM = system;
-} else {
-	Helpers.isSystemSet(Config);
-}
+Config.SYSTEM = '%%system%%';
 
 /**
  * Define our global configuration vars
  */
 Config.systemPaths =  grunt.file.readJSON('./grunt/systems/' + Config.SYSTEM + '.json');
 Config.folderArr = Config.systemPaths.folder;	// Folder structure of the given system
-Config.srcFolderName = 'src';			// The `src` folder contains all production assets, like js, scss und tpl files
-Config.buildFolderName = 'build';		// Into the `build` folder our build process will copy the dev assets
-//Config.env = process.env;				// Get User environment
+Config.srcFolderName = 'src';					// The `src` folder contains all production assets, like js, scss und tpl files
+Config.buildFolderName = 'build';				// Into the `build` folder our build process will copy the dev assets
+//Config.env = process.env;						// Get User environment
 
 /**
  * Define our global directory paths

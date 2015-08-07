@@ -6,6 +6,7 @@
  */
 
 var grunt = require('grunt'),
+	path = require('path'),
 	Config = {};
 
 /**
@@ -17,10 +18,16 @@ Config.SYSTEM = '%%system%%';
  * Define our global configuration vars
  */
 Config.systemPaths =  grunt.file.readJSON('./grunt/systems/' + Config.SYSTEM + '.json');
-Config.folderArr = Config.systemPaths.folder;	// Folder structure of the given system
-Config.srcFolderName = 'src';					// The `src` folder contains all production assets, like js, scss und tpl files
-Config.buildFolderName = 'build';				// Into the `build` folder our build process will copy the dev assets
-//Config.env = process.env;						// Get User environment
+// Folder structure of the given system
+Config.folderArr = Config.systemPaths.folder;
+// The `src` folder contains all production assets, like js, scss und tpl files
+Config.srcFolderName = 'src';
+// Into the `build` folder our build process will copy the dev assets
+Config.buildFolderName = 'build';
+// Get project name from package.json
+Config.PKG_NAME = grunt.config('package.name');
+// Get user profile name
+Config.USER = process.env['USERPROFILE'].split(path.sep)[2];
 
 /**
  * Define our global directory paths
@@ -29,6 +36,7 @@ Config.PRIVATE_DIR = Config.systemPaths.private;
 Config.PUBLIC_DIR = Config.systemPaths.public;
 Config.SRC_DIR = Config.systemPaths.private + '/' + Config.srcFolderName;
 Config.BUILD_DIR = Config.systemPaths.private + '/' + Config.buildFolderName;
+Config.ZIP_PUBLIC_FOLDER = Config.PKG_NAME + '/' + Config.PUBLIC_DIR;
 
 /**
  * This is a collection of file patterns that refer to our app code (the

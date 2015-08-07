@@ -21,6 +21,7 @@ module.exports = function (grunt) {
 
 	/**
 	 * Measures the time each task takes
+	 *
 	 * https://www.npmjs.com/package/time-grunt
 	 */
 	require("time-grunt")(grunt);
@@ -28,16 +29,16 @@ module.exports = function (grunt) {
 
 	/**
 	 * Check if the Config.SYSTEM var is already set
-	 * and load the config.js file
+	 * and load the config.js file.
 	 */
-	if(!Helpers.checkString('%%system%%', configFile)) {
+	if (!Helpers.checkString('%%system%%', configFile)) {
 		Config = require(configFile);
 	}
 
 
 	/**
 	 * We have to bind the 'Config' object to our taskConfig,
-	 * so we have access to the global vars for e.g. using `<% %>` template strings
+	 * so we have access to the global vars for e.g. using `<% %>` template strings.
 	 */
 	var taskConfig = {
 		Config: Config
@@ -45,16 +46,25 @@ module.exports = function (grunt) {
 
 	/**
 	 * Loads task options from 'grunt/tasks/' folder
-	 * and loads tasks defined in `package.json`
+	 * and loads tasks defined in `package.json`.
+	 * Used jitGrunt to load only the modules that are currently needed
+	 * instead of loading all modules on every build.
+	 *
 	 * https://www.npmjs.com/package/load-grunt-config
 	 */
 	taskConfig = _.extend(taskConfig,
 		require('load-grunt-config')(grunt, {
 			configPath: path.join(process.cwd(), 'grunt/tasks'),
-			loadGruntTasks: true,
+			jitGrunt: {
+				staticMappings: {
+					bower: 'grunt-bower-task',
+					replace: 'grunt-text-replace'
+				}
+			},
 			init: false
 		})
 	);
+
 
 	/**
 	 * Init our grunt config
@@ -66,7 +76,7 @@ module.exports = function (grunt) {
 	 * App Main Tasks *
 	 ******************/
 
-	// Default Task
+		// Default Task
 	grunt.registerTask('default', 'Desc', [
 		'helloWorld'
 	]);
@@ -81,7 +91,16 @@ module.exports = function (grunt) {
 	grunt.registerTask('project:init', 'Start the initializing process', [
 		'prompt:init',
 		'replace:init',
-		'config'
+		'setup',
+		'mkdir:projectStructure',
+		'bower:fetchHtmlBoilerplate',
+		'replace:pathPlaceholder',
+		'copy:privateLibsToPublicFolder',
+		'copy:privateRootFilesToRoot',
+		'clean:privateRootFiles',
+		'copy:hotfixjsToPublicFolder',
+		'copy:hotfixcssToPublicFolder',
+		'clean:rootFilesInPrivateFolder'
 	]);
 
 	// TODO: Update grunt.config after replace:init

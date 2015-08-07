@@ -7,24 +7,11 @@ var grunt = require('grunt'),
 	Helpers = {};
 
 /**
- * If SYSTEM var isn't already set abort task
- *
- * @param Config
- * @returns {boolean}
+ * Update grunt.config data
  */
-Helpers.isSystemSet = function (Config) {
-	if (Config.SYSTEM === '%%system%%') {
-		grunt.log.writeln('\n**************************************'['red']);
-		grunt.log.writeln('***              ERROR             ***'['red']);
-		grunt.log.writeln('**************************************'['red']);
-		grunt.log.error(['Project has been not initialized!'['red']]);
-		grunt.log.error(['Please run the init task and choose'['red']]);
-		grunt.log.error(['your system: `grunt project:init`'['red']]);
-		grunt.log.writeln('**************************************\n'['red']);
-		grunt.fail.warn('No \'system\' defined!');
-	} else {
-		return true;
-	}
+Helpers.updateGruntConfig = function () {
+	var Config = require('./config.js');
+	grunt.config.set('Config', Config);
 };
 
 
@@ -80,13 +67,46 @@ Helpers.isPackageAvailable = function (pkgNames) {
  * @returns {boolean}
  */
 Helpers.checkString = function (regStr, file) {
-
 	var configFile = grunt.file.read(file),
-		str = configFile,
-		patt = new RegExp(regStr),
-		res = patt.test(str);
+		patt = new RegExp(regStr);
 
-	return res;
+	return patt.test(configFile);
 };
+
+
+/**
+ * Get all files in a specific folder
+ *
+ * @param dir
+ * @param files_
+ * @returns {*|Array}
+ */
+Helpers.getFiles = function (dir, files_) {
+	var fs = require('fs');
+	files_ = files_ || [];
+	var files = fs.readdirSync(dir);
+	for (var i in files) {
+		if (files.hasOwnProperty(i)) {
+			var name = dir + '/' + files[i];
+			if (fs.statSync(name).isDirectory()) {
+				getFiles(name, files_);
+			} else {
+				files_.push(name);
+			}
+		}
+	}
+	return files_;
+};
+
+/**
+ * Split suffix from filename
+ *
+ * @param file
+ * @returns {String}
+ */
+Helpers.getFilename = function (file) {
+	return file.split('\\').pop().split('/').pop().split('.').reverse().pop();
+};
+
 
 module.exports = Helpers;

@@ -8,11 +8,10 @@ module.exports = {
 		options: {
 			create: '<%= Config.folderArr %>'
 		}
+	},
+	zipFolder: {
+		options: {
+			create: ['<%= Config.ZIP_PUBLIC_FOLDER %>']
+		}
 	}
-	//,
-	//zipFolder: {
-	//	options: {
-	//		create: [pkg.zipPublicFolder]
-	//	}
-	//}
 };

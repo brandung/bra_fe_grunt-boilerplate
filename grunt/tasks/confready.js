@@ -1,5 +1,5 @@
 module.exports = function(grunt) {
-	grunt.registerTask('setup', 'Check and Update grunt.config object', function() {
+	grunt.registerTask('confReady', 'Check the grunt.config object', function() {
 
 		var Helpers = require('../helpers.js'),
 			Msg = require('../msg.js'),
@@ -19,18 +19,6 @@ module.exports = function(grunt) {
 		 * and print the configuration setup.
 		 */
 		Helpers.updateGruntConfig();
-
-		var config = grunt.config('Config');
-
-		grunt.log.writeln('\n**************************************');
-		grunt.log.writeln('***            CONFIG DATA           ***');
-		grunt.log.writeln('**************************************');
-
-		for (var key in config) {
-			if (config.hasOwnProperty(key)) {
-				grunt.log.writeln(key['green'] + ' -> '['green'] + config[key]);
-			}
-		}
-		grunt.log.writeln('**************************************\n');
+		grunt.log.writeln('Config: ' + '-> READY'['green']);
 	});
 };

@@ -76,22 +76,31 @@ module.exports = function (grunt) {
 	 * App Main Tasks *
 	 ******************/
 
-		// Default Task
+	/**
+	 * The 'default' task
+	 */
 	grunt.registerTask('default', 'Desc', [
-		'helloWorld'
+		'confReady',
+		'sass',
+		'tasty_swig',
+		'copy:privatePluginToPublicFolder',
+		'copy:privateHandlerToPublicFolder',
+		'copy:privateFunctionToPublicFolder',
+		'copy:privateComponentToPublicFolder',
+		'concat:mainJs',
+		'clean:globalJsInPublicFolder',
+		'sassToHtml'
 	]);
 
 	/**
 	 * The `project:init` task configures your project,
 	 * download the boilerplate and copy the assets
 	 * into the given folder structure.
-	 *
-	 * @options: system
 	 */
 	grunt.registerTask('project:init', 'Start the initializing process', [
 		'prompt:init',
 		'replace:init',
-		'setup',
+		'confReady',
 		'mkdir:projectStructure',
 		'bower:fetchHtmlBoilerplate',
 		'replace:pathPlaceholder',
@@ -100,9 +109,18 @@ module.exports = function (grunt) {
 		'clean:privateRootFiles',
 		'copy:hotfixjsToPublicFolder',
 		'copy:hotfixcssToPublicFolder',
-		'clean:rootFilesInPrivateFolder'
+		'clean:rootFilesInPrivateFolder',
+		'default',
+		'project:server'
 	]);
 
-	// TODO: Update grunt.config after replace:init
+	/**
+	 * The 'project:server' task for developing
+	 */
+	grunt.registerTask('project:server', [
+		'default',
+		'browserSync',
+		'watch'
+	]);
 
 };

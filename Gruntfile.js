@@ -134,7 +134,7 @@ module.exports = function (grunt) {
 	]);
 
 	/**
-	 * The 'project:server' task for developing
+	 * The 'project:serve' task for developing
 	 */
 	grunt.registerTask('project:serve', [
 		'default',

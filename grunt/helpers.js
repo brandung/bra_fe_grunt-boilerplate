@@ -14,6 +14,25 @@ Helpers.updateGruntConfig = function () {
 	grunt.config.set('Config', Config);
 };
 
+/**
+ * Set timestamp
+ *
+ * @returns {string|*}
+ */
+Helpers.setTimestamp = function () {
+
+	var date = new Date(),
+		timestamp;
+
+	timestamp = '' + Math.ceil(date.getTime() / 1000);
+	timestamp = timestamp.split('');
+	timestamp.pop();
+	timestamp.pop();
+	timestamp = timestamp.join('') + '00';
+
+	return timestamp;
+};
+
 
 /**
  * Filter only the available tasks

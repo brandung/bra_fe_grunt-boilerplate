@@ -1,7 +1,12 @@
+/**
+ * Creating markup out of sass variables
+ * for Styleguide
+ * 
+ * @param grunt
+ */
 module.exports = function (grunt) {
 	grunt.registerTask('sassToHtml', 'Creating markup out of sass variables', function (n) {
-		var grunt = require('grunt'),
-			variablesFile = grunt.file.read(grunt.config('Config.PRIVATE_DIR') + '/sass/partials/_variables.scss'),
+		var variablesFile = grunt.file.read(grunt.config('Config.PRIVATE_DIR') + '/sass/partials/_variables.scss'),
 			getMarkup = function (type) {
 				var typeObj = {
 						colors: {
@@ -45,11 +50,11 @@ module.exports = function (grunt) {
 				map = variablesFile.match(typeObj[type].blockRegex)[0];
 				map = map.match(typeObj[type].mapItemRegex);
 
-				if (type === 'colors' || type === 'icons') {
-					html = "<div class='row'>\n";
+				if(type === 'colors' || type === 'icons') {
+					html =  "<div class='row'>\n";
 				}
 
-				for (var i = 0, len = map.length; i < len; i += 1) {
+				for(var i = 0, len = map.length; i < len; i += 1) {
 					string = map[i].replace(/\s/g, '');
 					string = string.split(':');
 
@@ -57,25 +62,23 @@ module.exports = function (grunt) {
 
 					count += 1;
 
-					if (count === 6) {
-						if (type === 'colors' || type === 'icons') {
-							html += "</div>\n<div class='row'>\n";
+					if(count === 6) {
+						if(type === 'colors' || type === 'icons') {
+							html +=  "</div>\n<div class='row'>\n";
 						}
 
 						count = 0;
 					}
 				}
 
-				if (type === 'colors' || type === 'icons') {
-					html += "</div>";
+				if(type === 'colors' || type === 'icons') {
+					html +=  "</div>";
 				}
 
 				return html;
 			};
 
-		console.log('sassToHtml: Updating colors.tpl');
-		console.log('sassToHtml: Updating icons.tpl');
-		console.log('sassToHtml: Updating breakpoints.tpl');
+		console.log('Updated styleguide files');
 
 		grunt.file.write(grunt.config('Config.PRIVATE_DIR') + '/templates/tpl/partials/colors.tpl', getMarkup('colors'));
 		grunt.file.write(grunt.config('Config.PRIVATE_DIR') + '/templates/tpl/partials/icons.tpl', getMarkup('icons'));

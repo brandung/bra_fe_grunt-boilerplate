@@ -33,7 +33,15 @@ module.exports = function (grunt) {
 	 */
 	//TODO: save targets in Config.targets Array. On task run do prompt with target selection
 	//TODO: build multitask to do this
+	/*
 	var target = grunt.option('target') || '';
+
+
+	if (target) {
+	 Config.PRIVATE_DIR += '/' + target;
+	 Config.PUBLIC_DIR += '/' + target;
+	}
+	*/
 
 
 	/**
@@ -94,9 +102,10 @@ module.exports = function (grunt) {
 		'tasty_swig',
 		'copy:privatePluginToPublicFolder',
 		'copy:privateHandlerToPublicFolder',
+		'copy:privateUtilToPublicFolder',
 		'copy:privateFunctionToPublicFolder',
 		'copy:privateComponentToPublicFolder',
-		'concat:mainJs',
+		'concat:mainJS',
 		'clean:globalJsInPublicFolder',
 		'sassToHtml'
 	]);
@@ -114,13 +123,14 @@ module.exports = function (grunt) {
 		'bower:fetchHtmlBoilerplate',
 		'replace:pathPlaceholder',
 		'copy:privateLibsToPublicFolder',
+		'copy:privateUtilToPublicFolder',
 		'copy:privateRootFilesToRoot',
 		'clean:privateRootFiles',
 		'copy:hotfixjsToPublicFolder',
 		'copy:hotfixcssToPublicFolder',
 		'clean:rootFilesInPrivateFolder',
 		'default',
-		'project:server'
+		'project:serve'
 	]);
 
 	/**
@@ -132,4 +142,62 @@ module.exports = function (grunt) {
 		'watch'
 	]);
 
+	/**
+	 * The 'project:finish' task prepares files for deployment
+	 */
+	grunt.registerTask('project:finish', [
+		'default',
+		'replace:deleteCssBlock',
+		'replace:importJsStorageKey',
+		'replace:deleteJsBlock',
+		'clean:bundleFolder',
+		'uglify:global',
+		'assetBundle',
+		'uglify:mainJS',
+		'cssmin'
+	]);
+
+	/**
+	 * ZIP the project
+	 */
+	grunt.registerTask('create:zip', [
+		'confReady',
+		'mkdir:zipFolder',
+		'copy:publicFolderToZipFolder',
+		'copy:templatesToZipFolder',
+		'copy:rootFilesToZipFolder',
+		'replace:zipFolderAssetPath',
+		'clean:zipTplFolder',
+		'zip',
+		'clean:zipFolder'
+	]);
+
+	/**
+	 * Create 'styleguide'
+	 */
+	grunt.registerTask('create:styleguide', [
+		'confReady',
+		'sassToHtml'
+	]);
+
+	/**
+	 * Create new component
+	 */
+	grunt.registerTask('create:component', [
+		'confReady',
+		'file-creator:componentFiles',
+		'replace:addNewComponentImport',
+		'replace:includeSwigComponentPartial',
+		'project:serve'
+	]);
+
+	/**
+	 * Create view partial
+	 */
+	grunt.registerTask('create:view', [
+		'confReady',
+		'file-creator:viewFiles',
+		'replace:includeSwigViewPartial',
+		'project:serve'
+	]);
 };

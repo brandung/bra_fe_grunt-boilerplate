@@ -10,6 +10,12 @@ module.exports = {
 		src: '**',
 		dest: '<%= Config.PUBLIC_DIR %>/js/libs/'
 	},
+	privateUtilToPublicFolder: {
+		expand: true,
+		cwd: '<%= Config.PRIVATE_DIR %>/js/util/',
+		src: '**',
+		dest: '<%= Config.PUBLIC_DIR %>/js/util/'
+	},
 	privatePluginToPublicFolder: {
 		expand: true,
 		cwd: '<%= Config.PRIVATE_DIR %>/js/plugin/',
@@ -19,16 +25,16 @@ module.exports = {
 	},
 	privateHandlerToPublicFolder: {
 		expand: true,
-		cwd: '<%= Config.PRIVATE_DIR %>/js/handler/',
+		cwd: '<%= Config.PRIVATE_DIR %>/js/handle/',
 		src: '*',
-		dest: '<%= Config.PUBLIC_DIR %>/js/handler/',
+		dest: '<%= Config.PUBLIC_DIR %>/js/handle/',
 		flatten: true
 	},
-	'privateFunctionToPublicFolder': {
+	privateFunctionToPublicFolder: {
 		expand: true,
-		cwd: '<%= Config.PRIVATE_DIR %>/js/function/',
+		cwd: '<%= Config.PRIVATE_DIR %>/js/func/',
 		src: '*',
-		dest: '<%= Config.PUBLIC_DIR %>/js/function/',
+		dest: '<%= Config.PUBLIC_DIR %>/js/func/',
 		flatten: true
 	},
 	privateComponentToPublicFolder: {

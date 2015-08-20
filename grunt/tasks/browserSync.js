@@ -6,6 +6,8 @@
  * https://npmjs.org/package/grunt-browser-sync
  */
 
+var grunt = require('grunt');
+
 module.exports = {
 	bsFiles: {
 		src: [
@@ -24,7 +26,8 @@ module.exports = {
 		tunnel: '<%= Config.USER %>',
 		server: {
 			baseDir: '<%= Config.CWD %>',
-			index: '<%= Config.PRIVATE_DIR %>/templates/_modules.html'
+			index: '<%= Config.PRIVATE_DIR %>/templates/_modules.html',
+			routes: grunt.config('Config.syncRoutes')
 		},
 		ghostMode: {
 			clicks: true,

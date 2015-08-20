@@ -16,11 +16,12 @@ module.exports = {
 	scripts: {
 		files: '<%= Config.PRIVATE_DIR %>/js/**/*.js',
 		tasks: [
-			'copy:privateHandlerToPublicFolderandler',
 			'copy:privateHandlerToPublicFolder',
+			'copy:privatePluginToPublicFolder',
+			'copy:privateUtilToPublicFolder',
 			'copy:privateFunctionToPublicFolder',
 			'copy:privateComponentToPublicFolder',
-			'concat:mainJs',
+			'concat:mainJS',
 			'clean:globalJsInPublicFolder'
 		]
 	},

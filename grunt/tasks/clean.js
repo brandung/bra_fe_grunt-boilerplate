@@ -33,6 +33,10 @@ module.exports = {
 		'<%= Config.PRIVATE_DIR %>/browserconfig.xml',
 		'<%= Config.PRIVATE_DIR %>/robots.txt'
 	],
+	bundleFolder: [
+		'<%= Config.PUBLIC_DIR %>/js/bundle/*',
+		'<%= Config.PUBLIC_DIR %>/css/bundle/*'
+	],
 	zipTplFolder: [
 		'<%= Config.PKG_NAME %>/tpl/'
 	],

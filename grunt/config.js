@@ -28,7 +28,10 @@ Config.buildFolderName = 'build';
 Config.PKG_NAME = grunt.config('package.name');
 // Get user profile name
 Config.USER = process.env['USERPROFILE'].split(path.sep)[2];
+// Resolve CWD path
 Config.CWD = path.resolve(process.cwd(), '');
+// Routes for the browserSync
+Config.syncRoutes = {};
 
 /**
  * Define our global directory paths

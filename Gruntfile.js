@@ -28,6 +28,15 @@ module.exports = function (grunt) {
 
 
 	/**
+	 * Optional define a sub-project folder.
+	 * eg. --target=[folder-name]
+	 */
+	//TODO: save targets in Config.targets Array. On task run do prompt with target selection
+	//TODO: build multitask to do this
+	var target = grunt.option('target') || '';
+
+
+	/**
 	 * Check if the Config.SYSTEM var is already set
 	 * and load the config.js file.
 	 */

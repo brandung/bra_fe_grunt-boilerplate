@@ -25,7 +25,7 @@ Config.srcFolderName = 'src';
 // Into the `build` folder our build process will copy the dev assets
 Config.buildFolderName = 'build';
 // Get project name from package.json
-Config.PKG_NAME = grunt.config('package.name');
+Config.PKG_NAME = require('../package.json')['name'];
 // Get user profile name
 Config.USER = process.env['USERPROFILE'].split(path.sep)[2];
 // Resolve CWD path

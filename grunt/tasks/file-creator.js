@@ -47,7 +47,8 @@ module.exports = {
 					"\n" +
 					" Date: " + date.toISOString().substring(0, 10) + "\n" +
 					" MIT License (MIT)\n" +
-					" -->\n";
+					" -->\n" +
+					"<div class=\"" + component + "\"></div>";
 
 				fs.writeSync(fd, content);
 

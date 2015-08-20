@@ -113,7 +113,13 @@ module.exports = {
 		replacements: [
 			{
 				from: /\/\/\s?<@newComponent@>/ig,
-				to: ",\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\tcondition: $('." + component + "'),\n\t\t\t\t\t\t\tfetch: [\n\t\t\t\t\t\t\t\tBrandung.Vars.folderPath + 'css/component/" + component + ".css'\n\t\t\t\t\t\t\t],\n\t\t\t\t\t\t\tunique: Brandung.Util.getUnique()\n\t\t\t\t\t\t}// <@newComponent@>"
+				to: ",\n\t\t\t\t{" +
+				"\n\t\t\t\t\tcondition: $('." + component + "')," +
+				"\n\t\t\t\t\tfetch: [" +
+				"\n\t\t\t\t\t\tBrandung.Vars.folderPath + 'css/component/" + component + ".css'" +
+				"\n\t\t\t\t\t]," +
+				"\n\t\t\t\t\tunique: Brandung.Util.getUnique()" +
+				"\n\t\t\t\t}// <@newComponent@>"
 			}
 		]
 	},

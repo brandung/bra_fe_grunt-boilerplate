@@ -32,9 +32,9 @@ module.exports = {
 	},
 	privateFunctionToPublicFolder: {
 		expand: true,
-		cwd: '<%= Config.PRIVATE_DIR %>/js/func/',
+		cwd: '<%= Config.PRIVATE_DIR %>/js/function/',
 		src: '*',
-		dest: '<%= Config.PUBLIC_DIR %>/js/func/',
+		dest: '<%= Config.PUBLIC_DIR %>/js/function/',
 		flatten: true
 	},
 	privateComponentToPublicFolder: {

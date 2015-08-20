@@ -25,7 +25,7 @@ module.exports = function(grunt) {
 			bundleName = block.match(/(\/\/\s?<@bundle)(#)([a-zA-Z0-9\-_]+)/)[3];
 
 			// get files
-			assets = block.match(/(Brandung\.Vars\.folderPath(\s)*\+(\s)*)?('|")[a-zA-Z\/\.\-\_]*(\.js|\.css)('|")/igm);
+			assets = block.match(/(Brandung\.Vars\.folderPath(\s)*\+(\s)*)?('|")[a-zA-Z0-9\/\.\-\_]*(\.js|\.css)('|")/igm);
 
 			// get filetype, name and path
 			bundleFileType = /.css('|")(,)?$/ig.test(assets[0]) ? 'css' : 'js';

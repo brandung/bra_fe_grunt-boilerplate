@@ -26,6 +26,10 @@ module.exports = function (grunt) {
 	 */
 	require("time-grunt")(grunt);
 
+	/**
+	 * Load the notification plugin
+	 */
+	grunt.loadNpmTasks('grunt-notify');
 
 	/**
 	 * Optional define a sub-project folder.
@@ -87,6 +91,8 @@ module.exports = function (grunt) {
 	 * Init our grunt config
 	 */
 	grunt.initConfig(taskConfig);
+
+
 
 
 	/******************
@@ -154,7 +160,8 @@ module.exports = function (grunt) {
 		'uglify:global',
 		'assetBundle',
 		'uglify:mainJS',
-		'cssmin'
+		'cssmin',
+		'notify:finish'
 	]);
 
 	/**

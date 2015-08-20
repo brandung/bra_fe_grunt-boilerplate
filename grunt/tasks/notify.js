@@ -4,12 +4,10 @@
  * https://github.com/dylang/grunt-notify
  */
 module.exports = {
-	/*
-	task_name: {
+	finish: {
 		options: {
-			title: 'Task Complete',  // optional
-			message: 'SASS and Uglify finished running', //required
+			title: 'DEPLOY Task finished!',
+			message: 'Nice Job, dude'
 		}
 	}
-	*/
 };

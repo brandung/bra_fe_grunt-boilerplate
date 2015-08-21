@@ -4,6 +4,7 @@
 
 var grunt = require('grunt'),
 	_ = grunt.util._,
+	path = require('path'),
 	Helpers = {};
 
 /**
@@ -125,6 +126,16 @@ Helpers.getFiles = function (dir, files_) {
  */
 Helpers.getFilename = function (file) {
 	return file.split('\\').pop().split('/').pop().split('.').reverse().pop();
+};
+
+
+/**
+ * Get root folder (git-repo name)
+ *
+ * @returns {*}
+ */
+Helpers.getReponame = function () {
+	return process.env['PWD'].split('/').pop();
 };
 
 

@@ -27,7 +27,7 @@ module.exports = {
 		server: {
 			baseDir: '<%= Config.CWD %>',
 			index: '<%= Config.PRIVATE_DIR %>/templates/_modules.html',
-			routes: grunt.config('Config.syncRoutes')
+			routes: '<%= Config.syncRoutes %>'
 		},
 		ghostMode: {
 			clicks: true,

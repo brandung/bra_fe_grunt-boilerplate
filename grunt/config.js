@@ -28,16 +28,17 @@ Config.buildFolderName = 'build';
 Config.PKG_NAME = require('../package.json')['name'];
 // Get user profile name
 Config.USER = process.env['USERPROFILE'].split(path.sep)[2];
-// Resolve CWD path
+// Set local path
 Config.CWD = path.resolve(process.cwd(), '');
-// Routes for the browserSync
-Config.syncRoutes = {};
+// Route object for the browserSync
+Config.syncRoutes = Config.systemPaths.route;
 
 /**
  * Define our global directory paths
  */
 Config.PRIVATE_DIR = Config.systemPaths.private;
 Config.PUBLIC_DIR = Config.systemPaths.public;
+Config.LIVE_URL = Config.systemPaths.liveURL + '/' + Config.PUBLIC_DIR;
 Config.SRC_DIR = Config.systemPaths.private + '/' + Config.srcFolderName;
 Config.BUILD_DIR = Config.systemPaths.private + '/' + Config.buildFolderName;
 Config.ZIP_PUBLIC_FOLDER = Config.PKG_NAME + '/' + Config.PUBLIC_DIR;

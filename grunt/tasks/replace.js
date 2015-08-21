@@ -14,13 +14,18 @@ var grunt = require('grunt'),
 module.exports = {
 	init: {
 		src: [
-			'./grunt/config.js'
+			'./grunt/config.js',
+			'./grunt/systems/<%= grunt.config("initSystem") %>.json'
 		],
 		overwrite: true,
 		replacements: [
 			{
 				from: '%%system%%',
 				to: '<%= grunt.config("initSystem") %>'
+			},
+			{
+				from: '%%repo%%',
+				to: Helpers.getReponame()
 			}
 		]
 	},
@@ -35,7 +40,7 @@ module.exports = {
 		replacements: [
 			{
 				from: '%%public%%',
-				to: '<%= Config.PUBLIC_DIR %>'
+				to: '<%= Config.LIVE_URL %>'
 			},
 			{
 				from: '%%private%%',

@@ -8,5 +8,9 @@
         "Resources/Public/js/libs/vendor"
     ],
     "private": "Resources/Private/Frontend",
-    "public": "Resources/Public"
+    "public": "Resources/Public",
+    "liveURL": "/typo3conf/ext/%%repo%%",
+    "route": {
+        "/typo3conf/ext/%%repo%%/Resources/": "Resources/"
+    }
 }

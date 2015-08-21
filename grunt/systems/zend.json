@@ -8,5 +8,7 @@
         "src/public/js/libs/vendor"
     ],
     "private": "src/private/frontend",
-    "public": "src/public"
+    "public": "src/public",
+    "liveURL": "",
+    "route": {}
 }

@@ -18,7 +18,6 @@ module.exports = {
 		tasks: [
 			'copy:privateHandlerToPublicFolder',
 			'copy:privatePluginToPublicFolder',
-			'copy:privateUtilToPublicFolder',
 			'copy:privateFunctionToPublicFolder',
 			'copy:privateComponentToPublicFolder',
 			'concat:mainJS',

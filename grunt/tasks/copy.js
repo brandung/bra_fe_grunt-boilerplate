@@ -10,12 +10,6 @@ module.exports = {
 		src: '**',
 		dest: '<%= Config.PUBLIC_DIR %>/js/libs/'
 	},
-	privateUtilToPublicFolder: {
-		expand: true,
-		cwd: '<%= Config.PRIVATE_DIR %>/js/util/',
-		src: '**',
-		dest: '<%= Config.PUBLIC_DIR %>/js/util/'
-	},
 	privatePluginToPublicFolder: {
 		expand: true,
 		cwd: '<%= Config.PRIVATE_DIR %>/js/plugin/',

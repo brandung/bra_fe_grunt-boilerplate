@@ -106,7 +106,7 @@ module.exports = function (grunt) {
 		'confReady',
 		'sass',
 		'tasty_swig',
-		'copy:privatePluginToPublicFolder',
+		'copy:privateUtilToPublicFolder',
 		'copy:privateHandlerToPublicFolder',
 		'copy:privateFunctionToPublicFolder',
 		'copy:privateComponentToPublicFolder',

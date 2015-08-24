@@ -17,7 +17,7 @@ module.exports = {
 		files: '<%= Config.PRIVATE_DIR %>/js/**/*.js',
 		tasks: [
 			'copy:privateHandlerToPublicFolder',
-			'copy:privatePluginToPublicFolder',
+			'copy:privateUtilToPublicFolder',
 			'copy:privateFunctionToPublicFolder',
 			'copy:privateComponentToPublicFolder',
 			'concat:mainJS',

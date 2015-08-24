@@ -10,11 +10,11 @@ module.exports = {
 		src: '**',
 		dest: '<%= Config.PUBLIC_DIR %>/js/libs/'
 	},
-	privatePluginToPublicFolder: {
+	privateUtilToPublicFolder: {
 		expand: true,
-		cwd: '<%= Config.PRIVATE_DIR %>/js/plugin/',
+		cwd: '<%= Config.PRIVATE_DIR %>/js/util/',
 		src: '*',
-		dest: '<%= Config.PUBLIC_DIR %>/js/plugin/',
+		dest: '<%= Config.PUBLIC_DIR %>/js/util/',
 		flatten: true
 	},
 	privateHandlerToPublicFolder: {

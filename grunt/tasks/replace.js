@@ -96,7 +96,6 @@ module.exports = {
 	deleteJsBlock: {
 		src: [
 			'<%= Config.PUBLIC_DIR %>/js/*.js',
-			'<%= Config.PUBLIC_DIR %>/js/plugin/*.js',
 			'<%= Config.PUBLIC_DIR %>/js/handle/*.js',
 			'<%= Config.PUBLIC_DIR %>/js/component/*.js',
 			'<%= Config.PUBLIC_DIR %>/js/func/*.js',

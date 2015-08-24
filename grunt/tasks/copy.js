@@ -50,7 +50,8 @@ module.exports = {
 			'browserconfig.xml',
 			'hotfix.css',
 			'hotfix.js',
-			'robots.txt'
+			'robots.txt',
+			'crossdomain.xml'
 		],
 		dest: './',
 		flatten: true

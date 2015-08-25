@@ -70,12 +70,12 @@ module.exports = {
 	},
 	importJsStorageKey: {
 		src: [
-			'<%= Config.PUBLIC_DIR %>/js/main.js'
+			'<%= Config.PUBLIC_DIR %>/js/function/get-unique.js'
 		],
 		overwrite: true,
 		replacements: [
 			{
-				from: /<@unique@>/g,
+				from: /'<@unique@>'/g,
 				to: Helpers.setTimestamp()
 			}
 		]
@@ -83,7 +83,7 @@ module.exports = {
 	deleteCssBlock: {
 		src: [
 			'<%= Config.PUBLIC_DIR %>/css/*.css',
-			'<%= Config.PUBLIC_DIR %>/css/component/*.css'
+			'<%= Config.PUBLIC_DIR %>/component/*.css'
 		],
 		overwrite: true,
 		replacements: [
@@ -97,8 +97,8 @@ module.exports = {
 		src: [
 			'<%= Config.PUBLIC_DIR %>/js/*.js',
 			'<%= Config.PUBLIC_DIR %>/js/handle/*.js',
-			'<%= Config.PUBLIC_DIR %>/js/component/*.js',
-			'<%= Config.PUBLIC_DIR %>/js/func/*.js',
+			'<%= Config.PUBLIC_DIR %>/component/*.js',
+			'<%= Config.PUBLIC_DIR %>/js/function/*.js',
 			'<%= Config.PUBLIC_DIR %>/js/util/*.js'
 		],
 		overwrite: true,
@@ -120,9 +120,9 @@ module.exports = {
 				to: ",\n\t\t\t\t{" +
 				"\n\t\t\t\t\tcondition: $('." + component + "')," +
 				"\n\t\t\t\t\tfetch: [" +
-				"\n\t\t\t\t\t\tBrandung.Vars.folderPath + 'css/component/" + component + ".css'" +
+				"\n\t\t\t\t\t\tBrandung.Vars.folderPath + 'component/" + component + "/" + component + ".css'" +
 				"\n\t\t\t\t\t]," +
-				"\n\t\t\t\t\tunique: Brandung.Util.getUnique()" +
+				"\n\t\t\t\t\tunique: Brandung.Function.getUnique()" +
 				"\n\t\t\t\t}// <@newComponent@>"
 			}
 		]
@@ -138,11 +138,11 @@ module.exports = {
 				to: "<h3 class=\"mod-headline\">" +
 				component.charAt(0).toUpperCase() + component.slice(1) +
 				"</h3>\n" +
-				"\t\t\t{% include \"./partials/component/" + component.toString() + ".tpl\" %} \n\n" +
+				"\t\t\t{% include \"../../component/" + component.toString() + "/" + component.toString() + ".tpl\" %} \n\n" +
 				"\t\t\t<!-- <@newComponent@> -->"
 			}
 		]
-	},
+	}/*,
 	includeSwigViewPartial: {
 		src: [
 			'<%= Config.PRIVATE_DIR %>/templates/tpl/_modules.tpl'
@@ -158,5 +158,5 @@ module.exports = {
 				"\t\t\t<!-- <@newView@> -->"
 			}
 		]
-	}
+	}*/
 };

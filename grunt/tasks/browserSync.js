@@ -13,6 +13,7 @@ module.exports = {
 		src: [
 			'<%= Config.PUBLIC_DIR %>/css/*.css',
 			'<%= Config.PRIVATE_DIR %>/templates/*',
+			'<%= Config.PRIVATE_DIR %>/component/**/*',
 			'<%= Config.PUBLIC_DIR %>/js/**/*.js'
 		]
 	},

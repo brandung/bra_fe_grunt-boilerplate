@@ -11,5 +11,12 @@ module.exports = {
 		src: ['**/*.scss'],
 		dest: '<%= Config.PUBLIC_DIR %>/css',
 		ext: '.css'
+	},
+	component: {
+		expand: true,
+		cwd: '<%= Config.PRIVATE_DIR %>/component',
+		src: ['**/*.scss'],
+		dest: '<%= Config.PUBLIC_DIR %>/component',
+		ext: '.css'
 	}
 };

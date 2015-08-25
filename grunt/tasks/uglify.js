@@ -22,6 +22,12 @@ module.exports = {
 		" * MIT License (MIT)\n" +
 		" */\n"
 	},
+	component: {
+		expand: true,
+		cwd: '<%= Config.PUBLIC_DIR %>/component/',
+		src: ['**/*.js'],
+		dest: '<%= Config.PUBLIC_DIR %>/component/'
+	},
 	global: {
 		expand: true,
 		cwd: '<%= Config.PUBLIC_DIR %>/js/',

@@ -7,14 +7,20 @@
 
 module.exports = {
 	styles: {
-		files: '<%= Config.PRIVATE_DIR %>/sass/**/*.scss',
+		files: [
+			'<%= Config.PRIVATE_DIR %>/sass/**/*.scss',
+			'<%= Config.PRIVATE_DIR %>/component/**/*.scss'
+		],
 		tasks: [
 			'sass',
 			'sassToHtml'
 		]
 	},
 	scripts: {
-		files: '<%= Config.PRIVATE_DIR %>/js/**/*.js',
+		files: [
+			'<%= Config.PRIVATE_DIR %>/js/**/*.js',
+			'<%= Config.PRIVATE_DIR %>/component/**/*.js'
+		],
 		tasks: [
 			'copy:privateHandlerToPublicFolder',
 			'copy:privateUtilToPublicFolder',
@@ -25,7 +31,10 @@ module.exports = {
 		]
 	},
 	tpl: {
-		files: '<%= Config.PRIVATE_DIR %>/templates/tpl/**/*.tpl',
+		files:  [
+			'<%= Config.PRIVATE_DIR %>/templates/tpl/**/*.tpl',
+			'<%= Config.PRIVATE_DIR %>/component/**/*.tpl'
+		],
 		tasks: [
 			'tasty_swig'
 		]

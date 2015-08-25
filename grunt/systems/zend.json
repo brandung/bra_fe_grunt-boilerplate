@@ -1,6 +1,7 @@
 {
     "folder": [
         "src/private/frontend",
+        "src/public/component",
         "src/public/css",
         "src/public/font",
         "src/public/img/",

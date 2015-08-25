@@ -141,7 +141,6 @@ module.exports = function (grunt) {
 	 * The 'project:serve' task for developing
 	 */
 	grunt.registerTask('project:serve', [
-		'default',
 		'browserSync',
 		'watch'
 	]);
@@ -155,6 +154,7 @@ module.exports = function (grunt) {
 		'replace:importJsStorageKey',
 		'replace:deleteJsBlock',
 		'clean:bundleFolder',
+		'uglify:component',
 		'uglify:global',
 		'assetBundle',
 		'uglify:mainJS',
@@ -193,16 +193,7 @@ module.exports = function (grunt) {
 		'file-creator:componentFiles',
 		'replace:addNewComponentImport',
 		'replace:includeSwigComponentPartial',
-		'project:serve'
-	]);
-
-	/**
-	 * Create view partial
-	 */
-	grunt.registerTask('create:view', [
-		'confReady',
-		'file-creator:viewFiles',
-		'replace:includeSwigViewPartial',
+		'default',
 		'project:serve'
 	]);
 };

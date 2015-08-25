@@ -1,6 +1,7 @@
 {
     "folder": [
         "Resources/Private/Frontend",
+        "Resources/Public/component",
         "Resources/Public/css",
         "Resources/Public/font",
         "Resources/Public/img/",

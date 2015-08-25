@@ -1,7 +1,7 @@
 /**
  * Copy js files from private to public to the proper directories.
  *
- * ttps://www.npmjs.org/package/grunt-contrib-copy
+ * https://www.npmjs.org/package/grunt-contrib-copy
  */
 module.exports = {
 	privateLibsToPublicFolder: {
@@ -33,10 +33,10 @@ module.exports = {
 	},
 	privateComponentToPublicFolder: {
 		expand: true,
-		cwd: '<%= Config.PRIVATE_DIR %>/js/component/',
-		src: '*',
-		dest: '<%= Config.PUBLIC_DIR %>/js/component/',
-		flatten: true
+		cwd: '<%= Config.PRIVATE_DIR %>/component/',
+		src: '**/*.js',
+		dest: '<%= Config.PUBLIC_DIR %>/component/',
+		flatten: false
 	},
 	privateRootFilesToRoot: {
 		expand: true,

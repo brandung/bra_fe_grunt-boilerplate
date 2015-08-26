@@ -105,14 +105,14 @@ module.exports = function (grunt) {
 	grunt.registerTask('default', 'Desc', [
 		'confReady',
 		'sass',
+		'sassToHtml',
 		'tasty_swig',
 		'copy:privateUtilToPublicFolder',
 		'copy:privateHandlerToPublicFolder',
 		'copy:privateFunctionToPublicFolder',
 		'copy:privateComponentToPublicFolder',
 		'concat:mainJS',
-		'clean:globalJsInPublicFolder',
-		'sassToHtml'
+		'clean:globalJsInPublicFolder'
 	]);
 
 	/**

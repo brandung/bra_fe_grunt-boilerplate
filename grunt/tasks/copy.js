@@ -92,7 +92,8 @@ module.exports = {
 			'favicon.ico',
 			'robots.txt',
 			'tile.png',
-			'tile-wide.png'
+			'tile-wide.png',
+			'crossdomain.xml'
 		],
 		dest: '<%= Config.PKG_NAME %>/'
 	}

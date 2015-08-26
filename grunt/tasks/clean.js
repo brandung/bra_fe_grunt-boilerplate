@@ -31,7 +31,8 @@ module.exports = {
 		'<%= Config.PRIVATE_DIR %>/tile-wide.png',
 		'<%= Config.PRIVATE_DIR %>/.htaccess',
 		'<%= Config.PRIVATE_DIR %>/browserconfig.xml',
-		'<%= Config.PRIVATE_DIR %>/robots.txt'
+		'<%= Config.PRIVATE_DIR %>/robots.txt',
+		'<%= Config.PRIVATE_DIR %>/crossdomain.xml'
 	],
 	bundleFolder: [
 		'<%= Config.PUBLIC_DIR %>/js/bundle/*',

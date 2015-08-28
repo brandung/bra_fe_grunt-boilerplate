@@ -141,6 +141,7 @@ module.exports = function (grunt) {
 	 * The 'project:serve' task for developing
 	 */
 	grunt.registerTask('project:serve', [
+		'default',
 		'browserSync',
 		'watch'
 	]);

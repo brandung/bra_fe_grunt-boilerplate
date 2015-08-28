@@ -34,7 +34,10 @@ module.exports = {
 	privateComponentToPublicFolder: {
 		expand: true,
 		cwd: '<%= Config.PRIVATE_DIR %>/component/',
-		src: '**/*.js',
+		src: [
+			'**/**/*.*',
+			'!**/**/*.scss'
+		],
 		dest: '<%= Config.PUBLIC_DIR %>/component/',
 		flatten: false
 	},

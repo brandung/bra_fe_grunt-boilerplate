@@ -11,10 +11,8 @@ var grunt = require('grunt');
 module.exports = {
 	bsFiles: {
 		src: [
-			'<%= Config.PUBLIC_DIR %>/css/*.css',
-			'<%= Config.PRIVATE_DIR %>/templates/*',
-			'<%= Config.PRIVATE_DIR %>/component/**/*',
-			'<%= Config.PUBLIC_DIR %>/js/**/*.js'
+			'<%= Config.PRIVATE_DIR %>/templates/_modules.html',
+			'<%= Config.PUBLIC_DIR %>/js/main.js'
 		]
 	},
 	options: {
@@ -32,9 +30,8 @@ module.exports = {
 		},
 		ghostMode: {
 			clicks: true,
-			scroll: true,
-			links: true,
-			forms: true
+			forms: true,
+			scroll: true
 		}
 	}
 };

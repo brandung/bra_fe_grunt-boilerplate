@@ -5,7 +5,7 @@
 	"author": "brandung GmbH & CO.KG (http://www.brandung.de)",
 	"private": true,
 	"dependencies": {
-		"html-boilerplate" : "https://github.com/brandung/html-boilerplate.git#feature/workflow3"
+		"html-boilerplate" : "https://github.com/brandung/html-boilerplate.git"
 	},
 	"exportsOverride": {
 		"mod-*": {

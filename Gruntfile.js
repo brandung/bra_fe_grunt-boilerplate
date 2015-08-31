@@ -173,6 +173,7 @@ module.exports = function (grunt) {
 		'copy:templatesToZipFolder',
 		'copy:rootFilesToZipFolder',
 		'replace:zipFolderAssetPath',
+		'replace:zipCSSPath',
 		'clean:zipTplFolder',
 		'zip',
 		'clean:zipFolder'

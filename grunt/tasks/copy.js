@@ -36,7 +36,8 @@ module.exports = {
 		cwd: '<%= Config.PRIVATE_DIR %>/component/',
 		src: [
 			'**/**/*.*',
-			'!**/**/*.scss'
+			'!**/**/*.scss',
+			'!**/**/*.tpl'
 		],
 		dest: '<%= Config.PUBLIC_DIR %>/component/',
 		flatten: false

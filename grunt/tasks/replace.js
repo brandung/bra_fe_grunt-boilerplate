@@ -54,17 +54,26 @@ module.exports = {
 	},
 	zipFolderAssetPath: {
 		src: [
-			'<%= Config.PKG_NAME %>/*.*'
+			'<%= Config.PKG_NAME %>/**/*.*',
+			'!<%= Config.PKG_NAME %>/**/*.css'
 		],
 		overwrite: true,
 		replacements: [
 			{
-				from: 'src="/',
-				to: 'src="'
-			},
+				from: '<%= grunt.config("Config.LIVE_URL") %>',
+				to: '<%= grunt.config("Config.PUBLIC_DIR") %>'
+			}
+		]
+	},
+	zipCSSPath: {
+		src: [
+			'<%= Config.PKG_NAME %>/**/*.css'
+		],
+		overwrite: true,
+		replacements: [
 			{
-				from: 'href="/',
-				to: 'href="'
+				from: '<%= grunt.config("Config.LIVE_URL") %>',
+				to: '..'
 			}
 		]
 	},

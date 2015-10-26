@@ -54,7 +54,8 @@ module.exports = {
 	},
 	zipFolderAssetPath: {
 		src: [
-			'<%= Config.PKG_NAME %>/**/*.*',
+			'<%= Config.PKG_NAME %>/**/*.js',
+			'<%= Config.PKG_NAME %>/**/*.html',
 			'!<%= Config.PKG_NAME %>/**/*.css'
 		],
 		overwrite: true,

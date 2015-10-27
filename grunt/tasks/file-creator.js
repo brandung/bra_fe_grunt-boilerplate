@@ -28,8 +28,18 @@ module.exports = {
 					"@import '../../sass/partials/variables';\n" +
 					"@import '../../sass/partials/mixins';\n" +
 					"\n" +
-					"." + component + " {\n" +
-					"\t\n" +
+					"$module: '" + component + "';\n"+
+					"\n" +
+					"// block\n" +
+					"%#{$module} {\n" +
+					"\t\n"+
+					"}\n\n\n"+
+					"// element\n\n\n" +
+					"// modifier\n\n" +
+					"\n\n" +
+					"// module class selector\n" +
+					".#{$module} {\n" +
+					"\t@extend %#{$module};\n"+
 					"}\n";
 
 				fs.writeSync(fd, content);

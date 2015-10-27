@@ -46,7 +46,7 @@ module.exports = {
 		expand: true,
 		cwd: '<%= Config.PRIVATE_DIR %>/',
 		src: [
-			'apple-touch-icon-precomposed.png',
+			'apple-touch-icon.png',
 			'favicon.ico',
 			'tile.png',
 			'tile-wide.png',
@@ -91,7 +91,7 @@ module.exports = {
 		cwd: './',
 		src: [
 			'.htaccess',
-			'apple-touch-icon-precomposed.png',
+			'apple-touch-icon.png',
 			'browserconfig.xml',
 			'favicon.ico',
 			'robots.txt',

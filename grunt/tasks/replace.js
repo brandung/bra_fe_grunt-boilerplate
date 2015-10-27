@@ -54,7 +54,8 @@ module.exports = {
 	},
 	zipFolderAssetPath: {
 		src: [
-			'<%= Config.PKG_NAME %>/**/*.*',
+			'<%= Config.PKG_NAME %>/**/*.js',
+			'<%= Config.PKG_NAME %>/**/*.html',
 			'!<%= Config.PKG_NAME %>/**/*.css'
 		],
 		overwrite: true,
@@ -144,7 +145,7 @@ module.exports = {
 		replacements: [
 			{
 				from: /<!--\s?<@newComponent@>\s?-->/ig,
-				to: "<h3 class=\"mod-headline\">" +
+				to: "<h3 class=\"mw-headline\">" +
 				component.charAt(0).toUpperCase() + component.slice(1) +
 				"</h3>\n" +
 				"\t\t\t{% include \"../../component/" + component.toString() + "/" + component.toString() + ".tpl\" %} \n\n" +

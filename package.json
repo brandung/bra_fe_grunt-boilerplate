@@ -1,10 +1,14 @@
 {
   "name": "brandung-FE",
-  "version": "1.0.0",
+  "version": "3.0.2",
   "description": "Grunt and Bower Setup for brandung frontend workflow",
   "homepage": "http://www.brandung.de",
   "author": "brandung GmbH & CO.KG",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://srv32.git-repos.de/dev1/bra_fe_grunt-boilerplate"
+  },
   "devDependencies": {
     "grunt": "~0.4.5",
     "grunt-bower-task": "^0.4.0",

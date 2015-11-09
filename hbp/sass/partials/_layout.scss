@@ -1,0 +1,54 @@
+/**
+ * brandung layout.scss v2.0.0
+ *
+ * @require vendor/gridset
+ *
+ * Copyright brandung GmbH & Co.KG
+ * http://www.brandung.de/
+ *
+ * Date: 2014-09-23
+ * MIT License (MIT)
+ */
+
+
+/* ==========================================================================
+   Global Layout
+   ========================================================================== */
+
+* {
+	@include prefix(box-sizing, border-box)
+}
+
+body {
+	background: color('white');
+	color: color('black');
+	font-size: $body-font-size;
+	line-height: 1.4;
+}
+
+body::before {
+	content: getBreakpointList();
+	display: none;
+}
+
+main {
+	@extend .container;
+
+	@include clearfix();
+}
+
+
+/* ==========================================================================
+  Content Elements
+  ========================================================================== */
+
+img {
+	height: auto;
+	outline: 0;
+	max-width: 100%;
+}
+
+hr {
+	@include clearfix();
+	margin: 20px 0;
+}

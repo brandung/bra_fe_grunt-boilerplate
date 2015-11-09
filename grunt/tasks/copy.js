@@ -4,6 +4,12 @@
  * https://www.npmjs.org/package/grunt-contrib-copy
  */
 module.exports = {
+	htmlBoilerplateToPrivate: {
+		expand: true,
+		cwd: './hbp/',
+		src: '**',
+		dest: '<%= Config.PRIVATE_DIR %>/'
+	},
 	privateLibsToPublicFolder: {
 		expand: true,
 		cwd: '<%= Config.PRIVATE_DIR %>/js/libs/',

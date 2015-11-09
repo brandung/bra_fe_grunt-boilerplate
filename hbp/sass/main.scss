@@ -1,0 +1,62 @@
+/**
+ * brandung SCSS boilerplate v2.0.0
+ *
+ * Copyright brandung GmbH & Co.KG
+ * http://www.brandung.de/
+ *
+ * Date: 2014-09-23
+ * MIT License (MIT)
+ */
+
+
+/**
+ *  core variables and mixins
+ *  - modify this for custom colors, font-sizes, etc
+ */
+@import "partials/functions";
+@import "partials/variables";
+@import "partials/mixins";
+
+/**
+ * normalize
+ * https://github.com/necolas/normalize.css
+ */
+@import "vendor/normalize";
+
+/**
+ * h5bp main.css
+ * https://github.com/h5bp/html5-boilerplate
+ */
+@import "vendor/h5bp";
+
+/**
+ * old-ie mixin
+ * https://gridsetapp.com/
+ */
+//@import "vendor/_sass-ie_DELETE";
+
+/**
+ * vendor utilities
+ * - remove comment when mixin is needed
+ */
+// @import "vendor/retina-sprites";
+// @import "vendor/retina-background-image";
+
+
+/**
+ * layout and grid
+ * - brandung grid
+ * - based on the bootstrap v3 gridset
+ *
+ * - brandung layout files
+ * - here you can add new files if needed
+ */
+@import "partials/layout";
+@import "partials/grid";
+@import "partials/typo";
+@import "partials/icon-font";
+@import "partials/helpers";
+
+@import "../component/header/header";
+@import "../component/footer/footer";
+@import "../component/navigation/navigation";

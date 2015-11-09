@@ -117,18 +117,19 @@ module.exports = function (grunt) {
 
 	/**
 	 * The `project:init` task configures your project,
-	 * download the boilerplate and copy the assets
-	 * into the given folder structure.
+	 * move the boilerplate into the private folder
+	 * and copy the assets into the given folder structure.
 	 */
 	grunt.registerTask('project:init', 'Start the initializing process', [
 		'prompt:init',
 		'replace:init',
 		'confReady',
 		'mkdir:projectStructure',
-		'bower:fetchHtmlBoilerplate',
+		'copy:htmlBoilerplateToPrivate',
 		'replace:pathPlaceholder',
 		'copy:privateLibsToPublicFolder',
 		'copy:privateRootFilesToRoot',
+		'clean:htmlBoilerplateFolder',
 		'clean:privateRootFiles',
 		'copy:hotfixjsToPublicFolder',
 		'copy:hotfixcssToPublicFolder',

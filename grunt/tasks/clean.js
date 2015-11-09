@@ -4,6 +4,9 @@
  * https://github.com/gruntjs/grunt-contrib-clean
  */
 module.exports = {
+	htmlBoilerplateFolder: [
+		'./hbp/'
+	],
 	rootFilesInPrivateFolder: [
 		'<%= Config.PRIVATE_DIR %>/README.md',
 		'<%= Config.PRIVATE_DIR %>/LICENSE',
@@ -25,7 +28,7 @@ module.exports = {
 	 '<%= Config.PRIVATE_DIR %>/js/mod/**'
 	 ],*/
 	privateRootFiles: [
-		'<%= Config.PRIVATE_DIR %>/apple-touch-icon-precomposed.png',
+		'<%= Config.PRIVATE_DIR %>/apple-touch-icon.png',
 		'<%= Config.PRIVATE_DIR %>/favicon.ico',
 		'<%= Config.PRIVATE_DIR %>/tile.png',
 		'<%= Config.PRIVATE_DIR %>/tile-wide.png',

@@ -1,0 +1,26 @@
+/**
+ * brandung
+ *
+ * Copyright brandung GmbH & Co.KG
+ * http://www.brandung.de/
+ *
+ * Date: 19.08.2015
+ * MIT License (MIT)
+ *
+ * Returns the current orientation
+ *
+ * @return {string} - portrait or landscape
+ */
+Brandung.Function.getOrientation = function () {
+	var windowWidth = window.innerWidth,
+		windowHeight = window.innerHeight,
+		orientation;
+
+	if(windowWidth <= windowHeight) {
+		orientation = 'portrait'
+	} else {
+		orientation = 'landscape';
+	}
+
+	return orientation;
+};

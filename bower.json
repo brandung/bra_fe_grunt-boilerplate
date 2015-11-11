@@ -8,6 +8,9 @@
 		"fe-workflow" : "https://github.com/brandung/bra_fe_grunt-boilerplate.git#develop"
 	},
 	"ignore": [
-		"hbp"
+		"hbp",
+		".gitignore",
+		"LICENSE",
+		"README.md"
 	]
 }

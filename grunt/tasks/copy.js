@@ -106,5 +106,12 @@ module.exports = {
 			'crossdomain.xml'
 		],
 		dest: '<%= Config.PKG_NAME %>/'
+	},
+	gruntUpdate: {
+		expand: true,
+		cwd: './fe-workflow/',
+		src: '**',
+		dest: './',
+		flatten: false
 	}
 };

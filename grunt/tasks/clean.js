@@ -46,5 +46,8 @@ module.exports = {
 	],
 	zipFolder: [
 		'<%= Config.PKG_NAME %>'
+	],
+	gruntUpdateFolder: [
+		'./fe-workflow/'
 	]
 };

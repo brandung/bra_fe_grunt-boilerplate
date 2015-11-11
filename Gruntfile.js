@@ -199,4 +199,13 @@ module.exports = function (grunt) {
 		'default',
 		'project:serve'
 	]);
+
+	/**
+	 * Update Grunt files
+	 */
+	grunt.registerTask('update:grunt', [
+		'bower:install',
+		'copy:gruntUpdate',
+		'clean:gruntUpdateFolder'
+	]);
 };

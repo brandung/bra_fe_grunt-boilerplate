@@ -1,28 +1,28 @@
 {
 	"name": "download-builder",
-	"version": "1.0.0",
+	"version": "3.1.0",
 	"description": "Get FE Modules and dependencies from GIT repositories ()",
 	"author": "brandung GmbH & CO.KG (http://www.brandung.de)",
 	"private": true,
 	"dependencies": {
-		"html-boilerplate" : "https://github.com/brandung/html-boilerplate.git"
+		"fe-workflow" : "https://github.com/brandung/bra_fe_grunt-boilerplate.git"
 	},
+	"ignore": [
+		"hbp",
+		".gitignore",
+		"LICENSE",
+		"README.md",
+		"grunt/*.js",
+		"grunt/systems"
+	],
 	"exportsOverride": {
-		"mod-*": {
+		"comp-*": {
 			"%%private%%/js/mod": "*.js",
 			"%%private%%/sass/mod": "*.scss",
 			"%%private%%/templates/mod": "*.html"
 		},
-		"helper-*": {
-			"%%private%%/js/helpers": "*.js",
-			"%%private%%/sass/mod": "*.scss",
-			"%%public%%/img": "*.{png,jpg,gif}"
-		},
 		"bra-*": {
 			"%%public%%/js/libs/bra": "."
-		},
-		"*": {
-			"%%public%%/js/libs/vendor": "."
 		}
 	}
 }

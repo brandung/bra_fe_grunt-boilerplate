@@ -11,6 +11,8 @@
 		"hbp",
 		".gitignore",
 		"LICENSE",
-		"README.md"
+		"README.md",
+		"grunt/*.js",
+		"grunt/systems"
 	]
 }

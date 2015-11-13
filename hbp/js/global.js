@@ -81,7 +81,7 @@ basket.require(
 						Brandung.Vars.folderPath + 'js/function/assert-breakpoint.js',
 						Brandung.Vars.folderPath + 'js/function/get-breakpoint.js',
 						Brandung.Vars.folderPath + 'js/function/get-orientation.js',
-						Brandung.Vars.folderPath + 'js/function/get-computed-style.js',
+						Brandung.Vars.folderPath + 'js/function/get-computed-style.js',					
 						Brandung.Vars.folderPath + 'js/util/set-breakpoints.js',
 						Brandung.Vars.folderPath + 'js/handle/set-event-class.js',
 						Brandung.Vars.folderPath + 'js/handle/resize-handler.js',
@@ -101,11 +101,10 @@ basket.require(
 			$.import([
 				// <@delete
 				{
-					condition: true,
+					condition: $('.mw-headline'),
 					fetch: [
-						Brandung.Vars.folderPath + 'js/libs/bra/dbug/bra/bra-module-widget/bra-module-widget.js',
-						Brandung.Vars.folderPath + 'js/libs/bra/dbug/bra/bra-module-widget/bra-module-widget.css',
-						Brandung.Vars.folderPath + 'js/util/init-debug-mode.js'
+						Brandung.Vars.folderPath + 'js/libs/bra/dbug/bra-module-widget/bra-module-widget.js',
+						Brandung.Vars.folderPath + 'js/libs/bra/dbug/bra-module-widget/bra-module-widget.css'
 					],
 					unique: Brandung.Function.getUnique()
 				},

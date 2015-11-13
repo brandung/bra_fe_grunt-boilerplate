@@ -1,6 +1,6 @@
 {
 	"name": "download-builder",
-	"version": "3.1.0",
+	"version": "3.1.2",
 	"description": "Get FE Modules and dependencies from GIT repositories ()",
 	"author": "brandung GmbH & CO.KG (http://www.brandung.de)",
 	"private": true,

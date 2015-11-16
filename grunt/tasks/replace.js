@@ -33,8 +33,7 @@ module.exports = {
 		src: [
 			'<%= Config.PRIVATE_DIR %>/templates/tpl/**/*.tpl',
 			'<%= Config.PRIVATE_DIR %>/js/global.js',
-			'<%= Config.PRIVATE_DIR %>/sass/**/*.*',
-			'bower.json'
+			'<%= Config.PRIVATE_DIR %>/sass/**/*.*'
 		],
 		overwrite: true,
 		replacements: [
@@ -49,6 +48,22 @@ module.exports = {
 			{
 				from: '%%project%%',
 				to: '<%= Config.PKG_NAME %>'
+			}
+		]
+	},
+	bowerPathPlaceholder: {
+		src: [
+			'bower.json'
+		],
+		overwrite: true,
+		replacements: [
+			{
+				from: '%%public%%',
+				to: '<%= Config.PUBLIC_DIR %>'
+			},
+			{
+				from: '%%private%%',
+				to: '<%= Config.PRIVATE_DIR %>'
 			}
 		]
 	},

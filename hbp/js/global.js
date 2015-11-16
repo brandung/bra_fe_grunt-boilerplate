@@ -103,8 +103,8 @@ basket.require(
 				{
 					condition: $('.mw-headline'),
 					fetch: [
-						Brandung.Vars.folderPath + 'js/libs/bra/dbug/bra-module-widget/bra-module-widget.js',
-						Brandung.Vars.folderPath + 'js/libs/bra/dbug/bra-module-widget/bra-module-widget.css'
+						Brandung.Vars.folderPath + 'js/libs/bra/bra-module-widget/bra-module-widget.js',
+						Brandung.Vars.folderPath + 'js/libs/bra/bra-module-widget/bra-module-widget.css'
 					],
 					unique: Brandung.Function.getUnique()
 				},

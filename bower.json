@@ -1,12 +1,14 @@
 {
 	"name": "download-builder",
-	"version": "3.1.2",
-	"description": "Get FE Modules and dependencies from GIT repositories ()",
+	"description": "Get FE Modules and dependencies from GIT repositories",
 	"author": "brandung GmbH & CO.KG (http://www.brandung.de)",
 	"private": true,
 	"dependencies": {
 		"fe-workflow" : "https://github.com/brandung/bra_fe_grunt-boilerplate.git"
 	},
+	"devDependencies": {
+		"bra-module-widget": "https://github.com/brandung/bra-module-widget.git#2.0.0"
+  	},
 	"ignore": [
 		"hbp",
 		".gitignore",

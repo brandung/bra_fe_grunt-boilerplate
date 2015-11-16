@@ -127,8 +127,11 @@ module.exports = function (grunt) {
 		'mkdir:projectStructure',
 		'copy:htmlBoilerplateToPrivate',
 		'replace:pathPlaceholder',
+		'replace:bowerPathPlaceholder',	
+		'bower:install',
 		'copy:privateLibsToPublicFolder',
 		'copy:privateRootFilesToRoot',
+		'clean:gruntUpdateFolder',
 		'clean:htmlBoilerplateFolder',
 		'clean:privateRootFiles',
 		'copy:hotfixjsToPublicFolder',
@@ -204,8 +207,10 @@ module.exports = function (grunt) {
 	 * Update Grunt files
 	 */
 	grunt.registerTask('update:grunt', [
+		'confReady',
 		'bower:install',
 		'copy:gruntUpdate',
-		'clean:gruntUpdateFolder'
+		'clean:gruntUpdateFolder',
+		'replace:bowerPathPlaceholder'
 	]);
 };

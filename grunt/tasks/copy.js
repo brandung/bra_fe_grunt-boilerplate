@@ -50,7 +50,7 @@ module.exports = {
 	},
 	publicComponentVendorToPublicJSFolder: {
 		expand: true,
-		cwd: '<%= Config.PUBLIC_DIR %>/component/',
+		cwd: '<%= Config.PRIVATE_DIR %>/component/',
 		src: ['*/js/**/*.js'],
 		dest: '<%= Config.PUBLIC_DIR %>/js/',
 		flatten: false,

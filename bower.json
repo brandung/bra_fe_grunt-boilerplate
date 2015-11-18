@@ -7,7 +7,7 @@
 		"fe-workflow" : "https://github.com/brandung/bra_fe_grunt-boilerplate.git"
 	},
 	"devDependencies": {
-		"bra-module-widget": "https://github.com/brandung/bra-module-widget.git#2.0.0"
+		"bra_module-widget": "https://github.com/brandung/bra_module-widget.git#2.0.0"
   	},
 	"ignore": [
 		"hbp",
@@ -18,12 +18,12 @@
 		"grunt/systems"
 	],
 	"exportsOverride": {
-		"comp-*": {
+		"comp_*": {
 			"%%private%%/js/mod": "*.js",
 			"%%private%%/sass/mod": "*.scss",
 			"%%private%%/templates/mod": "*.html"
 		},
-		"bra-*": {
+		"bra_*": {
 			"%%public%%/js/libs/bra": "."
 		}
 	}

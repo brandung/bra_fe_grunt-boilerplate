@@ -111,6 +111,7 @@ module.exports = function (grunt) {
 		'copy:privateHandlerToPublicFolder',
 		'copy:privateFunctionToPublicFolder',
 		'copy:privateComponentToPublicFolder',
+		'copy:publicComponentVendorToPublicJSFolder',
 		'concat:mainJS',
 		'clean:globalJsInPublicFolder'
 	]);

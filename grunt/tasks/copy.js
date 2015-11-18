@@ -41,12 +41,30 @@ module.exports = {
 		expand: true,
 		cwd: '<%= Config.PRIVATE_DIR %>/component/',
 		src: [
-			'**/**/*.*',
-			'!**/**/*.scss',
-			'!**/**/*.tpl'
+			'*/*.*',
+			'!*/*.scss',
+			'!*/*.tpl'
 		],
 		dest: '<%= Config.PUBLIC_DIR %>/component/',
 		flatten: false
+	},
+	publicComponentVendorToPublicJSFolder: {
+		expand: true,
+		cwd: '<%= Config.PUBLIC_DIR %>/component/',
+		src: ['*/js/**/*.js'],
+		dest: '<%= Config.PUBLIC_DIR %>/js/',
+		flatten: false,
+		rename: function(dest, src) {
+			var path = require('path');
+			// Get the name of the component folder (or first folder in src path)
+			var compRoot = src.split(path.posix.sep + 'js' + path.posix.sep)[1];
+			// Split the file name from compRoot to get the folder path
+			var folderPath = compRoot.substr(0, compRoot.lastIndexOf(path.posix.sep));
+			// Set new destination for each file
+			var newDest = dest + folderPath;
+
+			return path.join(newDest, path.basename(src));
+		}
 	},
 	privateRootFilesToRoot: {
 		expand: true,

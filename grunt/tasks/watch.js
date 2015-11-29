@@ -26,6 +26,7 @@ module.exports = {
 			'copy:privateUtilToPublicFolder',
 			'copy:privateFunctionToPublicFolder',
 			'copy:privateComponentToPublicFolder',
+			'copy:publicComponentVendorToPublicJSFolder',
 			'concat:mainJS',
 			'clean:globalJsInPublicFolder'
 		]

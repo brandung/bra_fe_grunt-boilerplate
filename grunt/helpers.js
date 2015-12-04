@@ -136,7 +136,7 @@ Helpers.getFilename = function (file) {
  */
 Helpers.getReponame = function () {
 	var cwd = path.resolve(process.cwd(), '');
-	return cwd.split('\\').pop();
+	return cwd.split(path.sep).pop();
 };
 
 

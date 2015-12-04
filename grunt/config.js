@@ -26,8 +26,12 @@ Config.srcFolderName = 'src';
 Config.buildFolderName = 'build';
 // Get project name from package.json
 Config.PKG_NAME = require('../package.json')['name'];
-// Get user profile name
-Config.USER = process.env['USERPROFILE'].split(path.sep)[2];
+// Get user profile name (OSX/Windows)
+if(process.env.LOGNAME) {
+	Config.USER = process.env['LOGNAME'];
+} else {
+	Config.USER = process.env['USERNAME'];
+}
 // Set local path
 Config.CWD = path.resolve(process.cwd(), '');
 // Route object for the browserSync

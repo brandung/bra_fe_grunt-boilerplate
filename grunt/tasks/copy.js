@@ -8,7 +8,8 @@ module.exports = {
 		expand: true,
 		cwd: './hbp/',
 		src: '**',
-		dest: '<%= Config.PRIVATE_DIR %>/'
+		dest: '<%= Config.PRIVATE_DIR %>/',
+		dot: true
 	},
 	privateLibsToPublicFolder: {
 		expand: true,
@@ -114,8 +115,8 @@ module.exports = {
 		expand: true,
 		cwd: './',
 		src: [
-			'.htaccess',
 			'apple-touch-icon.png',
+			'.htaccess',
 			'browserconfig.xml',
 			'favicon.ico',
 			'robots.txt',

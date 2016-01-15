@@ -82,32 +82,6 @@ $prefixes: ("-webkit-","-moz-", "-o-", "-ms-", "");
 
 
 /**
-* Mixin for adding svg background image + png fallback
-*
-* - add png fallback for older browser
-*
-* @param {string} $name - image name
-* @param {string} $extension - file extension + folder
-* @param {string} $color - background-color
-* @param {number} $position - background position
-* @param {string} $repeat - background repeat
-*
-* @require $old-ie variable from _sass-ie.scss
-*
-* Use:
-* @include svg-bg('logo')
-* @include svg-bg('logo', $color: #fff, ...);
-*
-*/
-@mixin svgBG($name: image-name, $extension: png, $color: transparent, $position: 0 0, $repeat: no-repeat) {
-	@if $old-ie {
-		background: url(../img/#{$extension}/#{$name}.#{$extension}) $color $position $repeat;
-	} @else {
-		background: url(../img/svg/#{$name}.svg) $color $position $repeat;
-	}
-}
-
-/**
 * Clearfix
 */
 

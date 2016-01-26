@@ -1,5 +1,5 @@
 /**
- * brandung
+ * Capitan
  *
  * Copyright brandung GmbH & Co.KG
  * http://www.brandung.de/
@@ -9,7 +9,7 @@
  *
  * Polyfill for console methods
  */
-Brandung.Util.consolePolyfill = function () {
+Capitan.Util.consolePolyfill = function () {
 	if (!(window.console && console.log)) {
 		(function () {
 			var noop = function () {

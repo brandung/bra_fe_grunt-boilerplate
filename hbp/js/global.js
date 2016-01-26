@@ -1,7 +1,7 @@
 /**##############################
 #		Global Namespace		#
 #################################*/
-var Brandung = function (out) {
+var Capitan = function (out) {
 	out = out || {};
 
 	for (var i = 1; i < arguments.length; i++) {
@@ -17,7 +17,7 @@ var Brandung = function (out) {
 	}
 
 	return out;
-}({}, (Brandung || {}), {
+}({}, (Capitan || {}), {
 	Vars: {
 		// path to assets folder
 		folderPath: '%%public%%/',
@@ -47,21 +47,21 @@ basket.timeout = 60000;
 // load main plugins
 basket.require(
 	{
-		url: Brandung.Vars.folderPath + 'js/libs/vendor/jquery/jquery.min.js',
+		url: Capitan.Vars.folderPath + 'js/libs/vendor/jquery/jquery.min.js',
 		unique: 0
 	},
 	{
-		url: Brandung.Vars.folderPath + 'js/libs/vendor/modernizr/modernizr.custom.min.js',
+		url: Capitan.Vars.folderPath + 'js/libs/vendor/modernizr/modernizr.custom.min.js',
 		unique: 0
 	},
 	{
-		url: Brandung.Vars.folderPath + 'js/libs/vendor/import/jquery.import.min.js',
+		url: Capitan.Vars.folderPath + 'js/libs/vendor/import/jquery.import.min.js',
 		unique: 0
 	}
 ).then(function () {
 	(function ($) {
 		// store commonly used jQuery objects to Vars object
-		Brandung.Vars = $.extend(Brandung.Vars, {
+		Capitan.Vars = $.extend(Capitan.Vars, {
 			$html: $('html'),
 			$body: $('body'),
 			$window: $(window),
@@ -69,27 +69,27 @@ basket.require(
 		});
 
 		//Assets that are necessary globally and on every page, can and will be loaded here
-		Brandung.Util.fetchBeforeRender = function () {
+		Capitan.Util.fetchBeforeRender = function () {
 			return $.import([
 				{
 					condition: true,
 					order: 0,
 					fetch: [
 						// <@bundle#before-render
-						Brandung.Vars.folderPath + 'js/util/console-polyfill.js',
-						Brandung.Vars.folderPath + 'js/util/inject-smartresize.js',
-						Brandung.Vars.folderPath + 'js/function/assert-breakpoint.js',
-						Brandung.Vars.folderPath + 'js/function/get-breakpoint.js',
-						Brandung.Vars.folderPath + 'js/function/get-orientation.js',
-						Brandung.Vars.folderPath + 'js/function/get-computed-style.js',					
-						Brandung.Vars.folderPath + 'js/util/set-breakpoints.js',
-						Brandung.Vars.folderPath + 'js/handle/set-event-class.js',
-						Brandung.Vars.folderPath + 'js/handle/resize-handler.js',
-						Brandung.Vars.folderPath + 'js/function/get-unique.js'
+						Capitan.Vars.folderPath + 'js/util/console-polyfill.js',
+						Capitan.Vars.folderPath + 'js/util/inject-smartresize.js',
+						Capitan.Vars.folderPath + 'js/function/assert-breakpoint.js',
+						Capitan.Vars.folderPath + 'js/function/get-breakpoint.js',
+						Capitan.Vars.folderPath + 'js/function/get-orientation.js',
+						Capitan.Vars.folderPath + 'js/function/get-computed-style.js',
+						Capitan.Vars.folderPath + 'js/util/set-breakpoints.js',
+						Capitan.Vars.folderPath + 'js/handle/set-event-class.js',
+						Capitan.Vars.folderPath + 'js/handle/resize-handler.js',
+						Capitan.Vars.folderPath + 'js/function/get-unique.js'
 						// bundle@>
 					],
 					callback: [
-						{ method: Brandung.Util.loadComponents }
+						{ method: Capitan.Util.loadComponents }
 					],
 					unique: 123718
 				}
@@ -97,57 +97,57 @@ basket.require(
 		};
 
 		// Component loader
-		Brandung.Util.loadComponents = function () {
+		Capitan.Util.loadComponents = function () {
 			$.import([
 				// <@delete
 				{
 					condition: $('.mw-headline'),
 					fetch: [
-						Brandung.Vars.folderPath + 'js/libs/bra/bra_module-widget/bra_module-widget.js',
-						Brandung.Vars.folderPath + 'js/libs/bra/bra_module-widget/bra_module-widget.css'
+						Capitan.Vars.folderPath + 'js/libs/bra/bra_module-widget/bra_module-widget.js',
+						Capitan.Vars.folderPath + 'js/libs/bra/bra_module-widget/bra_module-widget.css'
 					],
-					unique: Brandung.Function.getUnique()
+					unique: Capitan.Function.getUnique()
 				},
 				// delete@>
 				{
-					condition: Brandung.Function.assertBreakpoint('lt', 'md'),
+					condition: Capitan.Function.assertBreakpoint('lt', 'md'),
 					fetch: [
 						// <@bundle#h5bp-helper
-						Brandung.Vars.folderPath + 'js/libs/vendor/h5bp/helper.js',
-						Brandung.Vars.folderPath + 'js/util/h5bp-helper.js'
+						Capitan.Vars.folderPath + 'js/libs/vendor/h5bp/helper.js',
+						Capitan.Vars.folderPath + 'js/util/h5bp-helper.js'
 						// bundle@>
 					],
-					unique: Brandung.Function.getUnique()
+					unique: Capitan.Function.getUnique()
 				},
 				{
 					// load always and always from server
 					condition: true,
 					fetch: [
-						Brandung.Vars.folderPath + 'js/hotfix.js',
-						Brandung.Vars.folderPath + 'css/hotfix.css'
+						Capitan.Vars.folderPath + 'js/hotfix.js',
+						Capitan.Vars.folderPath + 'css/hotfix.css'
 					],
 					unique: new Date().getTime()
 				},
 				{
 					condition: $('.alert'),
 					fetch: [
-						Brandung.Vars.folderPath + 'component/alert/alert.css'
+						Capitan.Vars.folderPath + 'component/alert/alert.css'
 					],
-					unique: Brandung.Function.getUnique()
+					unique: Capitan.Function.getUnique()
 				},
 				{
 					condition: $('form'),
 					fetch: [
-						Brandung.Vars.folderPath + 'component/forms/forms.css'
+						Capitan.Vars.folderPath + 'component/forms/forms.css'
 					],
-					unique: Brandung.Function.getUnique()
+					unique: Capitan.Function.getUnique()
 				},
 				{
 					condition: $('.btn'),
 					fetch: [
-						Brandung.Vars.folderPath + 'component/buttons/buttons.css'
+						Capitan.Vars.folderPath + 'component/buttons/buttons.css'
 					],
-					unique: Brandung.Function.getUnique()
+					unique: Capitan.Function.getUnique()
 				}// <@newComponent@>
 			], true);
 		};
@@ -162,7 +162,7 @@ basket.require(
 		 #####################################
 		 */
 		$(function () {
-			Brandung.Util.fetchBeforeRender();
+			Capitan.Util.fetchBeforeRender();
 		});
 	})(jQuery);
 }, function () {

@@ -1,5 +1,5 @@
 /**
- * brandung
+ * Capitan
  *
  * Copyright brandung GmbH & Co.KG
  * http://www.brandung.de/
@@ -11,13 +11,13 @@
  *
  * @return {string} - One of the breakpoints: xs, sm, md, lg, xl
  */
-Brandung.Function.getBreakpoint = function () {
+Capitan.Function.getBreakpoint = function () {
 	var windowWidth = window.innerWidth,
-		breakpoints = Object.keys(Brandung.Vars.breakpoints),
+		breakpoints = Object.keys(Capitan.Vars.breakpoints),
 		breakpoint;
 
 	for (var i = breakpoints.length - 1; i >= 0; i -= 1) {
-		breakpoint = Brandung.Vars.breakpoints[breakpoints[i]];
+		breakpoint = Capitan.Vars.breakpoints[breakpoints[i]];
 
 		if (windowWidth >= breakpoint) {
 			return breakpoints[i];

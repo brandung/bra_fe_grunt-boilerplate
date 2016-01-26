@@ -1,5 +1,5 @@
 /**
- * brandung
+ * Capitan
  *
  * Copyright brandung GmbH & Co.KG
  * http://www.brandung.de/
@@ -12,7 +12,7 @@
  * @param {string} property - CSS property, e.g. 'content', 'font-size'
  * @returns {*}
  */
-Brandung.Function.getComputedStyle = function (element, pseudo, property) {
+Capitan.Function.getComputedStyle = function (element, pseudo, property) {
 	pseudo = pseudo || null;
 
 	return window.getComputedStyle(document.querySelector(element), pseudo)

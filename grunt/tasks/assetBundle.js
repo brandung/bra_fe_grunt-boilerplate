@@ -25,7 +25,7 @@ module.exports = function(grunt) {
 			bundleName = block.match(/(\/\/\s?<@bundle)(#)([a-zA-Z0-9\-_]+)/)[3];
 
 			// get files
-			assets = block.match(/(Brandung\.Vars\.folderPath(\s)*\+(\s)*)?('|")[a-zA-Z0-9\/\.\-\_]*(\.js|\.css)('|")/igm);
+			assets = block.match(/(Capitan\.Vars\.folderPath(\s)*\+(\s)*)?('|")[a-zA-Z0-9\/\.\-\_]*(\.js|\.css)('|")/igm);
 
 			// get filetype, name and path
 			bundleFileType = /.css('|")(,)?$/ig.test(assets[0]) ? 'css' : 'js';
@@ -33,7 +33,7 @@ module.exports = function(grunt) {
 			bundleFilePath = bundleFileType + '/bundle/' + bundleFileName;
 
 			// replace bundle in main.js
-			mainJS = mainJS.replace(block, ('Brandung.Vars.folderPath + \'' + bundleFilePath + '\''));
+			mainJS = mainJS.replace(block, ('Capitan.Vars.folderPath + \'' + bundleFilePath + '\''));
 
 			bundleFile = '';
 
@@ -42,7 +42,7 @@ module.exports = function(grunt) {
 				mainJSAssetPath = assets[asset].replace(/(\'|")/g, '');
 
 				if(!/\/\//.test(mainJSAssetPath)) {
-					mainJSAssetPath = mainJSAssetPath.replace(/(Brandung\.Vars\.folderPath(\s)*\+(\s)*)/g, grunt.config('Config.PUBLIC_DIR') + '/');
+					mainJSAssetPath = mainJSAssetPath.replace(/(Capitan\.Vars\.folderPath(\s)*\+(\s)*)/g, grunt.config('Config.PUBLIC_DIR') + '/');
 					mainJSAssetPath = mainJSAssetPath.replace(/^\//g, '');
 
 					// get file and add to bundle

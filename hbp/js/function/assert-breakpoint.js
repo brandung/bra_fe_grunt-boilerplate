@@ -1,5 +1,5 @@
 /**
- * brandung
+ * Capitan
  *
  * Copyright brandung GmbH & Co.KG
  * http://www.brandung.de/
@@ -8,16 +8,16 @@
  * MIT License (MIT)
  *
  * Checks if the current breakpoint matches the given condition, e.g.
- * Brandung.Vars.currentBreakpoint is 'sm', then Brandung.Functions.assertBreakpoint('lt', 'lg')
+ * Capitan.Vars.currentBreakpoint is 'sm', then Capitan.Functions.assertBreakpoint('lt', 'lg')
  * would return true
  *
  * @param {string} operator - lt (lower than), eq (equal), ht (higher than)
  * @param {string} breakpoint - xs, sm, md, lg, xl
  * @return {boolean}
  */
-Brandung.Function.assertBreakpoint = function (operator, breakpoint) {
-	var breakpoints = Object.keys(Brandung.Vars.breakpoints),
-		curBreakpointIndex = breakpoints.indexOf(Brandung.Vars.currentBreakpoint),
+Capitan.Function.assertBreakpoint = function (operator, breakpoint) {
+	var breakpoints = Object.keys(Capitan.Vars.breakpoints),
+		curBreakpointIndex = breakpoints.indexOf(Capitan.Vars.currentBreakpoint),
 		conditionalBreakpointIndex = breakpoints.indexOf(breakpoint);
 
 	switch (operator) {

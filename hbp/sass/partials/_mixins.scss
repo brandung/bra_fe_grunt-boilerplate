@@ -134,103 +134,12 @@ $prefixes: ("-webkit-","-moz-", "-o-", "-ms-", "");
 	}
 }
 
+
 /**
-* Grid mixins
-*
-* Generate semantic grid columns with these mixins.
-* based on the bootstrap-sass partial
-*/
-
-// Centered container element
-@mixin containerFixed($gutter: $grid-gutter-width) {
-	margin-right: auto;
-	margin-left: auto;
-	padding-left:  ($gutter / 2);
-	padding-right: ($gutter / 2);
-	@include clearfix();
-}
-
-// Creates a wrapper for a series of columns
-@mixin makeRow($gutter: $grid-gutter-width) {
-	margin-left:  ($gutter / -2);
-	margin-right: ($gutter / -2);
-	@include clearfix();
-}
-
-// [converter] This is defined recursively in LESS, but Sass supports real loops
-@mixin makeGridColumns($i: 1, $list: ".col-xs-#{$i},  .col-sm-#{$i}, .col-md-#{$i}, .col-lg-#{$i}, .col-xl-#{$i}") {
-	@for $i from (1 + 1) through $grid-columns {
-		$list: "#{$list}, .col-xs-#{$i}, .col-sm-#{$i}, .col-md-#{$i}, .col-lg-#{$i}, .col-xl-#{$i}";
-	}
-	#{$list} {
-		position: relative;
-		// Prevent columns from collapsing when empty
-		min-height: 1px;
-		// Inner gutter via padding
-		padding-left:  ($grid-gutter-width / 2);
-		padding-right: ($grid-gutter-width / 2);
-	}
-}
-
-// [converter] This is defined recursively in LESS, but Sass supports real loops
-@mixin floatGridColumns($class, $i: 1, $list: ".col-#{$class}-#{$i}") {
-	@for $i from (1 + 1) through $grid-columns {
-		$list: "#{$list}, .col-#{$class}-#{$i}";
-	}
-	#{$list} {
-		float: left;
-	}
-}
-
-// [converter] This is defined recursively in LESS, but Sass supports real loops
-@mixin loopGridColumns($columns, $class, $type) {
-	@for $i from 0 through $columns {
-		@include calcGridColumn($i, $class, $type);
-	}
-}
-
-@mixin calcGridColumn($index, $class, $type) {
-	@if ($type == width) and ($index > 0) {
-		.col-#{$class}-#{$index} {
-			width: percentage(($index / $grid-columns));
-		}
-	}
-	@if ($type == push) and ($index > 0) {
-		.col-#{$class}-push-#{$index} {
-			left: percentage(($index / $grid-columns));
-		}
-	}
-	@if ($type == push) and ($index == 0) {
-		.col-#{$class}-push-0 {
-			left: auto;
-		}
-	}
-	@if ($type == pull) and ($index > 0) {
-		.col-#{$class}-pull-#{$index} {
-			right: percentage(($index / $grid-columns));
-		}
-	}
-	@if ($type == pull) and ($index == 0) {
-		.col-#{$class}-pull-0 {
-			right: auto;
-		}
-	}
-	@if ($type == offset) {
-		.col-#{$class}-offset-#{$index} {
-			margin-left: percentage(($index / $grid-columns));
-		}
-	}
-}
-
-// Create grid for specific class
-@mixin makeGrid($class) {
-	@include floatGridColumns($class);
-	@include loopGridColumns($grid-columns, $class, width);
-	@include loopGridColumns($grid-columns, $class, pull);
-	@include loopGridColumns($grid-columns, $class, push);
-	@include loopGridColumns($grid-columns, $class, offset);
-}
-
+ * Mixin for defining values at an specific mediaQueries
+ *
+ * @param {string} $width - breakpoint from $breakpoints map
+ */
 @mixin respondMin($width) {
 	@media screen and (min-width: $width) {
 		@content;

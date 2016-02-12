@@ -1,3 +1,4 @@
+@charset "utf-8";
 /**
  * Capitan mixins.scss v2.0.0
  *
@@ -10,8 +11,9 @@
 
 
 /* ==========================================================================
-   Mixins
+   Global mixins
    ========================================================================== */
+
 
 /**
  * Calculate percent value to given property
@@ -136,7 +138,7 @@ $prefixes: ("-webkit-","-moz-", "-o-", "-ms-", "");
 
 
 /**
- * Mixin for defining values at an specific mediaQueries
+ * Mixin for defining values at an specific mediaQuerie
  *
  * @param {string} $width - breakpoint from $breakpoints map
  */

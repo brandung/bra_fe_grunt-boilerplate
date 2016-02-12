@@ -1,4 +1,4 @@
-{# brandung boilerplate template v1.0.0 #}
+{# Capitan HTML template v1.0.0 #}
 
 	{# head.tpl #}
 	{% include "./partials/head.tpl" %}

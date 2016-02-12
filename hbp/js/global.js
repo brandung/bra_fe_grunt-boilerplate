@@ -1,6 +1,6 @@
-/**##############################
-#		Global Namespace		#
-#################################*/
+/**
+ * Define Global Namespace
+ */
 var Capitan = function (out) {
 	out = out || {};
 
@@ -44,7 +44,9 @@ var Capitan = function (out) {
 // abortion timeout for asset fetching, default 5000ms
 basket.timeout = 60000;
 
-// load main plugins
+/**
+ * Load main plugins via basket.js
+ */
 basket.require(
 	{
 		url: Capitan.Vars.folderPath + 'js/libs/vendor/jquery/jquery.min.js',
@@ -157,9 +159,7 @@ basket.require(
 		// --- end|bra-pb: js ---
 
 		/**
-		 #####################################
-		 #         document ready            #
-		 #####################################
+		 * document ready call
 		 */
 		$(function () {
 			Capitan.Util.fetchBeforeRender();

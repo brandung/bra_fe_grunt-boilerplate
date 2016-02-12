@@ -1,62 +1,59 @@
 /**
- * brandung SCSS boilerplate v2.0.0
+ * brandung SASS boilerplate v3.0.0
  *
  * Copyright brandung GmbH & Co.KG
  * http://www.brandung.de/
  *
- * Date: 2014-09-23
+ * Date: 2016-01-26
  * MIT License (MIT)
  */
 
 
 /**
- *  core variables and mixins
- *  - modify this for custom colors, font-sizes, etc
+ *  Core functions, variables and mixins
  */
 @import "partials/functions";
 @import "partials/variables";
 @import "partials/mixins";
 
+
 /**
- * normalize
- * https://github.com/necolas/normalize.css
+ * Reset and dependencies
  */
+
+// normalize
+// https://github.com/necolas/normalize.css
 @import "vendor/normalize";
 
-/**
- * h5bp main.css
- * https://github.com/h5bp/html5-boilerplate
- */
+// h5bp main.css
+// https://github.com/h5bp/html5-boilerplate
 @import "vendor/h5bp";
 
-/**
- * old-ie mixin
- * https://gridsetapp.com/
- */
-//@import "vendor/_sass-ie_DELETE";
-
-/**
- * vendor utilities
- * - remove comment when mixin is needed
- */
-// @import "vendor/retina-sprites";
-// @import "vendor/retina-background-image";
+// bootstrap v.4 grid mixins
+// http://v4-alpha.getbootstrap.com/
+@import "vendor/bootstrap/mixins/breakpoints";
+@import "vendor/bootstrap/mixins/grid-framework";
+@import "vendor/bootstrap/mixins/grid";
+@import "vendor/bootstrap/grid";
 
 
 /**
- * layout and grid
- * - brandung grid
- * - based on the bootstrap v3 gridset
- *
- * - brandung layout files
- * - here you can add new files if needed
+ * Default layout partials
  */
 @import "partials/layout";
-@import "partials/grid";
 @import "partials/typo";
 @import "partials/icon-font";
-@import "partials/helpers";
 
+
+/**
+ * Components
+ */
 @import "../component/header/header";
 @import "../component/footer/footer";
 @import "../component/navigation/navigation";
+
+
+/**
+ * Utility classes
+ */
+@import "partials/helpers";

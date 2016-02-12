@@ -17,7 +17,7 @@
 @function getBreakpointList() {
 	$index: ();
 
-	@each $point, $size in $breakpoint-list {
+	@each $point, $size in $js-breakpoints {
 		$index: append($index, '"#{$point}": #{$size}', comma)
 	}
 

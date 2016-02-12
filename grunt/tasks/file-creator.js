@@ -15,7 +15,7 @@ module.exports = {
 			method: function (fs, fd, done) {
 				var content = "@charset \"utf-8\";\n" +
 					"/**\n" +
-					" * Capitan " + component + " v1.0.0\n" +
+					" * Capitan " + component + ".scss v1.0.0\n" +
 					" *\n" +
 					" * Copyright brandung GmbH & Co.KG\n" +
 					" * http://www.brandung.de/\n" +

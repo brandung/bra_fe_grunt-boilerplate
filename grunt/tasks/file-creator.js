@@ -51,7 +51,7 @@ module.exports = {
 			file: '<%= Config.PRIVATE_DIR %>/component/' + component + '/' + component + '.tpl',
 			method: function (fs, fd, done) {
 				var content = "<!--\n" +
-					" Capitan " + component + " v1.0.0\n" +
+					" Capitan " + component + ".tpl v1.0.0\n" +
 					"\n" +
 					" Copyright brandung GmbH & Co.KG\n" +
 					" http://www.brandung.de/\n" +

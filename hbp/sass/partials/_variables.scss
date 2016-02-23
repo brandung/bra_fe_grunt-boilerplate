@@ -1,5 +1,6 @@
+@charset "utf-8";
 /**
- * brandung variables.scss v3.0.0
+ * Capitan variables.scss v3.0.0
  *
  * Copyright brandung GmbH & Co.KG
  * http://www.brandung.de/
@@ -7,6 +8,11 @@
  * Date: 2015-06-27
  * MIT License (MIT)
  */
+
+
+/* ==========================================================================
+   Base settings
+   ========================================================================== */
 
 /* base path */
 $folder-path: '%%public%%/';
@@ -18,9 +24,13 @@ $base-em: 16;
 $body-font-size-px: 16;
 $body-font-size: percentage(($body-font-size-px / $base-em) * 100 / 100); // in percent
 
-/**
- * Grid-System
- */
+/* Font Style */
+$ff-regular: 'Helvetica', Arial, sans-serif !default;
+
+
+/* ==========================================================================
+   Grid-System
+   ========================================================================== */
 
 // Grid breakpoints
 
@@ -78,7 +88,11 @@ $breakpoints: (
 		'max-lg': pxToEm($retina - 1)
 );
 
-/* Colors */
+
+/* ==========================================================================
+   Colors
+   ========================================================================== */
+
 /* <@colors */
 $colors: (
 		'black': #000,
@@ -97,12 +111,13 @@ $colors: (
 );
 /* colors@> */
 
-/* Icons */
+
+/* ==========================================================================
+   Icons
+   ========================================================================== */
+
 /* <@icons */
 $icons: (
 		dummy: '\e63c'
 );
 /* icons@> */
-
-/* Font Style */
-$ff-regular: 'Helvetica', Arial, sans-serif !default;

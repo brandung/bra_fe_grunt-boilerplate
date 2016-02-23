@@ -1,5 +1,5 @@
 /**
- * brandung
+ * Capitan
  *
  * Copyright brandung GmbH & Co.KG
  * http://www.brandung.de/
@@ -11,7 +11,7 @@
  *
  * @return {string} - portrait or landscape
  */
-Brandung.Function.getOrientation = function () {
+Capitan.Function.getOrientation = function () {
 	var windowWidth = window.innerWidth,
 		windowHeight = window.innerHeight,
 		orientation;

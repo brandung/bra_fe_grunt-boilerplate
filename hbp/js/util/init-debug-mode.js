@@ -1,5 +1,5 @@
 /**
- * brandung
+ * Capitan
  *
  * Copyright brandung GmbH & Co.KG
  * http://www.brandung.de/
@@ -9,8 +9,8 @@
  *
  * Initializes the needed debug stuff
  */
-Brandung.Util.initDebugMode = function ($) {
-	if (Brandung.Vars.isDev) {
+Capitan.Util.initDebugMode = function ($) {
+	if (Capitan.Vars.isDev) {
 		// do the debug stuff
 	}
 }(jQuery);

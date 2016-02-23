@@ -1,5 +1,5 @@
 /**
- * brandung
+ * Capitan
  *
  * Copyright brandung GmbH & Co.KG
  * http://www.brandung.de/
@@ -8,39 +8,40 @@
  * MIT License (MIT)
  *
  * Main resize handler
- * Sets the currentBreakpoint and currentOrientation variables and sets related classes on the html element; Triggers an event (on document), when the breakpoint has changed
+ * Sets the currentBreakpoint and currentOrientation variables and sets related classes on the html element;
+ * Triggers an event (on document), when the breakpoint has changed
  */
-Brandung.Handle.resizeHandler = function () {
+Capitan.Handle.resizeHandler = function () {
 	var _ = {};
 
 	_.handler = function () {
 		var breakpoint, orientation;
 
-		Brandung.Vars.currentBreakpoint = Brandung.Function.getBreakpoint();
-		Brandung.Vars.currentOrientation = Brandung.Function.getOrientation();
+		Capitan.Vars.currentBreakpoint = Capitan.Function.getBreakpoint();
+		Capitan.Vars.currentOrientation = Capitan.Function.getOrientation();
 
-		breakpoint = 'on-breakpoint-' + Brandung.Vars.currentBreakpoint;
-		orientation = 'on-orientation-' + Brandung.Vars.currentOrientation;
+		breakpoint = 'on-breakpoint-' + Capitan.Vars.currentBreakpoint;
+		orientation = 'on-orientation-' + Capitan.Vars.currentOrientation;
 
-		if (!Brandung.Vars.$html.hasClass(breakpoint)) {
-			Brandung.Vars.$html[0]
-				.className = Brandung.Vars.$html[0].className
+		if (!Capitan.Vars.$html.hasClass(breakpoint)) {
+			Capitan.Vars.$html[0]
+				.className = Capitan.Vars.$html[0].className
 				.replace(/\s?on-breakpoint-(xs|sm|md|lg|xl)/g, '');
 
-			Brandung.Vars.$doc.trigger('on-set-class', [breakpoint]);
-			Brandung.Vars.$doc.trigger('on-changed-breakpoint', [Brandung.Vars.currentBreakpoint]);
+			Capitan.Vars.$doc.trigger('on-set-class', [breakpoint]);
+			Capitan.Vars.$doc.trigger('on-changed-breakpoint', [Capitan.Vars.currentBreakpoint]);
 		}
 
-		if (!Brandung.Vars.$html.hasClass(orientation)) {
-			Brandung.Vars.$html[0]
-				.className = Brandung.Vars.$html[0].className
+		if (!Capitan.Vars.$html.hasClass(orientation)) {
+			Capitan.Vars.$html[0]
+				.className = Capitan.Vars.$html[0].className
 				.replace(/\s?on-orientation-(landscape|portrait)/g, '');
 
-			Brandung.Vars.$doc.trigger('on-set-class', [orientation]);
+			Capitan.Vars.$doc.trigger('on-set-class', [orientation]);
 		}
 	};
 
 	// TODO: evaluate if smartresize is triggered on orientationchange
-	Brandung.Vars.$window.smartresize(_.handler);
+	Capitan.Vars.$window.smartresize(_.handler);
 	_.handler();
 }();

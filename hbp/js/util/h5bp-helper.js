@@ -1,5 +1,5 @@
 /**
- * brandung
+ * Capitan
  *
  * Copyright brandung GmbH & Co.KG
  * http://www.brandung.de/
@@ -9,7 +9,7 @@
  *
  * Mobile Boilerplate helper function invocations
  */
-Brandung.Util.h5bpHelper = function () {
+Capitan.Util.h5bpHelper = function () {
 	MBP.scaleFix();
 	MBP.hideUrlBar();
 }();

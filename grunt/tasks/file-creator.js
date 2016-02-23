@@ -15,7 +15,7 @@ module.exports = {
 			method: function (fs, fd, done) {
 				var content = "@charset \"utf-8\";\n" +
 					"/**\n" +
-					" * brandung " + component + " v1.0.0\n" +
+					" * Capitan " + component + ".scss v1.0.0\n" +
 					" *\n" +
 					" * Copyright brandung GmbH & Co.KG\n" +
 					" * http://www.brandung.de/\n" +
@@ -28,18 +28,18 @@ module.exports = {
 					"@import '../../sass/partials/variables';\n" +
 					"@import '../../sass/partials/mixins';\n" +
 					"\n" +
-					"$module: '" + component + "';\n"+
+					"$component: '" + component + "';\n"+
 					"\n" +
 					"// block\n" +
-					"%#{$module} {\n" +
+					"%#{$component} {\n" +
 					"\t\n"+
 					"}\n\n\n"+
 					"// element\n\n\n" +
 					"// modifier\n\n" +
 					"\n\n" +
 					"// module class selector\n" +
-					".#{$module} {\n" +
-					"\t@extend %#{$module};\n"+
+					".#{$component} {\n" +
+					"\t@extend %#{$component};\n"+
 					"}\n";
 
 				fs.writeSync(fd, content);
@@ -51,7 +51,7 @@ module.exports = {
 			file: '<%= Config.PRIVATE_DIR %>/component/' + component + '/' + component + '.tpl',
 			method: function (fs, fd, done) {
 				var content = "<!--\n" +
-					" brandung " + component + " v1.0.0\n" +
+					" Capitan " + component + ".tpl v1.0.0\n" +
 					"\n" +
 					" Copyright brandung GmbH & Co.KG\n" +
 					" http://www.brandung.de/\n" +

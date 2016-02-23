@@ -1,9 +1,16 @@
 /**
- * brandung FE Workflow 3.0
- * https://[github-URL]
+ * CAPITAN's Gruntfile
+ * https://github.com/brandung/capitan
  *
- * Copyright (c) 2015 brandung GmbH & Co.KG
- * Licensed under the MIT license.
+ * Created by
+ * Simon Kemmerling and Philip Morkisch
+ *
+ *
+ * Copyright brandung GmbH & Co.KG
+ * http://www.brandung.de
+ *
+ * Licensed under MIT
+ * https://github.com/brandung/capitan/blob/master/LICENSE
  */
 
 'use strict';
@@ -19,6 +26,7 @@ module.exports = function (grunt) {
 		_ = grunt.util._,
 		path = require('path');
 
+
 	/**
 	 * Measures the time each task takes
 	 *
@@ -26,26 +34,11 @@ module.exports = function (grunt) {
 	 */
 	require("time-grunt")(grunt);
 
+
 	/**
 	 * Load the notification plugin
 	 */
 	grunt.loadNpmTasks('grunt-notify');
-
-	/**
-	 * Optional define a sub-project folder.
-	 * eg. --target=[folder-name]
-	 */
-	//TODO: save targets in Config.targets Array. On task run do prompt with target selection
-	//TODO: build multitask to do this
-	/*
-	var target = grunt.option('target') || '';
-
-
-	if (target) {
-	 Config.PRIVATE_DIR += '/' + target;
-	 Config.PUBLIC_DIR += '/' + target;
-	}
-	*/
 
 
 	/**
@@ -64,6 +57,7 @@ module.exports = function (grunt) {
 	var taskConfig = {
 		Config: Config
 	};
+
 
 	/**
 	 * Loads task options from 'grunt/tasks/' folder
@@ -93,11 +87,9 @@ module.exports = function (grunt) {
 	grunt.initConfig(taskConfig);
 
 
-
-
-	/******************
-	 * App Main Tasks *
-	 ******************/
+	/****************************************************************************
+	 * App Main Tasks
+	 ****************************************************************************/
 
 	/**
 	 * The 'default' task
@@ -115,6 +107,7 @@ module.exports = function (grunt) {
 		'concat:mainJS',
 		'clean:globalJsInPublicFolder'
 	]);
+
 
 	/**
 	 * The `project:init` task configures your project,
@@ -142,6 +135,7 @@ module.exports = function (grunt) {
 		'project:serve'
 	]);
 
+
 	/**
 	 * The 'project:serve' task for developing
 	 */
@@ -150,6 +144,7 @@ module.exports = function (grunt) {
 		'browserSync',
 		'watch'
 	]);
+
 
 	/**
 	 * The 'project:finish' task prepares files for deployment
@@ -168,6 +163,7 @@ module.exports = function (grunt) {
 		'notify:finish'
 	]);
 
+
 	/**
 	 * ZIP the project
 	 */
@@ -184,6 +180,7 @@ module.exports = function (grunt) {
 		'clean:zipFolder'
 	]);
 
+
 	/**
 	 * Create 'styleguide'
 	 */
@@ -191,6 +188,7 @@ module.exports = function (grunt) {
 		'confReady',
 		'sassToHtml'
 	]);
+
 
 	/**
 	 * Create new component
@@ -203,6 +201,7 @@ module.exports = function (grunt) {
 		'default',
 		'project:serve'
 	]);
+
 
 	/**
 	 * Update Grunt files

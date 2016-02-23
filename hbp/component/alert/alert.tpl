@@ -1,5 +1,5 @@
 <!--
- brandung alert v1.0.0
+ Capitan alert v1.0.0
 
  Copyright brandung GmbH & Co.KG
  http://www.brandung.de/
